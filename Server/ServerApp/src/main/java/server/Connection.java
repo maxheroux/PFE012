@@ -1,3 +1,4 @@
+package server;
 public class Connection 
 {
 	private final long id;
