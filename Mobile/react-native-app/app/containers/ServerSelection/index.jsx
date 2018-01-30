@@ -10,6 +10,7 @@ const mapStateToProps = (state, ownProps) => ({
   content: state.serverSelectionReducer.content,
   serverUrl: state.serverSelectionReducer.serverUrl,
   name: state.serverSelectionReducer.name,
+  isFetching: state.serverSelectionReducer.isFetching
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

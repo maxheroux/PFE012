@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Form, Item, Label, Input, Button, Text } from 'native-base';
+import { Form, Item, Label, Input, Button, Text, Spinner } from 'native-base';
 import { View } from 'react-native';
 
 export default class ServerSelection extends React.Component {
@@ -12,10 +12,11 @@ export default class ServerSelection extends React.Component {
   }
 
   render() {
-    const { error, id, content, onConnectClick } = this.props;
+    const { error, id, content, onConnectClick, isFetching } = this.props;
     const onPress = () => {
       onConnectClick(this.state.serverUrl, this.state.name);
     };
+    const message = error || content && `id: ${id}, content: ${content}`;
     return (
       <View>
         <Form>
@@ -34,12 +35,11 @@ export default class ServerSelection extends React.Component {
               />
           </Item>
         </Form>
-        <Button block onPress={onPress}>
+        <Button block onPress={onPress} disabled={isFetching}>
           <Text>Soumettre</Text>
         </Button>
-        <Text>error: {error}</Text>
-        <Text>id: {id}</Text>
-        <Text>content: {content}</Text>
+        <Text>{message}</Text>
+        {isFetching && <Spinner color='blue' />}
       </View>
   );
   }

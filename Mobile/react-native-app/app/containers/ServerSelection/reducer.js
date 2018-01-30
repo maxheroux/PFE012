@@ -2,7 +2,7 @@ import * as Constants from './constants';
 
 const initialState = {
   isFetching: false,
-  serverUrl: 'http://{ipconfig -all}:8080/',
+  serverUrl: 'http://192.168.2.100:8080/',
   name: 'Bob',
   error: undefined,
   id: -1,

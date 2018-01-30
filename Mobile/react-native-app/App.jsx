@@ -5,6 +5,7 @@ import reducer from './reducers';
 import middleware from './middleware';
 import ServerSelection from './app/containers/ServerSelection';
 import { Font, AppLoading } from "expo";
+import { Root } from "native-base";
 
 const store = createStore(reducer, middleware);
 
@@ -30,9 +31,11 @@ export default class App extends React.Component {
       );
     }
     return (
-      <Provider store={store}>
-        <ServerSelection />
-      </Provider>
+      <Root>
+        <Provider store={store}>
+          <ServerSelection />
+        </Provider>
+      </Root>
     );
   }
 }
