@@ -15,7 +15,7 @@ Les erreurs de compilations apparaisse automatiquement sur votre apparail mobile
 * L'architecture du projet est faite avec [Redux](https://redux.js.org/). Redux est un peu baser sur l'architecture Flux de Facebook. Si vous voulez comprendre c'est quoi Redux, [liser rapidement c'est quoi Flux](https://github.com/facebook/flux/tree/master/examples/flux-concepts) et regarder [ce playlist YouTube qui explique Redux](https://www.youtube.com/watch?v=1w-oQ-i1XB8&list=PLoYCgNOIyGADILc3iUJzygCqC8Tt3bRXt).
 * Le projet utilise aussi le pattern [Container Components](https://medium.com/@learnreact/container-components-c0e67432e005). Vous pouvez le voir dans la structure du dossier *app*. Les **containers** contiennent la logique de l'application et les **components** ne server qu'a afficher l'information.
 
-#Readme du projet de base
+# Readme du projet de base
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
