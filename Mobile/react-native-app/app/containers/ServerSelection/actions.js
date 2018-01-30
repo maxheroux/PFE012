@@ -13,6 +13,6 @@ export const receiveTestServerConnection = (id, content) => ({
 });
 
 export const errorTestServerConnection = (error) => ({
-  type: Constants.receiveTestServerConnection,
+  type: Constants.errorTestServerConnection,
   error
 });

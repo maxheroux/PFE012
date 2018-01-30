@@ -2,7 +2,8 @@ import * as Constants from './constants';
 
 const initialState = {
   isFetching: false,
-  serverUrl: 'http://127.0.0.1:8080/',
+  serverUrl: 'http://{ipconfig -all}:8080/',
+  name: 'Bob',
   error: undefined,
   id: -1,
   content: undefined,
@@ -14,8 +15,10 @@ export default function serverSelectionReducer(state = initialState, action) {
       return {
         ...state,
         isFetching: true,
-        serverUrl: action.serverUrl
-      }
+        serverUrl: action.serverUrl,
+        name: action.name,
+        error: undefined
+      };
     case Constants.receiveTestServerConnection:
       return {
         ...state,
@@ -23,13 +26,15 @@ export default function serverSelectionReducer(state = initialState, action) {
         id: action.id,
         content: action.content,
         error: undefined
-      }
-    case Constants.requestTestServerConnection:
+      };
+    case Constants.errorTestServerConnection:
       return {
         ...state,
         isFetching: false,
-        error: action.error
-      }
+        error: action.error,
+        id: -1,
+        content: undefined,
+      };
     default:
       return state;
   }

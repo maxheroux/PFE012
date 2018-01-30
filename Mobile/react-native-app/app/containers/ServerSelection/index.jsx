@@ -8,6 +8,8 @@ const mapStateToProps = (state, ownProps) => ({
   error: state.serverSelectionReducer.error,
   id: state.serverSelectionReducer.id,
   content: state.serverSelectionReducer.content,
+  serverUrl: state.serverSelectionReducer.serverUrl,
+  name: state.serverSelectionReducer.name,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

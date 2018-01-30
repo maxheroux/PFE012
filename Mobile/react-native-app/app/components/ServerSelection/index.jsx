@@ -6,12 +6,16 @@ export default class ServerSelection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      serverUrl: '127.0.0.1:8080/',
-      name: 'Bob'
+      serverUrl: props.serverUrl,
+      name: props.name
     };
   }
 
   render() {
+    const { error, id, content, onConnectClick } = this.props;
+    const onPress = () => {
+      onConnectClick(this.state.serverUrl, this.state.name);
+    };
     return (
       <View>
         <Form>
@@ -30,9 +34,12 @@ export default class ServerSelection extends React.Component {
               />
           </Item>
         </Form>
-        <Button block>
+        <Button block onPress={onPress}>
           <Text>Soumettre</Text>
         </Button>
+        <Text>error: {error}</Text>
+        <Text>id: {id}</Text>
+        <Text>content: {content}</Text>
       </View>
   );
   }

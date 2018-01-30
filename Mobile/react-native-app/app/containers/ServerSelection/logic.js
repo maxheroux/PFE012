@@ -6,13 +6,14 @@ export const requestTestServerConnection = createLogic({
   type: Constants.requestTestServerConnection,
   latest: true,
   process({ getState, action }, dispatch, done) {
-    fetch(action.serverUrl + 'connection?name=' + action.name)
+    const url = action.serverUrl + 'connection?name=' + action.name;
+    fetch(url)
       .then((resp) => resp.json())
       .then((data) => {
         dispatch(Actions.receiveTestServerConnection(data.id, data.content));
       })
       .catch((error) => {
-        dispatch(Actions.errorTestServerConnection(error));
+        dispatch(Actions.errorTestServerConnection(JSON.stringify(error)));
       })
       .then(() => done());
   }
