@@ -1,3 +1,22 @@
+## Setup l'environnement de dev
+
+1. Installer Node si c'est pas deja fait. Le projet React Native indique qu'il n'est pas necessairement compatible avec la version 5 de npm, donc si vous n'avez pas deja node, [installer la version 7.10.1](https://nodejs.org/en/download/releases/). Ca semble fonctionner avec npm 5, mais il peut y avoir des problemes.
+2. Allez dans le folder PFE012/Mobile/react-native-app et faite `npm install` pour automatiquement installer tous les dependances du projet indiquer dans le fichier package.json.
+3. Rouler la commande `npm start` pour demarer le streaming du projet vers votre appareil mobile. Vous devez telecharger l'application [Expo](https://expo.io/) et scanner le code QR qui va apparaitre dans la console de votre ordi. Vous devez etre sur le meme Wi-Fi que votre ordi. Ca ne semble pas fonctionenr sur le reseau de l'ETS. A chaque fois qu'un fichier est sauvegarder, les changements apparaitront en temps reel sur votre mobile.
+
+### Utiliser l'emulateur d'Android
+Pour utiliser l'emulateur d'Android, [suivez ces instructions (Building Projects with Native Code)](https://facebook.github.io/react-native/docs/getting-started.html). Skipper l'etape *Creating a new application* et utiliser la commande `npm run android` au lieu de la commande `react-native run-android` mentionner dans le guide.
+
+### Debugging
+Les erreurs de compilations apparaisse automatiquement sur votre apparail mobile lorsqu'elles surviennent. Vous pouvez secouer votre mobile ou faire Ctrl+m sur l'emulateur d'Android pour faire apparaitre le menu de developpeur.
+
+### References
+* La libraire UI utiliser est NativeBase. [Sa documentation est ici](https://docs.nativebase.io/Components.html#Components). NativeBase est construit par dessus React Native, donc tous les elements UI de React Native sont aussi utilisable. [Leur documentation est ici, dans la section Components](https://facebook.github.io/react-native/docs/activityindicator.html).
+* L'architecture du projet est faite avec [Redux](https://redux.js.org/). Redux est un peu baser sur l'architecture Flux de Facebook. Si vous voulez comprendre c'est quoi Redux, [liser rapidement c'est quoi Flux](https://github.com/facebook/flux/tree/master/examples/flux-concepts) et regarder [ce playlist YouTube qui explique Redux](https://www.youtube.com/watch?v=1w-oQ-i1XB8&list=PLoYCgNOIyGADILc3iUJzygCqC8Tt3bRXt).
+* Le projet utilise aussi le pattern [Container Components](https://medium.com/@learnreact/container-components-c0e67432e005). Vous pouvez le voir dans la structure du dossier *app*. Les **containers** contiennent la logique de l'application et les **components** ne server qu'a afficher l'information.
+
+#Readme du projet de base
+
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
