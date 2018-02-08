@@ -11,7 +11,7 @@ public class ConnectionController
 	private final AtomicLong counter = new AtomicLong();
 	
 	@RequestMapping("/connection")
-	public Connection connection(@RequestParam(value="name", defaultValue="User") String name)
+	public Connection connection(@RequestParam(value="name", defaultValue="Anonymous") String name)
 	{
 		return new Connection(counter.incrementAndGet(), String.format(template, name));
 	}
