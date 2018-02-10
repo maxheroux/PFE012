@@ -4,19 +4,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
+@Table(uniqueConstraints= {@UniqueConstraint(columnNames = {"username"})})
 public class User 
 {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	
-	private final String username;
-	private final String password;
-	private final String salt;
+	private String username;
+	private String password;
+	private String salt;
 	private String publicIp;
 	private int port;
+	
+	public User() { }
+	
+	public User(Integer id)
+	{
+		this.id = id;
+	}
 	
 	public User(String username, String password, String salt, String publicIp, int port)
 	{
