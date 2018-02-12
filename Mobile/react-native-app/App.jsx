@@ -3,9 +3,11 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
 import middleware from './middleware';
-import ServerSelection from './app/containers/ServerSelection';
 import { Font, AppLoading } from "expo";
 import { Root } from "native-base";
+import { StackNavigator } from 'react-navigation';
+
+import Navigation from './app/containers/Navigation';
 
 const store = createStore(reducer, middleware);
 
@@ -33,7 +35,7 @@ export default class App extends React.Component {
     return (
       <Root>
         <Provider store={store}>
-          <ServerSelection />
+          <Navigation />
         </Provider>
       </Root>
     );

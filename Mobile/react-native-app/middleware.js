@@ -1,13 +1,26 @@
 import { applyMiddleware } from 'redux';
 import { createLogicMiddleware } from 'redux-logic';
-import * as serverSelectionLogic from './app/containers/ServerSelection/logic';
+import * as connectionLogic from './app/containers/Connection/logic';
+import {
+  createReactNavigationReduxMiddleware,
+  createReduxBoundAddListener,
+} from 'react-navigation-redux-helpers';
+
+const navigationMiddleware = createReactNavigationReduxMiddleware(
+  "root",
+  state => state.nav,
+);
 
 const logicMiddleware = createLogicMiddleware([
-  serverSelectionLogic.requestTestServerConnection
+  connectionLogic.requestLogin,
+  connectionLogic.requestRegister,
+
 ]);
 
 const middleware = applyMiddleware(
-  logicMiddleware
+  logicMiddleware,
+  navigationMiddleware
 );
 
 export default middleware;
+export const addListener = createReduxBoundAddListener("root");

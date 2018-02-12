@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 
-import serverSelectionReducer from './app/containers/ServerSelection/reducer';
+import connection from './app/containers/Connection/reducer';
+import navigation from './app/containers/Navigation/reducer';
 
 const rootReducer = combineReducers({
-  serverSelectionReducer
+  connection,
+  navigation
 });
 
 export default rootReducer;
