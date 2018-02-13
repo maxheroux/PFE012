@@ -1,0 +1,15 @@
+{
+  "expo": {
+   "name": "PFE012",
+   "icon": "./images/pfe012_icon.png",
+   "version": "1.0.0",
+   "slug": "PFE012",
+     "sdkVersion": "25.0.0",
+   "ios": {
+     "bundleIdentifier": "com.ets.pfe012"
+   },
+   "android": {
+     "package": "com.ets.pfe012"
+   }
+  }
+}
