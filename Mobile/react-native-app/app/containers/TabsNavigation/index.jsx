@@ -2,6 +2,7 @@ import * as React from 'react';
 import { TabNavigator, TabBarBottom, addNavigationHelpers } from 'react-navigation';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Container, Header, Title, Left, Right, Body, Text } from 'native-base';
 import Home from '../Home';
 import Thermostats from '../Thermostats';
 import Lights from '../Lights';
@@ -9,36 +10,51 @@ import Locks from '../Locks';
 import Cameras from '../Cameras';
 import { addListener } from '../../../middleware';
 
+const getTitleForRoute = (route) => {
+  switch(route) {
+    case 'Home':
+      return 'Accueil';
+    case 'Thermostats':
+      return 'Thermostat';
+    case 'Lights':
+      return 'Lumières';
+    case 'Locks':
+      return 'Serrures';
+    case 'Cameras':
+      return 'Caméras';
+  }
+}
+
 export const Navigator = TabNavigator(
   {
     Home: {
       screen: Home,
       navigationOptions: {
-        title: 'Accueil'
+        title: getTitleForRoute('Home')
       }
     },
     Thermostats: {
       screen: Thermostats,
       navigationOptions: {
-        title: 'Thermostat'
+        title: getTitleForRoute('Thermostats')
       }
     },
     Lights: {
       screen: Lights,
       navigationOptions: {
-        title: 'Lumières'
+        title: getTitleForRoute('Lights')
       }
     },
     Locks: {
       screen: Locks,
       navigationOptions: {
-        title: 'Serrures'
+        title: getTitleForRoute('Locks')
       }
     },
     Cameras: {
       screen: Cameras,
       navigationOptions: {
-        title: 'Caméras'
+        title: getTitleForRoute('Cameras')
       }
     }
   },
@@ -67,6 +83,9 @@ export const Navigator = TabNavigator(
 
         return <Ionicons name={iconName} size={25} color={tintColor} />;
       },
+      header: {
+        visible: true,
+      },
     }),
     tabBarOptions: {
       activeTintColor: 'rgb(0,122,255)',
@@ -92,14 +111,24 @@ export default class TabsNavigation extends React.Component {
 
   render() {
     const { dispatch, nav } = this.props;
+    const headerTitle = getTitleForRoute(nav.routes[nav.index].routeName);
     return (
-      <Navigator
-        navigation={addNavigationHelpers({
-          dispatch,
-          state: nav,
-          addListener,
-        })}
-      />
+      <Container>
+        <Header>
+          <Left/>
+          <Body>
+            <Title>{headerTitle}</Title>
+          </Body>
+          <Right />
+        </Header>
+        <Navigator
+          navigation={addNavigationHelpers({
+            dispatch,
+            state: nav,
+            addListener,
+          })}
+          />
+      </Container>
     );
   }
 }

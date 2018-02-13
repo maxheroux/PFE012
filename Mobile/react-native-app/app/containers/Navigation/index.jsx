@@ -16,8 +16,13 @@ export const AppNavigator = StackNavigator(
     Main: {
       screen: TabsNavigation,
       navigationOptions: {
-        title: 'Main'
+        header: null
       }
+    }
+  },
+  {
+    navigationOptions: {
+      headerLeft: null
     }
   }
 );
