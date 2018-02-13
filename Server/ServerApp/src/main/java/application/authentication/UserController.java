@@ -22,23 +22,37 @@ public class UserController
 	public Token connection(@RequestParam(value="username", required = true) String username
 		, @RequestParam(value="password", required = true) String password)
 	{
-		// TODO: Check if token is valid, else generate new token
-		
 		User user = (User) entityManager.createQuery("from User where username = :username")
 				.setParameter("username", username)
 				.getSingleResult();
 		
-		String salt = user.getSalt();
-		String cryptedPassword = HashingFunctions.hashPassword(password, salt);
+		String token = user.getToken();
 		
-		String token = "BAD_AUTHENTICATION";
+		// TODO: Check if token is valid, else generate new token
 		
-		if (user.getPassword().equals(cryptedPassword))
+		if (token.equals("I_AM_A_TOKEN"))
 		{
-			token = "I_AM_A_TOKEN";
+			return new Token(token);
 		}
-		
-		return new Token(token);
+		else
+		{
+			String salt = user.getSalt();
+			String cryptedPassword = HashingFunctions.hashPassword(password, salt);
+			
+			if (user.getPassword().equals(cryptedPassword))
+			{
+				// Generate new token
+				token = "My_New_Token";
+				user.setToken(token);
+				userRepository.save(user);
+				
+				return new Token(token);
+			}
+			else
+			{
+				return new Token("BAD_AUTHENTICATION");
+			}
+		}
 	}
 	
 	@RequestMapping("/register")
@@ -50,11 +64,14 @@ public class UserController
 		String salt = HashingFunctions.generateSalt();
 		String cryptedPassword = HashingFunctions.hashPassword(password, salt);
 		
+		// Create methode that generates token
+		String token = "I_AM_A_TOKEN";
+		
 		// Store info in database
 		User user = new User(username, cryptedPassword, salt, publicIp, port);
+		user.setToken(token);
 		userRepository.save(user);
 		
-		String token = "I_AM_A_TOKEN";
-		return new Token(token);
+		return new Token(user.getToken());
 	}
 }

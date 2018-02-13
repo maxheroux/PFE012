@@ -20,6 +20,7 @@ public class User
 	private String salt;
 	private String publicIp;
 	private int port;
+	private String token;
 	
 	public User() { }
 	
@@ -80,5 +81,15 @@ public class User
 	public void setPort(int port) 
 	{
 		this.port = port;
+	}
+	
+	public String getToken()
+	{
+		return token;
+	}
+	
+	public void setToken(String token)
+	{
+		this.token = token;
 	}
 }
