@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Platform, StatusBar } from 'react-native';
 import { StackNavigator, addNavigationHelpers } from 'react-navigation';
 import { connect } from 'react-redux';
-import { Container, Header, Title, Left, Right, Body, Text } from 'native-base';
 import Connection from '../Connection';
 import TabsNavigation from '../TabsNavigation';
 import { addListener } from '../../../middleware';
+import Header from '../../components/Layout/Header';
 
 export const AppNavigator = StackNavigator(
   {
@@ -13,13 +13,7 @@ export const AppNavigator = StackNavigator(
       screen: Connection,
       navigationOptions: {
         header: (
-          <Header>
-            <Left/>
-            <Body>
-              <Title>Connnexion</Title>
-            </Body>
-            <Right />
-          </Header>)
+          <Header title="Connexion"/>)
       }
     },
     Main: {

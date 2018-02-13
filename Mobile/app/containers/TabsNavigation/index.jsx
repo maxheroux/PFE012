@@ -2,20 +2,21 @@ import * as React from 'react';
 import { TabNavigator, TabBarBottom, addNavigationHelpers } from 'react-navigation';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Container, Header, Title, Left, Right, Body, Text } from 'native-base';
+import { Container } from 'native-base';
 import Home from '../Home';
 import Thermostats from '../Thermostats';
 import Lights from '../Lights';
 import Locks from '../Locks';
 import Cameras from '../Cameras';
 import { addListener } from '../../../middleware';
+import Header from '../../components/Layout/Header';
 
 const getTitleForRoute = (route) => {
   switch(route) {
     case 'Home':
       return 'Accueil';
     case 'Thermostats':
-      return 'Thermostat';
+      return 'Thermostats';
     case 'Lights':
       return 'Lumières';
     case 'Locks':
@@ -114,13 +115,7 @@ export default class TabsNavigation extends React.Component {
     const headerTitle = getTitleForRoute(nav.routes[nav.index].routeName);
     return (
       <Container>
-        <Header>
-          <Left/>
-          <Body>
-            <Title>{headerTitle}</Title>
-          </Body>
-          <Right />
-        </Header>
+        <Header title={headerTitle}/>
         <Navigator
           navigation={addNavigationHelpers({
             dispatch,
