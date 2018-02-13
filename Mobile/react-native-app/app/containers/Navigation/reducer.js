@@ -1,8 +1,7 @@
-import { addNavigationHelpers } from 'react-navigation';
 import { AppNavigator } from './index';
+import * as Actions from './actions';
 
-const initialPageAction = AppNavigator.router.getActionForPathAndParams('Connection');
-const initialState = AppNavigator.router.getStateForAction(initialPageAction);
+const initialState = AppNavigator.router.getStateForAction(Actions.goToConnection);
 
 export default function navReducer(state = initialState, action) {
   const nextState = AppNavigator.router.getStateForAction(action, state);

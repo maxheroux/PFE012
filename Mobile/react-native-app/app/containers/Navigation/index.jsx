@@ -2,6 +2,7 @@ import * as React from 'react';
 import { StackNavigator, addNavigationHelpers } from 'react-navigation';
 import { connect } from 'react-redux';
 import Connection from '../Connection';
+import TabsNavigation from '../TabsNavigation';
 import { addListener } from '../../../middleware';
 
 export const AppNavigator = StackNavigator(
@@ -12,6 +13,12 @@ export const AppNavigator = StackNavigator(
         title: 'Connexion'
       }
     },
+    Main: {
+      screen: TabsNavigation,
+      navigationOptions: {
+        title: 'Main'
+      }
+    }
   }
 );
 
