@@ -19,7 +19,6 @@ export default class ListeThermostat extends Component<Props, State> {
         targetTemp: `${25 + i}`,
         currentHumidity: `${50 + i}`,
         targetHumidity: `${30 + i}`,
-        actif: i % 2 == 0,
         key: i
       }
       listItems.push(<ListItem {...props}/>);

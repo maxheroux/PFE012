@@ -1,14 +1,14 @@
 // @flow
 import React, { Component } from 'react';
 import { ListItem, Left, Body, Right, Thumbnail, Text } from 'native-base';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 type Props = {
   name: string,
   currentTemp: string,
   targetTemp: string,
   currentHumidity: string,
-  targetHumidity: string,
-  actif: bool
+  targetHumidity: string
 };
 
 type State = {
@@ -16,7 +16,7 @@ type State = {
 
 export default class ThermoListItem extends Component<Props, State> {
   render() {
-    const { name, currentTemp, targetTemp, currentHumidity, targetHumidity, actif } = this.props;
+    const { name, currentTemp, targetTemp, currentHumidity, targetHumidity } = this.props;
     return (
       <ListItem>
         <Body>
@@ -25,7 +25,7 @@ export default class ThermoListItem extends Component<Props, State> {
           <Text note>Humidité courante/cible: {currentHumidity}/{targetHumidity}</Text>
         </Body>
         <Right>
-          <Text>{actif ? 'actif' : 'inactif'}</Text>
+          <Ionicons name="ios-arrow-forward" />
         </Right>
       </ListItem>
     );

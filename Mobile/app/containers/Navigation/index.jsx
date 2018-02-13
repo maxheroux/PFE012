@@ -1,6 +1,8 @@
 import * as React from 'react';
+import { Platform, StatusBar } from 'react-native';
 import { StackNavigator, addNavigationHelpers } from 'react-navigation';
 import { connect } from 'react-redux';
+import { Container, Header, Title, Left, Right, Body, Text } from 'native-base';
 import Connection from '../Connection';
 import TabsNavigation from '../TabsNavigation';
 import { addListener } from '../../../middleware';
@@ -10,7 +12,14 @@ export const AppNavigator = StackNavigator(
     Connection: {
       screen: Connection,
       navigationOptions: {
-        title: 'Connexion'
+        header: (
+          <Header>
+            <Left/>
+            <Body>
+              <Title>Connnexion</Title>
+            </Body>
+            <Right />
+          </Header>)
       }
     },
     Main: {
@@ -23,6 +32,9 @@ export const AppNavigator = StackNavigator(
   {
     navigationOptions: {
       headerLeft: null
+    },
+    cardStyle: {
+      paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
     }
   }
 );
