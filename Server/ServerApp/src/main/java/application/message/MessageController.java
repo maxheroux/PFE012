@@ -1,5 +1,8 @@
 package application.message;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -7,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import application.authentication.User;
 import application.utilities.AuthenticationFunctions;
@@ -35,7 +39,16 @@ public class MessageController
 			Message message = new Message(messageType, messageValue);
 			messageRepository.save(message);
 			
-			return message;
+			String uri = user.getPublicIp() + ":" + user.getPort() + "/{messageType}/{messageValue}";
+			
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("messageType", messageType);
+			params.put("messageValue", messageValue);
+			
+			RestTemplate restTemplate = new RestTemplate();
+			Message myMessage = restTemplate.getForObject(uri, Message.class, params);
+			
+			return myMessage;
 		}
 		else
 		{
