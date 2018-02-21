@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Container, Header, Title, Left, Right, Body, Text, Button } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Platform } from 'react-native';
 
 type Props = {
   title: string,
@@ -18,6 +19,9 @@ type Props = {
 type State = {
 };
 
+const textSize = Platform.OS === 'ios' ? 16 : 14;
+const paddingTop = Platform.OS === 'ios' ? 0 : 5;
+
 const style = {
   header: {
     backgroundColor: 'white',
@@ -27,13 +31,13 @@ const style = {
   },
   btnText: {
     color: 'rgb(0,122,255)',
-    fontSize: 16,
+    fontSize: textSize,
     paddingLeft: 0,
     paddingRight: 0
   },
   cancelBtnText: {
     color: 'rgb(255,59,48)',
-    fontSize: 16,
+    fontSize: textSize,
     paddingLeft: 0,
     paddingRight: 0
   },
@@ -43,9 +47,13 @@ const style = {
   btnDisabled: {
     backgroundColor: 'transparent'
   },
-  selectionBtnsContainer: {
+  btnsContainer: {
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    paddingTop: paddingTop
+  },
+  enterSelectionModeBtn: {
+    marginTop: paddingTop
   }
 }
 
@@ -63,15 +71,21 @@ export default class PeripheralHeader extends Component<Props, State> {
       selectNone
     } = this.props;
 
-    let disabledTextStyle;
+    let confirmSelectionBtnTextStyle = style.btnText;
+    let confirmSelectionBtnStyle;
     if(!hasSelectedItems){
-      disabledTextStyle = style.btnTextDisabled
+      confirmSelectionBtnTextStyle = {
+        ...confirmSelectionBtnTextStyle,
+        ...style.btnTextDisabled
+      };
+      confirmSelectionBtnStyle = style.btnDisabled;
     }
+
 
     if (isSelecting) {
       return (
         <Header style={style.header}>
-          <Left style={style.selectionBtnsContainer}>
+          <Left style={style.btnsContainer}>
             <Button small transparent onPress={selectAll}>
               <Text style={style.btnText}>Tous</Text>
             </Button>
@@ -82,12 +96,12 @@ export default class PeripheralHeader extends Component<Props, State> {
               <Text style={style.cancelBtnText}>Annuler</Text>
             </Button>
           </Left>
-          <Right>
+          <Right style={style.btnsContainer}>
             <Button small transparent
               onPress={confirmSelection}
               disabled={!hasSelectedItems}
-              style={!hasSelectedItems && style.btnDisabled}>
-              <Text style={{...style.btnText, ...disabledTextStyle}}>Modifier</Text>
+              style={confirmSelectionBtnStyle}>
+              <Text style={confirmSelectionBtnTextStyle}>Modifier</Text>
             </Button>
           </Right>
         </Header>
@@ -96,7 +110,7 @@ export default class PeripheralHeader extends Component<Props, State> {
     return (
       <Header style={style.header}>
         <Left>
-          <Button small transparent onPress={enterSelectionMode}>
+          <Button small transparent onPress={enterSelectionMode} style={style.enterSelectionModeBtn}>
             <Text style={style.btnText}>Modifier</Text>
           </Button>
         </Left>
