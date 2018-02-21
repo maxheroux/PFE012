@@ -24,6 +24,7 @@ export default function connectionReducer(state = initialState, action) {
         ...state,
         isFetching: false,
         token: action.token,
+        username: action.username,
         error: undefined
       };
     case Constants.errorLogin:

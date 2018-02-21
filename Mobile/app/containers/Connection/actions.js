@@ -6,8 +6,9 @@ export const requestLogin = (username, password) => ({
   password
 });
 
-export const successfulLogin = (token) => ({
+export const successfulLogin = (username, token) => ({
   type: Constants.successfulLogin,
+  username,
   token
 });
 
@@ -24,8 +25,9 @@ export const requestRegister = (username, password, publicIp, port) => ({
   port
 });
 
-export const successfulRegister = (token) => ({
+export const successfulRegister = (username, token) => ({
   type: Constants.successfulRegister,
+  username,
   token
 });
 

@@ -6,6 +6,7 @@ import Header from '../../components/Layout/Header';
 import * as ConnectionActions from '../Connection/actions';
 import HomeComponent from '../../components/Home';
 import * as NavigationActions from '../Navigation/actions';
+import { StorageUtils } from '../../../utils';
 
 const mapStateToProps = (state, ownProps) => ({
   username: state.connection.username,
@@ -14,6 +15,8 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   logout: () => {
+    StorageUtils.deleteConnectedUser()
+      .catch(() => console.warn('Error deleting user info.'));
     dispatch(NavigationActions.goToConnection);
   }
 });

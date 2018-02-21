@@ -8,22 +8,32 @@ import { Root } from "native-base";
 import { StackNavigator } from 'react-navigation';
 
 import Navigation from './app/containers/Navigation';
+import { StorageUtils } from './utils';
 
 const store = createStore(reducer, middleware);
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true };
+    this.state = {
+      loading: true,
+      connectedUser: undefined
+    };
   }
 
   async componentWillMount() {
     // Android ne supporte pas les fonts de la librairie de UI qu'on utilise par defaut.
-    await Font.loadAsync({
-      Roboto: require("native-base/Fonts/Roboto.ttf"),
-      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
+    const results = await Promise.all([
+      Font.loadAsync({
+        Roboto: require("native-base/Fonts/Roboto.ttf"),
+        Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
+      }),
+      StorageUtils.getConnectedUser()
+    ]);
+    this.setState({
+      loading: false,
+      connectedUser: results[1]
     });
-    this.setState({ loading: false });
   }
 
   render() {
@@ -35,7 +45,7 @@ export default class App extends React.Component {
     return (
       <Root>
         <Provider store={store}>
-          <Navigation />
+          <Navigation connectedUser={this.state.connectedUser}/>
         </Provider>
       </Root>
     );
