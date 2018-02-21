@@ -6,7 +6,6 @@ import Home from '../Home';
 import Thermostats from '../Thermostats';
 import Lights from '../Lights';
 import Locks from '../Locks';
-import Cameras from '../Cameras';
 import { addListener } from '../../../middleware';
 
 const getTitleForRoute = (route) => {
