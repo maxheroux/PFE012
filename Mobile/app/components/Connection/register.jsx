@@ -106,7 +106,7 @@ export default class Register extends React.Component<Props, State> {
             <Text>Connexion avec un compte existant</Text>
           </Button>
         </View>
-        {isFetching && <Spinner color='blue' />}
+        {isFetching && <Spinner color='rgb(90,200,250)' />}
       </View>
   );
   }

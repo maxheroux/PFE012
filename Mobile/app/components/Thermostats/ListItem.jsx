@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { View, Text } from 'native-base';
+import shallowequal from 'shallowequal';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 type Props = {
@@ -15,6 +16,10 @@ type State = {
 };
 
 export default class ThermoListItem extends Component<Props, State> {
+  shouldComponentUpdate(nextProps, nextState){
+    return !shallowequal(this.props, nextProps);
+  }
+
   render() {
     const { name, currentTemp, targetTemp, currentHumidity, targetHumidity } = this.props;
     return (

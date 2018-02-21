@@ -31,6 +31,7 @@
     "react-navigation-redux-helpers": "^1.0.1",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
-    "redux-logic": "^0.12.3"
+    "redux-logic": "^0.12.3",
+    "shallowequal": "^1.0.2"
   }
 }

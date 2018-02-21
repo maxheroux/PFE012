@@ -1,13 +1,29 @@
 import * as React from 'react';
 import { Text } from 'native-base';
-import { ScrollView } from 'react-native';
+import List from '../PeripheralList';
 
-export default class Home extends React.Component {
+export default class Lights extends React.Component {
   render() {
+    let listItems = [];
+    for (let i =0; i < 10; i++){
+      listItems.push((
+        <Text key={i}>
+          Lumière #{i}
+        </Text>
+      ));
+    }
+
+    const listProperties = {
+      title: 'Lumières',
+      listId: 'Lumières',
+      onCreate: () => {},
+      onModify: () => {},
+      onItemPress: (itemId) => {}
+    }
     return (
-      <ScrollView>
-        <Text>Lights</Text>
-      </ScrollView>
+      <List {...listProperties}>
+        {listItems}
+      </List>
     );
   }
 }

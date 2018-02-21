@@ -11,8 +11,8 @@ export const timeout = (ms, promise) => {
 }
 
 export const detectAndThrowServerError = (dataReceived) => {
-  if (get(data, 'error', false)){
-    reject(new Error("server error"))
+  if (get(dataReceived, 'error', false)) {
+    reject(new Error("server error"));
   }
 }
 

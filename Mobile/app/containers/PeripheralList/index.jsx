@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Text, Container } from 'native-base';
 import { ScrollView } from 'react-native';
 import { map, get, some, find } from 'lodash';
+import shallowequal from 'shallowequal';
 import * as Actions from './actions';
 import type { Item } from './reducer';
 import Header from '../../components/PeripheralList/Header';
@@ -56,6 +57,13 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class PeripheralList extends React.Component<Props, State> {
+  shouldComponentUpdate(nextProps, nextState){
+    return this.props.children !== nextProps.children ||
+      this.props.title !== nextProps.title ||
+      this.props.listId !== nextProps.listId ||
+      this.props.isInSelectionMode !== nextProps.isInSelectionMode ||
+      !shallowequal(this.props.items, nextProps.items);
+  }
 
   render() {
     const {

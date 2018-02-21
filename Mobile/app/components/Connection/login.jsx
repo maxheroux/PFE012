@@ -85,7 +85,7 @@ export default class Login extends React.Component<Props, State> {
             <Text>Créer un compte</Text>
           </Button>
         </View>
-        {isFetching && <Spinner color='blue' />}
+        {isFetching && <Spinner color='rgb(90,200,250)' />}
       </View>
     );
   }

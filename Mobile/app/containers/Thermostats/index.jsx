@@ -3,9 +3,10 @@ import List from '../PeripheralList';
 import ListItem from '../../components/Thermostats/ListItem';
 
 export default class Thermostats extends React.Component {
+
   render() {
     let listItems = [];
-    for (let i =0; i < 10; i++){
+    for (let i =0; i < 10; i++) {
       const props = {
         name: `Thermostat ${i}`,
         currentTemp: `${20 + i}`,

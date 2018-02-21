@@ -22,11 +22,20 @@ const style = {
   },
   btnIcon: {
     marginRight: 15,
+    paddingTop: 0,
+    paddingBottom: 0,
+    height: 30,
     alignSelf: 'center',
   }
 }
 
 export default class PeripheralListItem extends Component<Props, State> {
+  shouldComponentUpdate(nextProps, nextState){
+    return this.props.children !== nextProps.children ||
+      this.props.isInSelectionMode !== nextProps.isInSelectionMode ||
+      this.props.isSelected !== nextProps.isSelected;
+  }
+
   render() {
     const {
       children,
