@@ -9,17 +9,16 @@ import Register from '../../components/Connection/register';
 
 const mapStateToProps = (state, ownProps) => ({
   error: state.connection.error,
-  serverUrl: state.connection.serverUrl,
   isFetching: state.connection.isFetching,
   displayedScreen: state.connection.displayedScreen
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  submitLogin: (serverUrl, username, password) => {
-    dispatch(Actions.requestLogin(serverUrl, username, password));
+  submitLogin: (username, password) => {
+    dispatch(Actions.requestLogin(username, password));
   },
-  submitRegister: (serverUrl, username, password, publicIp, port) => {
-    dispatch(Actions.requestRegister(serverUrl, username, password, publicIp, port));
+  submitRegister: (username, password, publicIp, port) => {
+    dispatch(Actions.requestRegister(username, password, publicIp, port));
   },
   goToRegister: () =>
     dispatch(Actions.goToRegister()),

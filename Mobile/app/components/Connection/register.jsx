@@ -4,11 +4,10 @@ import { Form, Item, Label, Input, Button, Text, Spinner } from 'native-base';
 import { View } from 'react-native';
 
 type Props = {
-  submitRegister: (string, string, string, string, string) => void,
+  submitRegister: (string, string, string, string) => void,
   goToLogin: () => void,
   error: string,
   isFetching: boolean,
-  serverUrl: string,
   username: string,
   password: string,
   publicIp: string,
@@ -16,7 +15,6 @@ type Props = {
 };
 
 type State = {
-  serverUrl: string,
   username: string,
   password: string,
   publicIp: string,
@@ -44,7 +42,6 @@ export default class Register extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      serverUrl: props.serverUrl,
       username: props.username,
       password: '',
       publicIp: '',
@@ -55,7 +52,7 @@ export default class Register extends React.Component<Props, State> {
   render() {
     const { error, submitRegister, isFetching, goToLogin } = this.props;
     const onSubmitPress = () => {
-      submitRegister(this.state.serverUrl, this.state.username, this.state.password, this.state.publicIp, this.state.port);
+      submitRegister(this.state.username, this.state.password, this.state.publicIp, this.state.port);
     };
     const onLoginPress = () => {
       goToLogin();
@@ -66,18 +63,12 @@ export default class Register extends React.Component<Props, State> {
     return (
       <View style={style.container}>
         <Form style={style.form}>
-          <Item fixedLabel>
-            <Label>URL du serveur</Label>
-            <Input
-              onChangeText={(serverUrl) => this.setState({serverUrl})}
-              value={this.state.serverUrl}
-              />
-          </Item>
           <Item fixedLabel last>
             <Label>Nom d'utilisateur</Label>
             <Input
               onChangeText={(username) => this.setState({username})}
               value={this.state.username}
+              autoCapitalize='none'
               />
           </Item>
           <Item fixedLabel last>

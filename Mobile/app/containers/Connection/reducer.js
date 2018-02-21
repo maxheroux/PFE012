@@ -2,7 +2,6 @@ import * as Constants from './constants';
 
 const initialState = {
   isFetching: false,
-  serverUrl: 'http://192.168.2.100:8080/',
   error: undefined,
   username: '',
   token: undefined,
@@ -16,12 +15,11 @@ export default function connectionReducer(state = initialState, action) {
       return {
         ...state,
         isFetching: true,
-        serverUrl: action.serverUrl,
         username: action.username,
         error: undefined
       };
-    case Constants.receiveLogin:
-    case Constants.receiveRegister:
+    case Constants.successfulLogin:
+    case Constants.successfulRegister:
       return {
         ...state,
         isFetching: false,
@@ -39,12 +37,14 @@ export default function connectionReducer(state = initialState, action) {
     case Constants.gotToLogin:
       return {
         ...state,
-        displayedScreen: Constants.screens.login
+        displayedScreen: Constants.screens.login,
+        error: undefined
       };
     case Constants.goToRegister:
       return {
         ...state,
-        displayedScreen: Constants.screens.register
+        displayedScreen: Constants.screens.register,
+        error: undefined
       };
     default:
       return state;

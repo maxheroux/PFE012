@@ -1,13 +1,13 @@
 import { createLogic } from 'redux-logic';
 import * as Constants from './constants';
 import * as Actions from './actions';
-import { timeout, createUrl } from '../../../utils';
+import { timeout, createUrl, detectAndThrowServerError } from '../../../utils';
 
 export const requestLogin = createLogic({
   type: Constants.requestLogin,
   latest: true,
   process({ getState, action }, dispatch, done) {
-    const url = createUrl(action.serverUrl, 'connection', {
+    const url = createUrl('connection', {
       username: action.username,
       password: action.password,
     });
@@ -16,7 +16,12 @@ export const requestLogin = createLogic({
         return resp.json()
       })
       .then((data) => {
-        dispatch(Actions.receiveLogin(data.token));
+        detectAndThrowServerError(data);
+        if (data.value == 'BAD_AUTHENTICATION') {
+          dispatch(Actions.errorLogin('Les informations sont invalides.'));
+        } else {
+          dispatch(Actions.successfulLogin(data.value));
+        }
       })
       .catch(() => {
         dispatch(Actions.errorLogin('Une erreur est survenu lors de la connection avec le server.'));
@@ -29,7 +34,7 @@ export const requestRegister = createLogic({
   type: Constants.requestRegister,
   latest: true,
   process({ getState, action }, dispatch, done) {
-    const url = createUrl(action.serverUrl, 'register', {
+    const url = createUrl('register', {
       username: action.username,
       password: action.password,
       publicIp: action.publicIp,
@@ -40,7 +45,12 @@ export const requestRegister = createLogic({
         return resp.json()
       })
       .then((data) => {
-        dispatch(Actions.receiveRegister(data.token));
+        detectAndThrowServerError(data);
+        if (data.value == 'BAD_AUTHENTICATION') {
+          dispatch(Actions.errorLogin('Les informations sont invalides.'));
+        } else {
+          dispatch(Actions.successfulRegister(data.value));
+        }
       })
       .catch(() => {
         dispatch(Actions.errorLogin('Une erreur est survenu lors de la connection avec le server.'));

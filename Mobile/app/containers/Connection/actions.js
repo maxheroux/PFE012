@@ -1,14 +1,13 @@
 import * as Constants from './constants';
 
-export const requestLogin = (serverUrl, username, password) => ({
+export const requestLogin = (username, password) => ({
   type: Constants.requestLogin,
-  serverUrl,
   username,
   password
 });
 
-export const receiveLogin = (token) => ({
-  type: Constants.receiveLogin,
+export const successfulLogin = (token) => ({
+  type: Constants.successfulLogin,
   token
 });
 
@@ -17,17 +16,16 @@ export const errorLogin = (error) => ({
   error
 });
 
-export const requestRegister = (serverUrl, username, password, publicIp, port) => ({
+export const requestRegister = (username, password, publicIp, port) => ({
   type: Constants.requestRegister,
-  serverUrl,
   username,
   password,
   publicIp,
   port
 });
 
-export const receiveRegister = (token) => ({
-  type: Constants.receiveRegister,
+export const successfulRegister = (token) => ({
+  type: Constants.successfulRegister,
   token
 });
 

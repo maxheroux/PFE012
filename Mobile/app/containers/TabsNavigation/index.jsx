@@ -2,14 +2,12 @@ import * as React from 'react';
 import { TabNavigator, TabBarBottom, addNavigationHelpers } from 'react-navigation';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Container } from 'native-base';
 import Home from '../Home';
 import Thermostats from '../Thermostats';
 import Lights from '../Lights';
 import Locks from '../Locks';
 import Cameras from '../Cameras';
 import { addListener } from '../../../middleware';
-import Header from '../../components/Layout/Header';
 
 const getTitleForRoute = (route) => {
   switch(route) {
@@ -21,8 +19,6 @@ const getTitleForRoute = (route) => {
       return 'Lumières';
     case 'Locks':
       return 'Serrures';
-    case 'Cameras':
-      return 'Caméras';
   }
 }
 
@@ -51,12 +47,6 @@ export const Navigator = TabNavigator(
       navigationOptions: {
         title: getTitleForRoute('Locks')
       }
-    },
-    Cameras: {
-      screen: Cameras,
-      navigationOptions: {
-        title: getTitleForRoute('Cameras')
-      }
     }
   },
   {
@@ -76,9 +66,6 @@ export const Navigator = TabNavigator(
             break;
           case 'Locks':
             iconName = `ios-unlock${focused ? '' : '-outline'}`;
-            break;
-          case 'Cameras':
-            iconName = `ios-videocam${focused ? '' : '-outline'}`;
             break;
         }
 
@@ -114,16 +101,13 @@ export default class TabsNavigation extends React.Component {
     const { dispatch, nav } = this.props;
     const headerTitle = getTitleForRoute(nav.routes[nav.index].routeName);
     return (
-      <Container>
-        <Header title={headerTitle}/>
-        <Navigator
-          navigation={addNavigationHelpers({
-            dispatch,
-            state: nav,
-            addListener,
-          })}
-          />
-      </Container>
+      <Navigator
+        navigation={addNavigationHelpers({
+          dispatch,
+          state: nav,
+          addListener,
+        })}
+        />
     );
   }
 }

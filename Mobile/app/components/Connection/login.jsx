@@ -4,17 +4,15 @@ import { Form, Item, Label, Input, Button, Text, Spinner } from 'native-base';
 import { View } from 'react-native';
 
 type Props = {
-  submitLogin: (string, string, string) => void,
+  submitLogin: (string, string) => void,
   goToRegister: () => void,
   error: string,
   isFetching: boolean,
-  serverUrl: string,
   username: string,
   password: string
 };
 
 type State = {
-  serverUrl: string,
   username: string,
   password: string
 };
@@ -40,7 +38,6 @@ export default class Login extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      serverUrl: props.serverUrl,
       username: props.username,
       password: ''
     };
@@ -49,7 +46,7 @@ export default class Login extends React.Component<Props, State> {
   render() {
     const { error, submitLogin, isFetching, goToRegister } = this.props;
     const onSubmitPress = () => {
-      submitLogin(this.state.serverUrl, this.state.username, this.state.password);
+      submitLogin(this.state.username, this.state.password);
     };
     const onRegisterPress = () => {
       goToRegister();
@@ -60,18 +57,12 @@ export default class Login extends React.Component<Props, State> {
     return (
       <View style={style.container}>
         <Form style={style.form}>
-          <Item fixedLabel>
-            <Label>URL du serveur</Label>
-            <Input
-              onChangeText={(serverUrl) => this.setState({serverUrl})}
-              value={this.state.serverUrl}
-              />
-          </Item>
           <Item fixedLabel last>
             <Label>Nom d'utilisateur</Label>
             <Input
               onChangeText={(username) => this.setState({username})}
               value={this.state.username}
+              autoCapitalize='none'
               />
           </Item>
           <Item fixedLabel last>
