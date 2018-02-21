@@ -3,6 +3,7 @@
    "name": "PFE012",
    "icon": "./images/pfe012_icon.png",
    "version": "1.0.0",
+   "orientation": "portrait",
    "slug": "PFE012",
      "sdkVersion": "25.0.0",
    "ios": {

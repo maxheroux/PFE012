@@ -38,6 +38,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
+  dispatch
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
