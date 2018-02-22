@@ -17,7 +17,7 @@ import application.authentication.User;
 import application.utilities.AuthenticationFunctions;
 
 @RestController
-public class MessageController 
+public class StateController 
 {
 	@Autowired
 	private MessageRepository messageRepository;
@@ -25,8 +25,8 @@ public class MessageController
 	@PersistenceContext
 	private EntityManager entityManager;
 	
-	@RequestMapping(value = "/message", method = RequestMethod.POST, consumes = "text/plain")
-	public String message(@RequestBody String payload)
+	@RequestMapping(value = "/state/request", method = RequestMethod.POST, consumes = "text/plain")
+	public String stateRequest(@RequestBody String payload)
 	{
 		JsonObject jsonObject = (new JsonParser()).parse(payload).getAsJsonObject();
 		
@@ -45,18 +45,48 @@ public class MessageController
 			Message newMessage = new Message(messageType, messageValue);
 			messageRepository.save(newMessage);
 			
-			JsonObject object = new JsonObject();
-			object.addProperty("id", "1");
-			object.addProperty("messageType", messageType);
-			object.addProperty("messageValue", messageValue);
-			
-			final String uri = user.getPublicIp() + ":" + user.getPort() + "/message";
+			final String uri = "http://" + user.getPublicIp() + ":" + user.getPort() + "/state/request";
 			
 			RestTemplate restTemplate = new RestTemplate();
-			//JsonObject receivedObject = restTemplate.postForObject(uri, object, JsonObject.class);
+			String receivedObject = restTemplate.postForObject(uri, payload, String.class);
 
-			//return receivedObject.toString();
+			return receivedObject;
+		}
+		else
+		{
+			JsonObject object = new JsonObject();
+			object.addProperty("Token", "BAD_AUTHENTICATION");
+			
 			return object.toString();
+		}
+	}
+	
+	@RequestMapping(value = "/state/change", method = RequestMethod.POST, consumes = "text/plain")
+	public String stateChange(@RequestBody String payload)
+	{
+		JsonObject jsonObject = (new JsonParser()).parse(payload).getAsJsonObject();
+		
+		String username = jsonObject.get("username").toString().replaceAll("\"", "");
+		String token = jsonObject.get("token").toString().replaceAll("\"", "");
+		
+		User user = (User) entityManager.createQuery("from User where username = :username")
+				.setParameter("username", username)
+				.getSingleResult();
+		
+		if (AuthenticationFunctions.isTokenValid(user, token))
+		{
+			String messageType = jsonObject.get("messageType").toString().replaceAll("\"", "");
+			String messageValue = jsonObject.get("messageValue").toString().replaceAll("\"", "");
+			
+			Message newMessage = new Message(messageType, messageValue);
+			messageRepository.save(newMessage);
+			
+			final String uri = "http://" + user.getPublicIp() + ":" + user.getPort() + "/state/change";
+			
+			RestTemplate restTemplate = new RestTemplate();
+			String receivedObject = restTemplate.postForObject(uri, payload, String.class);
+
+			return receivedObject;
 		}
 		else
 		{
