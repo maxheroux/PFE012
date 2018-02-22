@@ -9,60 +9,19 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(uniqueConstraints= {@UniqueConstraint(columnNames = {"username"})})
-public class User 
+public class User extends Client
 {
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer id;
 	
-	private String username;
-	private String password;
-	private String salt;
 	private String publicIp;
 	private int port;
-	private String token;
-	
-	public User() { }
-	
-	public User(Integer id)
-	{
-		this.id = id;
-	}
 	
 	public User(String username, String password, String salt, String publicIp, int port)
 	{
-		this.username = username;
-		this.password = password;
-		this.salt = salt;
+		super(username, password, salt);
 		this.setPublicIp(publicIp);
 		this.setPort(port);
 	}
 	
-	public Integer getId()
-	{
-		return id;
-	}
-	
-	public void setId(Integer id)
-	{
-		this.id = id;
-	}
-	
-	public String getUsername()
-	{
-		return username;
-	}
-	
-	public String getPassword()
-	{
-		return password;
-	}
-	
-	public String getSalt()
-	{
-		return salt;
-	}
-
 	public String getPublicIp() 
 	{
 		return publicIp;
@@ -81,15 +40,5 @@ public class User
 	public void setPort(int port) 
 	{
 		this.port = port;
-	}
-	
-	public String getToken()
-	{
-		return token;
-	}
-	
-	public void setToken(String token)
-	{
-		this.token = token;
 	}
 }

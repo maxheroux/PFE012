@@ -20,26 +20,26 @@ public class MessageController
 	@PersistenceContext
 	private EntityManager entityManager;
 	
-	@RequestMapping("/message")
-	public Message message(@RequestParam(value="username", required = true) String username
-			, @RequestParam(value="token", required = true) String token
-			, @RequestParam(value="messageType", required = true) String messageType
-			, @RequestParam(value="messageValue", required = true) String messageValue)
-	{
-		User user = (User) entityManager.createQuery("from User where username = :username")
-				.setParameter("username", username)
-				.getSingleResult();
-		
-		if (AuthenticationFunctions.isTokenValid(user, token))
-		{
-			Message message = new Message(messageType, messageValue);
-			messageRepository.save(message);
-			
-			return message;
-		}
-		else
-		{
-			return new Message("Token", "BAD_AUTHENTICATION");
-		}
-	}
+//	@RequestMapping("/message")
+//	public Message message(@RequestParam(value="username", required = true) String username
+//			, @RequestParam(value="token", required = true) String token
+//			, @RequestParam(value="messageType", required = true) String messageType
+//			, @RequestParam(value="messageValue", required = true) String messageValue)
+//	{
+//		User user = (User) entityManager.createQuery("from User where username = :username")
+//				.setParameter("username", username)
+//				.getSingleResult();
+//		
+//		if (AuthenticationFunctions.isTokenValid(user, token))
+//		{
+//			Message message = new Message(messageType, messageValue);
+//			messageRepository.save(message);
+//			
+//			return message;
+//		}
+//		else
+//		{
+//			return new Message("Token", "BAD_AUTHENTICATION");
+//		}
+//	}
 }

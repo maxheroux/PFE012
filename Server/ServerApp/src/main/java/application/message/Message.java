@@ -1,12 +1,14 @@
 package application.message;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Message {
+public abstract class Message {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -14,6 +16,7 @@ public class Message {
 	
 	private String type;
 	private String value;
+	private LocalDateTime dateTime;
 	
 	public Message() {}
 	
