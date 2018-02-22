@@ -26,7 +26,7 @@ public class MessageController
 	private EntityManager entityManager;
 	
 	@RequestMapping(value = "/message", method = RequestMethod.POST, consumes = "text/plain")
-	public Message message(@RequestBody String payload)
+	public String message(@RequestBody String payload)
 	{
 		JsonObject jsonObject = (new JsonParser()).parse(payload).getAsJsonObject();
 		
@@ -45,17 +45,25 @@ public class MessageController
 			Message newMessage = new Message(messageType, messageValue);
 			messageRepository.save(newMessage);
 			
+			JsonObject object = new JsonObject();
+			object.addProperty("id", "1");
+			object.addProperty("messageType", messageType);
+			object.addProperty("messageValue", messageValue);
+			
 			final String uri = user.getPublicIp() + ":" + user.getPort() + "/message";
 			
 			RestTemplate restTemplate = new RestTemplate();
-			/*Message receivedMessage = restTemplate.postForObject(uri, newMessage, Message.class);
-			
-			return receivedMessage;*/
-			return new Message("TYPE", "VALUE");
+			//JsonObject receivedObject = restTemplate.postForObject(uri, object, JsonObject.class);
+
+			//return receivedObject.toString();
+			return object.toString();
 		}
 		else
 		{
-			return new Message("Token", "BAD_AUTHENTICATION");
+			JsonObject object = new JsonObject();
+			object.addProperty("Token", "BAD_AUTHENTICATION");
+			
+			return object.toString();
 		}
 	}
 }
