@@ -45,18 +45,18 @@ public class MessageController
 			Message newMessage = new Message(messageType, messageValue);
 			messageRepository.save(newMessage);
 			
+			// Temporary attributes
 			JsonObject object = new JsonObject();
 			object.addProperty("id", "1");
 			object.addProperty("messageType", messageType);
 			object.addProperty("messageValue", messageValue);
 			
-			final String uri = user.getPublicIp() + ":" + user.getPort() + "/message";
+			final String uri = "http://" + user.getPublicIp() + ":" + user.getPort() + "/message";
 			
 			RestTemplate restTemplate = new RestTemplate();
-			//JsonObject receivedObject = restTemplate.postForObject(uri, object, JsonObject.class);
+			String receivedObject = restTemplate.postForObject(uri, object.toString(), String.class);
 
-			//return receivedObject.toString();
-			return object.toString();
+			return receivedObject;
 		}
 		else
 		{
