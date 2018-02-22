@@ -1,16 +1,17 @@
 package application.message;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import application.authentication.User;
 import application.utilities.AuthenticationFunctions;
@@ -24,31 +25,33 @@ public class MessageController
 	@PersistenceContext
 	private EntityManager entityManager;
 	
-	@RequestMapping("/message")
-	public Message message(@RequestParam(value="username", required = true) String username
-			, @RequestParam(value="token", required = true) String token
-			, @RequestParam(value="messageType", required = true) String messageType
-			, @RequestParam(value="messageValue", required = true) String messageValue)
+	@RequestMapping(value = "/message", method = RequestMethod.POST, consumes = "text/plain")
+	public Message message(@RequestBody String payload)
 	{
+		JsonObject jsonObject = (new JsonParser()).parse(payload).getAsJsonObject();
+		
+		String username = jsonObject.get("username").toString().replaceAll("\"", "");
+		String token = jsonObject.get("token").toString().replaceAll("\"", "");
+		
 		User user = (User) entityManager.createQuery("from User where username = :username")
 				.setParameter("username", username)
 				.getSingleResult();
 		
 		if (AuthenticationFunctions.isTokenValid(user, token))
 		{
-			Message message = new Message(messageType, messageValue);
-			messageRepository.save(message);
+			String messageType = jsonObject.get("messageType").toString().replaceAll("\"", "");
+			String messageValue = jsonObject.get("messageValue").toString().replaceAll("\"", "");
 			
-			String uri = user.getPublicIp() + ":" + user.getPort() + "/{messageType}/{messageValue}";
+			Message newMessage = new Message(messageType, messageValue);
+			messageRepository.save(newMessage);
 			
-			Map<String, String> params = new HashMap<String, String>();
-			params.put("messageType", messageType);
-			params.put("messageValue", messageValue);
+			final String uri = user.getPublicIp() + ":" + user.getPort() + "/message";
 			
 			RestTemplate restTemplate = new RestTemplate();
-			Message myMessage = restTemplate.getForObject(uri, Message.class, params);
+			/*Message receivedMessage = restTemplate.postForObject(uri, newMessage, Message.class);
 			
-			return myMessage;
+			return receivedMessage;*/
+			return new Message("TYPE", "VALUE");
 		}
 		else
 		{
