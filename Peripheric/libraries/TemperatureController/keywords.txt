@@ -1,0 +1,10 @@
+TemperatureController   KEYWORD1
+GetAskedTemperature	KEYWORD2
+GetCurrentTemperature	KEYWORD2
+GetHumidity		KEYWORD2
+CheckTemperature	KEYWORD2
+CheckHumidity		KEYWORD2
+RaiseTemperature	KEYWORD2
+ReduceTemperature	KEYWORD2
+SetAskedTemperature	KEYWORD2
+updateType		KEYWORD2

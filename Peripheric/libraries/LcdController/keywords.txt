@@ -1,0 +1,6 @@
+LcdController	KEYWORD1
+SetTemperatureDemandeAffichage	KEYWORD2
+SetTemperatureActuelleAffichage	KEYWORD2
+SetHumiditeAffichage	KEYWORD2
+SetHeure	KEYWORD2
+ChangeDisplay	KEYWORD2
