@@ -11,11 +11,11 @@ public abstract class Client {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer id;
-	private String username;
-	private String password;
-	private String salt;
-	private String token;
+	protected Integer id;
+	protected String username;
+	protected String password;
+	protected String salt;
+	protected String token;
 	
 	
 	public Client(int id) {

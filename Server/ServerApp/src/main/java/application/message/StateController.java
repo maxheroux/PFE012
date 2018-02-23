@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -28,10 +29,12 @@ public class StateController
 	@RequestMapping(value = "/state/request", method = RequestMethod.POST, consumes = "text/plain")
 	public String stateRequest(@RequestBody String payload)
 	{
-		JsonObject jsonObject = (new JsonParser()).parse(payload).getAsJsonObject();
+	
+		Gson gson = new Gson();
+		StateRequest request = gson.fromJson(payload, StateRequest.class);
 		
-		String username = jsonObject.get("username").toString().replaceAll("\"", "");
-		String token = jsonObject.get("token").toString().replaceAll("\"", "");
+		String username = request.getUsername();
+		String token = request.getToken();
 		
 		User user = (User) entityManager.createQuery("from User where username = :username")
 				.setParameter("username", username)
@@ -39,11 +42,7 @@ public class StateController
 		
 		if (AuthenticationFunctions.isTokenValid(user, token))
 		{
-			String messageType = jsonObject.get("messageType").toString().replaceAll("\"", "");
-			String messageValue = jsonObject.get("messageValue").toString().replaceAll("\"", "");
-			
-			Message newMessage = new Message(messageType, messageValue);
-			messageRepository.save(newMessage);
+			messageRepository.save(request);
 			
 			final String uri = "http://" + user.getPublicIp() + ":" + user.getPort() + "/state/request";
 			
@@ -64,22 +63,20 @@ public class StateController
 	@RequestMapping(value = "/state/change", method = RequestMethod.POST, consumes = "text/plain")
 	public String stateChange(@RequestBody String payload)
 	{
-		JsonObject jsonObject = (new JsonParser()).parse(payload).getAsJsonObject();
+		Gson gson = new Gson();
+		StateChange request = gson.fromJson(payload, StateChange.class);
 		
-		String username = jsonObject.get("username").toString().replaceAll("\"", "");
-		String token = jsonObject.get("token").toString().replaceAll("\"", "");
+		
+		String username = request.getUsername();
+		String token = request.getToken();
 		
 		User user = (User) entityManager.createQuery("from User where username = :username")
 				.setParameter("username", username)
 				.getSingleResult();
 		
 		if (AuthenticationFunctions.isTokenValid(user, token))
-		{
-			String messageType = jsonObject.get("messageType").toString().replaceAll("\"", "");
-			String messageValue = jsonObject.get("messageValue").toString().replaceAll("\"", "");
-			
-			Message newMessage = new Message(messageType, messageValue);
-			messageRepository.save(newMessage);
+		{	
+			messageRepository.save(request);
 			
 			final String uri = "http://" + user.getPublicIp() + ":" + user.getPort() + "/state/change";
 			

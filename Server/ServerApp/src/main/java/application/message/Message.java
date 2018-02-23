@@ -12,23 +12,26 @@ public abstract class Message {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer id;
+	protected Integer id;
+	protected LocalDateTime dateTime;
+	protected String token;
 	
-	private String type;
-	private String value;
-	private LocalDateTime dateTime;
-	
-	public Message() {}
-	
-	public Message(Integer id)
+	public Message()
 	{
-		this.id = id;
+		dateTime = LocalDateTime.now();
 	}
 	
-	public Message(String type, String value)
+	public Message(Integer id, String token)
 	{
-		setType(type);
-		setValue(value);
+		this();
+		this.id = id;
+		this.token = token;
+	}
+	
+	public Message(String token)
+	{
+		this();
+		this.token = token;
 	}
 	
 	public Integer getId()
@@ -41,21 +44,25 @@ public abstract class Message {
 		this.id = id;
 	}
 
-	public String getType() {
-		return type;
+	public LocalDateTime getDateTime() {
+		return dateTime;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setDateTime(LocalDateTime dateTime) {
+		this.dateTime = dateTime;
 	}
 
-	public String getValue() {
-		return value;
+	public String getToken() {
+		return token;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
+	public void setToken(String token) {
+		this.token = token;
 	}
+
+
+	
+	
 	
 	
 }
