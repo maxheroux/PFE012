@@ -42,13 +42,13 @@ public class StateController
 		
 		if (AuthenticationFunctions.isTokenValid(user, token))
 		{
-			messageRepository.save(request);
+			//messageRepository.save(request);
 			
 			final String uri = "http://" + user.getPublicIp() + ":" + user.getPort() + "/state/request";
 			
 			RestTemplate restTemplate = new RestTemplate();
 			String receivedObject = restTemplate.postForObject(uri, payload, String.class);
-
+			System.out.println(receivedObject);
 			return receivedObject;
 		}
 		else
@@ -76,7 +76,7 @@ public class StateController
 		
 		if (AuthenticationFunctions.isTokenValid(user, token))
 		{	
-			messageRepository.save(request);
+			//messageRepository.save(request);
 			
 			final String uri = "http://" + user.getPublicIp() + ":" + user.getPort() + "/state/change";
 			

@@ -21,8 +21,8 @@ public class Peripheral
 	
 	private String bluetoothId;
 	private String name;
-	private State currentState;
-	private ScheduleDetail[][] schedule = new ScheduleDetail[7][24];
+	//private State currentState;
+	//private ScheduleDetail[][] schedule = new ScheduleDetail[7][24];
 		
 	public Peripheral() { }
 	

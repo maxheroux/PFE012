@@ -21,6 +21,8 @@ public class User extends Client
 	private String publicIp;
 	private int port;
 	
+	public User() {}
+	
 	public User(String username, String password, String salt, String publicIp, int port)
 	{
 		super(username, password, salt);

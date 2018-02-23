@@ -9,14 +9,14 @@ import javax.persistence.Inheritance;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-
+@Entity
 @Inheritance
 @DiscriminatorColumn(name="type")
 public abstract class Client {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	protected Integer id;
+	protected int id;
 	protected String username;
 	protected String password;
 	protected String salt;

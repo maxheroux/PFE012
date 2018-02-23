@@ -4,9 +4,9 @@ public class StateChange extends Message {
 	private int peripheralId;
 	private String username;
 	private String valueType;
-	private String value;
+	private int value;
 
-	public StateChange(int peripheralId, String username, String valueType, String value, String token) {
+	public StateChange(int peripheralId, String username, String valueType, int value, String token) {
 		super(token);
 		this.peripheralId = peripheralId;
 		this.username = username;
