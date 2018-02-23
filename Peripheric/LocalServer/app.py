@@ -14,7 +14,7 @@ deviceMap = {1: temperatureHandler}
 @app.route('/state/request', methods=['POST'])
 def stateRequest():
     data = json.loads(request.data)
-    deviceId = data['deviceId']
+    deviceId = data['peripheralId']
     if not deviceMap.has_key(deviceId):
         return json.dumps({"error":"Device Id {} Not found".format(deviceId)})
     deviceHandler = deviceMap.get(deviceId)
@@ -23,7 +23,7 @@ def stateRequest():
 @app.route('/state/change', methods=['POST'])
 def stateChange():
     data = json.loads(request.data)
-    deviceId = data['deviceId']
+    deviceId = data['peripheralId']
     state_value = data['value']
     if not deviceMap.has_key(deviceId):
         return json.dumps({"error":"Device Id {} Not found".format(deviceId)})
