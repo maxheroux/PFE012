@@ -1,12 +1,17 @@
 package application.authentication;
 
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+
+@Inheritance
+@DiscriminatorColumn(name="type")
 public abstract class Client {
 	
 	@Id
@@ -17,6 +22,7 @@ public abstract class Client {
 	protected String salt;
 	protected String token;
 	
+	public Client(){}
 	
 	public Client(int id) {
 		super();

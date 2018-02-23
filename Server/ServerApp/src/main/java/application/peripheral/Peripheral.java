@@ -1,60 +1,75 @@
 package application.peripheral;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
-public abstract class Peripheral {
-	private int id;
+@Entity
+@Inheritance
+@DiscriminatorColumn(name="type")
+public class Peripheral 
+{
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Integer id;
+	
+	private String bluetoothId;
 	private String name;
-	private String blueToothID;
 	private State currentState;
-	private ScheduleDetail[][] schedule = new ScheduleDetail[7][24];;
-	
-	
-	public Peripheral(int id, String name, String blueToothID) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.blueToothID = blueToothID;
-
+	private ScheduleDetail[][] schedule = new ScheduleDetail[7][24];
 		
-		for(int i =0;i<=6;i++) {
-			for(int k =0;k<=23;k++) {
-				schedule[i][k] = new ScheduleDetail(k, i);
-			}
-		}
+	public Peripheral() { }
+	
+	public Peripheral(Integer id)
+	{
+		this.id = id;
 	}
 	
-	public int getId() {
+	public Peripheral(int id, String bluetoothId, String name)
+	{
+		 this.id = id;              
+		 this.bluetoothId = bluetoothId;
+		 this.name=name;
+	}
+
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
+
+	public String getBluetoothId() {
+		return bluetoothId;
+	}
+
+	public void setBluetoothId(String bluetoothId) {
+		this.bluetoothId = bluetoothId;
+	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getBlueToothID() {
-		return blueToothID;
-	}
-	public void setBlueToothID(String blueToothID) {
-		this.blueToothID = blueToothID;
-	}
-	public State getState() {
-		return currentState;
-	}
-	public void setState(State state) {
-		this.currentState = state;
-	}
 	
-	public State getScheduleState(int hourOfDay, int dayOfWeek) {
-		return schedule[dayOfWeek][hourOfDay].getState();
+	/*public String getType() {
+		return type;
 	}
+
+	public void setType(String type) {
+		this.type = type;
+	}*/
 	
-	public void setScheduleState(int hourOfDay, int dayOfWeek, State state) {
-		schedule[dayOfWeek][hourOfDay].setState(state);
-	}
+	
+	
 }

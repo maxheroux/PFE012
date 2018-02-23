@@ -1,42 +1,86 @@
 package application.peripheral;
 
-public class Thermostat extends State {
-	private int currentHumidity;
-	private int currentTemperature;
-	private int desiredTemperature;
-	private int currentBrightness;
-	private int desiredBrightness;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+@Entity
+@DiscriminatorValue("Thermostat")
+public class Thermostat extends State
+{
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Integer id;
+	private String desiredTemperature;
+	private String currentTemperature;
+	private String brigthness;
+	private String currentHumidity;
+
+	//private String type;
+		
+	public Thermostat() { }
 	
-	public int getCurrentHumidity() {
-		return currentHumidity;
+	public Thermostat(Integer id)
+	{
+		this.id = id;
 	}
-	public void setCurrentHumidity(int currentHumidity) {
-		this.currentHumidity = currentHumidity;
+	
+	public Thermostat(int id, String desiredTemperature, String currentTemperature, String brigthness, String currentHumidity)
+	{
+		 this.id = id;              
+		 this.desiredTemperature = desiredTemperature;
+		 this.currentTemperature=currentTemperature;
+		 this.brigthness = brigthness;
+		 this.currentHumidity=currentHumidity;
+		 //this.type = type;
 	}
-	public int getCurrentTemperature() {
-		return currentTemperature;
+
+	public Integer getId() {
+		return id;
 	}
-	public void setCurrentTemperature(int currentTemperature) {
-		this.currentTemperature = currentTemperature;
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
-	public int getDesiredTemperature() {
+
+	public String getDesiredTemperature() {
 		return desiredTemperature;
 	}
-	public void setDesiredTemperature(int desiredTemperature) {
+
+	public void setDesiredTemperature(String desiredTemperature) {
 		this.desiredTemperature = desiredTemperature;
 	}
-	public int getCurrentBrightness() {
-		return currentBrightness;
+
+	public String getCurrentTemperature() {
+		return currentTemperature;
 	}
-	public void setCurrentBrightness(int currentBrightness) {
-		this.currentBrightness = currentBrightness;
+
+	public void setCurrentTemperature(String currentTemperature) {
+		this.currentTemperature = currentTemperature;
 	}
-	public int getDesiredBrightness() {
-		return desiredBrightness;
+
+	public String getBrigthness() {
+		return brigthness;
 	}
-	public void setDesiredBrightness(int desiredBrightness) {
-		this.desiredBrightness = desiredBrightness;
+
+	public void setBrigthness(String brigthness) {
+		this.brigthness = brigthness;
 	}
+
+	public String getCurrentHumidity() {
+		return currentHumidity;
+	}
+
+	public void setCurrentHumidity(String currentHumidity) {
+		this.currentHumidity = currentHumidity;
+	}
+
+	
 	
 	
 }
