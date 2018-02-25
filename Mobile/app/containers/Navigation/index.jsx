@@ -5,28 +5,42 @@ import { connect } from 'react-redux';
 import Connection from '../Connection';
 import TabsNavigation from '../TabsNavigation';
 import { addListener } from '../../../middleware';
-import Header from '../../components/Layout/Header';
+import Header from '../Layout/Header';
 import * as ConnectionActions from '../Connection/actions';
+import CreateThermostat from '../Thermostats/Create';
+import ModifyThermostat from '../Thermostats/Modify';
 
 export const AppNavigator = StackNavigator(
   {
     Connection: {
       screen: Connection,
       navigationOptions: {
-        header: (
-          <Header title="Connexion"/>)
+        header: (<Header title="Connexion"/>),
+        headerLeft: null
       }
     },
     Main: {
       screen: TabsNavigation,
       navigationOptions: {
-        header: null
+        header: null,
+        headerLeft: null
+      }
+    },
+    CreateThermostat: {
+      screen: CreateThermostat,
+      navigationOptions: {
+        header: (<Header title="Créer thermo." goBackRoute="Main" />)
+      }
+    },
+    ModifyThermostat: {
+      screen: ModifyThermostat,
+      navigationOptions: {
+        header: (<Header title="Modifier thermo." goBackRoute="Main" />)
       }
     }
   },
   {
     navigationOptions: {
-      headerLeft: null
     },
     cardStyle: {
       paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight

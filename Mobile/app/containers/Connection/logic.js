@@ -7,11 +7,11 @@ export const requestLogin = createLogic({
   type: Constants.requestLogin,
   latest: true,
   process({ getState, action }, dispatch, done) {
-    const url = AjaxUtils.createUrl('connection', {
+    const request = AjaxUtils.createGetRequest('connection', {
       username: action.username,
       password: action.password,
     });
-    AjaxUtils.timeout(5000, fetch(url))
+    AjaxUtils.timeout(5000, request())
       .then((resp) => {
         return resp.json()
       })
@@ -38,13 +38,13 @@ export const requestRegister = createLogic({
   type: Constants.requestRegister,
   latest: true,
   process({ getState, action }, dispatch, done) {
-    const url = AjaxUtils.createUrl('register', {
+    const request = AjaxUtils.createGetRequest('register', {
       username: action.username,
       password: action.password,
       publicIp: action.publicIp,
       port: action.port,
     });
-    AjaxUtils.timeout(5000, fetch(url))
+    AjaxUtils.timeout(5000, request())
       .then((resp) => {
         return resp.json()
       })
