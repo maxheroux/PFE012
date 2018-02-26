@@ -56,7 +56,7 @@ export default function thermostatsReducer(state: state = initialState, action: 
         list: {
           ...state.list,
           isFetching: true,
-          error: undefined,
+          error: undefined
         }
       };
     case Constants.receiveThermostatsList:
@@ -66,6 +66,7 @@ export default function thermostatsReducer(state: state = initialState, action: 
           ...state.list,
           isFetching: false,
           error: undefined,
+          list: action.list
         }
       };
     case Constants.errorThermostatsList:

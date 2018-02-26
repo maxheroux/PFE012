@@ -18,7 +18,8 @@ const logicMiddleware = createLogicMiddleware([
   connectionLogic.requestRegister,
   navigationLogic.login,
   thermostatLogic.requestThermostatsList,
-  thermostatLogic.requestCreateThermostat
+  thermostatLogic.requestCreateThermostat,
+  thermostatLogic.requestModifyThermostat
 ]);
 
 const middleware = applyMiddleware(

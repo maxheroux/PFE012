@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { filter, map, meanBy } from 'lodash';
 import ModifyThermostatComponent from '../../components/Thermostats/Modify';
 import * as Actions from './actions';
 
@@ -13,13 +14,14 @@ type State = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  error: state.thermostats.create.error,
-  isFetching: state.thermostats.create.isFetching,
+  error: state.thermostats.modify.error,
+  isFetching: state.thermostats.modify.isFetching,
+  thermostatList: state.thermostats.list.list
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   modifyThermostat: (ids, targetTemp) => {
-    dispatch(Actions.requestCreateThermostat(ids, targetTemp));
+    dispatch(Actions.requestModifyThermostat(ids, targetTemp));
   },
 });
 
@@ -27,8 +29,20 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 export default class ModifyThermostat extends React.Component<Props, State> {
 
   render() {
+    const { modifyThermostat, error, isFetching, thermostatList } = this.props;
+    const { params } = this.props.navigation.state;
+    const selectedIds = params ? params.itemIdList : [];
+    const selectedItems = filter(thermostatList, (item) => selectedIds.includes(item.id));
+    const childProps = {
+      modifyThermostat: (targetTemp) => modifyThermostat(selectedIds, targetTemp),
+      error,
+      isFetching,
+      nameList: map(selectedItems, i => i.name),
+      currentTemperature: meanBy(selectedItems, i => i.currentTemp),
+      targetTemperature: meanBy(selectedItems, i => i.targetTemp)
+    };
     return (
-      <ModifyThermostatComponent {...this.props} />
+      <ModifyThermostatComponent {...childProps} />
     )
   }
 }

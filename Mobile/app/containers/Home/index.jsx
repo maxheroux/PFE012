@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Text } from 'native-base';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import Header from '../Layout/Header';
 import * as ConnectionActions from '../Connection/actions';
 import HomeComponent from '../../components/Home';
@@ -25,10 +25,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 export default class Home extends React.Component {
   render() {
     return (
-      <ScrollView>
+      <View>
         <Header title="Accueil" />
-        <HomeComponent {...this.props}/>
-      </ScrollView>
+        <ScrollView>
+          <HomeComponent {...this.props}/>
+        </ScrollView>
+      </View>
     );
   }
 }

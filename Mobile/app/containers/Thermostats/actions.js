@@ -4,8 +4,9 @@ export const requestThermostatsList = () => ({
   type: Constants.requestThermostatsList
 });
 
-export const receiveThermostatsList = () => ({
-  type: Constants.receiveThermostatsList
+export const receiveThermostatsList = (list) => ({
+  type: Constants.receiveThermostatsList,
+  list
 });
 
 export const errorThermostatsList = (error) => ({

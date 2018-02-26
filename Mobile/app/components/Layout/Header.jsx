@@ -15,14 +15,17 @@ const style = {
   header: {
     backgroundColor: 'white',
   },
+  body: {
+    flex: 2,
+  },
   title: {
     color: 'black',
   },
   btnIcon: {
     paddingTop: 0,
     paddingBottom: 0,
-    alignSelf: 'center',
-  }
+    marginLeft: 10,
+  },
 }
 
 export default class CustomHeader extends Component<Props, State> {
@@ -41,7 +44,7 @@ export default class CustomHeader extends Component<Props, State> {
     return (
       <Header style={style.header}>
         {left}
-        <Body>
+        <Body style={style.body}>
           <Title style={style.title}>{title}</Title>
         </Body>
         <Right />

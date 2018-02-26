@@ -3,7 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Text, Container } from 'native-base';
 import { ScrollView } from 'react-native';
-import { map, get, some, find } from 'lodash';
+import { map, get, some, find, filter } from 'lodash';
 import shallowequal from 'shallowequal';
 import * as Actions from './actions';
 import type { Item } from './reducer';
@@ -15,8 +15,8 @@ type ExternalProps = {
   title: string,
   listId: string,
   onCreate: () => void,
-  onModify: () => void,
-  onItemPress: (itemId: number) => void
+  onModify: (itemIdList: Array<number>) => {},
+  onItemPress: (itemId: number) => {}
 }
 
 type ReducerProps = {//TODO: selected items
@@ -88,7 +88,7 @@ export default class PeripheralList extends React.Component<Props, State> {
       create: onCreate,
       enterSelectionMode: () => enterSelectionMode(children.length),
       exitSelectionMode,
-      confirmSelection: onModify,
+      confirmSelection: () => onModify(map(filter(items, i => i.isSelected), i => i.itemId)),
       selectAll,
       selectNone
     };

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { map } from 'lodash';
+import { map, filter } from 'lodash';
 import List from '../PeripheralList';
 import ListItem from '../../components/Thermostats/ListItem';
 import type { thermostat } from './reducer';
@@ -10,8 +10,7 @@ import * as NavigationActions from '../Navigation/actions';
 type Props = {
   requestThermostatsList: () => void,
   onCreate: () => {},
-  onModify: () => {},
-  onItemPress: (itemId: number) => {},
+  onModify: (itemIdList: Array<number>, thermostats: Array<thermostat>) => {},
   error: string,
   isFetching: boolean,
   thermostats: Array<thermostat>
@@ -33,11 +32,11 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   onCreate: () => {
     dispatch(NavigationActions.goToCreateThermostat);
   },
-  onModify: () => {
-    dispatch(NavigationActions.goToModifyThermostat);
-  },
-  onItemPress: (itemId) => {
-    dispatch(NavigationActions.goToModifyThermostat);
+  onModify: (itemIndexList, thermostats) => {
+    // transform list indexes into peripheral ids
+    const selectedItems = filter(thermostats, (item, id) => itemIndexList.includes(id));
+    const selectedIds = map(selectedItems, i => i.id);
+    dispatch(NavigationActions.goToModifyThermostat(selectedIds));
   }
 });
 
@@ -48,7 +47,7 @@ export default class Thermostats extends React.Component<Props, State> {
   }
 
   render() {
-    const { thermostats, onCreate, onModify, onItemPress } = this.props;
+    let { thermostats, onCreate, onModify, onItemPress } = this.props;
     let listItems = map(thermostats, (item, i) => {
       const props = {
         name: item.name,
@@ -64,8 +63,8 @@ export default class Thermostats extends React.Component<Props, State> {
       title: 'Thermostats',
       listId: 'Thermostats',
       onCreate,
-      onModify,
-      onItemPress
+      onModify: (itemIndexList) => onModify(itemIndexList, thermostats),
+      onItemPress: (itemIndex) => onModify([itemIndex], thermostats)
     }
     return (
       <List {...listProperties}>
