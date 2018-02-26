@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
-import { Form, Item, Label, Input, Button, Text, Spinner } from 'native-base';
-import { View } from 'react-native';
+import { Form, Item, Label, Input, Button, Text, Spinner, List, ListItem, Body, Right} from 'native-base';
+import { View, Picker } from 'react-native';
 import { reduce } from 'lodash';
 
 type Props = {
@@ -10,7 +10,8 @@ type Props = {
   isFetching: boolean,
   nameList: string,
   currentTemperature: string,
-  targetTemperature: string
+  targetTemperature: string,
+  currentHumidity: string,
 };
 
 type State = {
@@ -20,14 +21,6 @@ type State = {
 const style = {
   container: {
     marginTop: 10
-  },
-  namesContainer: {
-    marginLeft: 15,
-    marginRight: 15
-  },
-  names: {
-    marginTop: 2,
-    fontSize: 15
   },
   form: {
     marginBottom: 10
@@ -57,6 +50,7 @@ export default class Modify extends React.Component<Props, State> {
       modifyThermostat,
       targetTemperature,
       currentTemperature,
+      currentHumidity,
       nameList
     } = this.props;
     const onSubmitPress = () => {
@@ -69,24 +63,41 @@ export default class Modify extends React.Component<Props, State> {
       nameList,
       (final, current, index) => index > 0 ? `${final}, ${current}` : current,
       '');
+    let pickerValues = [];
+    for(let i = 10; i < 40; i++){
+      pickerValues.push(<Picker.Item label={`${i}°C`} value={i} key={i} />);
+    }
     return (
       <View style={style.container}>
-        <View style={style.namesContainer}>
-          <Label>Appareils selectionner: </Label>
-          <Text style={style.names}>{names}</Text>
-          <Label>Température courante: {currentTemperature}</Label>
-        </View>
-        <Form style={style.form}>
-          <Item fixedLabel last>
-            <Label>Température cible</Label>
-            <Input
-              onChangeText={(newTargetTemperature) => this.setState({newTargetTemperature})}
-              value={`${this.state.newTargetTemperature}`}
-              keyboardType='numeric'
-              returnKeyType='done'
-              />
-          </Item>
-        </Form>
+        <Picker
+          selectedValue={this.state.newTargetTemperature}
+          onValueChange={(itemValue, itemIndex) => this.setState({newTargetTemperature: itemValue})}>
+          {pickerValues}
+        </Picker>
+        <List>
+          <ListItem>
+            <Body>
+              <Text>Appareils selectionner</Text>
+              <Text note>{names}</Text>
+            </Body>
+          </ListItem>
+          <ListItem>
+            <Body>
+              <Text>Température courante</Text>
+            </Body>
+            <Right>
+              <Text>{currentTemperature}°C</Text>
+            </Right>
+          </ListItem>
+          <ListItem>
+            <Body>
+              <Text>Humidité courante</Text>
+            </Body>
+            <Right>
+              <Text>{currentHumidity}%</Text>
+            </Right>
+          </ListItem>
+        </List>
         {errorMessage}
         <View style={style.button}>
           <Button block onPress={onSubmitPress} disabled={isFetching}>
