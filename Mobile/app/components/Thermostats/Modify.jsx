@@ -88,7 +88,7 @@ export default class Modify extends React.Component<Props, State> {
         <List>
           <ListItem>
             <Body>
-              <Text>Appareils selectionner</Text>
+              <Text>Appareils selectionnés</Text>
               <Text note>{names}</Text>
             </Body>
           </ListItem>
@@ -112,7 +112,7 @@ export default class Modify extends React.Component<Props, State> {
         {errorMessage}
         <View style={style.button}>
           <Button block onPress={onSubmitPress} disabled={isFetching}>
-            <Text>Soumettre</Text>
+            <Text>Modifier</Text>
           </Button>
         </View>
         {isFetching && <Spinner color='rgb(90,200,250)' />}

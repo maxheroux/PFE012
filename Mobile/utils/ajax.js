@@ -29,6 +29,7 @@ export const createGetRequest = (path, paramsObject) => {
 export const createPostRequest = (path, paramsObject) => {
   return () => fetch(`${serverUrl}${path}`, {
     method: 'post',
+    headers: { "Content-Type" : "text/plain" },
     body: JSON.stringify(paramsObject)
   });
 }

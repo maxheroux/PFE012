@@ -20,10 +20,10 @@ export const requestThermostatsList = createLogic({
     }
     dispatch(Actions.receiveThermostatsList(newThermo));
     // end test
-    const request = AjaxUtils.createPostRequest('device/list', {// TODO: find url
+    const request = AjaxUtils.createPostRequest('state/request', {// TODO: find url
       username: getState().connection.username,
       token: getState().connection.token,
-      type: 'thermostat'
+      peripheralId: 1
     });
     AjaxUtils.timeout(5000, request())
       .then((resp) => {
@@ -34,7 +34,19 @@ export const requestThermostatsList = createLogic({
         if (data.value == 'BAD_AUTHENTICATION') {
           dispatch(Actions.errorThermostatsList('Les informations sont invalides.'));
         } else {
-          dispatch(Actions.receiveThermostatsList(data.value));
+          let list = newThermo;
+          if (data.deviceId) {
+            list = [
+              {
+                id: data.deviceId,
+                name: 'Thermo salon',
+                currentTemp: data.currentTemperature,
+                targetTemp: data.requestedTemperature,
+                currentHumidity: data.currentHumidity,
+              }
+            ];
+          }
+          dispatch(Actions.receiveThermostatsList(list));
         }
       })
       .catch(() => {

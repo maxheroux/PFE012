@@ -72,7 +72,7 @@ export default class Create extends React.Component<Props, State> {
         {errorMessage}
         <View style={style.button}>
           <Button block onPress={onSubmitPress} disabled={isFetching || !isValid}>
-            <Text>Soumettre</Text>
+            <Text>Créer</Text>
           </Button>
         </View>
         {isFetching && <Spinner color='rgb(90,200,250)' />}
