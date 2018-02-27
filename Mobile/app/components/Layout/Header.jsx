@@ -24,7 +24,8 @@ const style = {
   btnIcon: {
     paddingTop: 0,
     paddingBottom: 0,
-    marginLeft: 10,
+    paddingLeft: 16,
+    width: 60
   },
 }
 

@@ -128,6 +128,18 @@ export default function thermostatsReducer(state: state = initialState, action: 
           error: action.error,
         }
       };
+    case 'Navigation/NAVIGATE':
+      return {
+        ...state,
+        modify: {
+          ...state.modify,
+          error: undefined,
+        },
+        create: {
+          ...state.create,
+          error: undefined,
+        }
+      };
     default:
       return state;
   }

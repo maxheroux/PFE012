@@ -1,14 +1,15 @@
 // @flow
 import * as React from 'react';
 import { Form, Item, Label, Input, Button, Text, Spinner, List, ListItem, Body, Right} from 'native-base';
-import { View, Picker } from 'react-native';
+import { View, ScrollView, Picker } from 'react-native';
+import shallowequal from 'shallowequal';
 import { reduce } from 'lodash';
 
 type Props = {
   modifyThermostat: (targetTemp: string) => void,
   error: string,
   isFetching: boolean,
-  nameList: string,
+  nameList: Array<string>,
   currentTemperature: string,
   targetTemperature: string,
   currentHumidity: string,
@@ -43,6 +44,16 @@ export default class Modify extends React.Component<Props, State> {
     };
   }
 
+  shouldComponentUpdate(nextProps: Props, nextState: State) {
+    return this.props.error !== nextProps.error ||
+      this.props.isFetching !== nextProps.isFetching ||
+      this.props.targetTemperature !== nextProps.targetTemperature ||
+      this.props.currentHumidity !== nextProps.currentHumidity ||
+      this.props.currentTemperature !== nextProps.currentTemperature ||
+      this.state.newTargetTemperature !== nextState.newTargetTemperature ||
+      !shallowequal(this.props.nameList, nextProps.nameList);
+  }
+
   render() {
     const {
       error,
@@ -64,11 +75,11 @@ export default class Modify extends React.Component<Props, State> {
       (final, current, index) => index > 0 ? `${final}, ${current}` : current,
       '');
     let pickerValues = [];
-    for(let i = 10; i < 40; i++){
+    for (let i = 10; i < 40; i++) {
       pickerValues.push(<Picker.Item label={`${i}°C`} value={i} key={i} />);
     }
     return (
-      <View style={style.container}>
+      <ScrollView style={style.container}>
         <Picker
           selectedValue={this.state.newTargetTemperature}
           onValueChange={(itemValue, itemIndex) => this.setState({newTargetTemperature: itemValue})}>
@@ -105,7 +116,7 @@ export default class Modify extends React.Component<Props, State> {
           </Button>
         </View>
         {isFetching && <Spinner color='rgb(90,200,250)' />}
-      </View>
+      </ScrollView>
     );
   }
 }

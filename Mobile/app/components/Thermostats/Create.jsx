@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import { Form, Item, Label, Input, Button, Text, Spinner } from 'native-base';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 
 type Props = {
   submitThermostat: (name: string, bluetoothAddress: string) => void,
@@ -50,7 +50,7 @@ export default class Create extends React.Component<Props, State> {
     );
     const isValid = this.state.name && this.state.bluetoothAddress
     return (
-      <View style={style.container}>
+      <ScrollView style={style.container}>
         <Form style={style.form}>
           <Item fixedLabel last>
             <Label>Nom de l'appareil</Label>
@@ -76,7 +76,7 @@ export default class Create extends React.Component<Props, State> {
           </Button>
         </View>
         {isFetching && <Spinner color='rgb(90,200,250)' />}
-      </View>
+      </ScrollView>
     );
   }
 }
