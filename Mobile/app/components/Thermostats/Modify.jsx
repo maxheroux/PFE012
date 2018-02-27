@@ -1,9 +1,10 @@
 // @flow
 import * as React from 'react';
 import { Form, Item, Label, Input, Button, Text, Spinner, List, ListItem, Body, Right} from 'native-base';
-import { View, ScrollView, Picker } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import shallowequal from 'shallowequal';
 import { reduce } from 'lodash';
+import Picker from 'rmc-picker'
 
 type Props = {
   modifyThermostat: (targetTemp: string) => void,
@@ -40,7 +41,7 @@ export default class Modify extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      newTargetTemperature: props.targetTemperature,
+      newTargetTemperature: `${props.targetTemperature}`,
     };
   }
 
@@ -76,7 +77,11 @@ export default class Modify extends React.Component<Props, State> {
       '');
     let pickerValues = [];
     for (let i = 10; i < 40; i++) {
-      pickerValues.push(<Picker.Item label={`${i}°C`} value={i} key={i} />);
+      pickerValues.push(
+        <Picker.Item value={`${i}`} key={i}>
+          {`${i}°C`}
+        </Picker.Item>
+        );
     }
     return (
       <ScrollView style={style.container}>
