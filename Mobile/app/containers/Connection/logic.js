@@ -7,24 +7,24 @@ export const requestLogin = createLogic({
   type: Constants.requestLogin,
   latest: true,
   process({ getState, action }, dispatch, done) {
-    const url = AjaxUtils.createUrl('connection', {
+    const request = AjaxUtils.createGetRequest('connection', {
       username: action.username,
       password: action.password,
     });
-    AjaxUtils.timeout(5000, fetch(url))
+    AjaxUtils.timeout(5000, request())
       .then((resp) => {
         return resp.json()
       })
       .then((data) => {
         AjaxUtils.detectAndThrowServerError(data);
-        if (data.value == 'BAD_AUTHENTICATION') {
+        if (data.token == 'BAD_AUTHENTICATION') {
           dispatch(Actions.errorLogin('Les informations sont invalides.'));
         } else {
           StorageUtils.saveConnectedUser({
             username: action.username,
-            token: data.value
+            token: data.token
           }).catch((error) => console.warn(`Error saving user info. ${JSON.stringify(error)}`));
-          dispatch(Actions.successfulLogin(action.username, data.value));
+          dispatch(Actions.successfulLogin(action.username, data.token));
         }
       })
       .catch(() => {
@@ -38,26 +38,26 @@ export const requestRegister = createLogic({
   type: Constants.requestRegister,
   latest: true,
   process({ getState, action }, dispatch, done) {
-    const url = AjaxUtils.createUrl('register', {
+    const request = AjaxUtils.createGetRequest('register', {
       username: action.username,
       password: action.password,
       publicIp: action.publicIp,
       port: action.port,
     });
-    AjaxUtils.timeout(5000, fetch(url))
+    AjaxUtils.timeout(5000, request())
       .then((resp) => {
         return resp.json()
       })
       .then((data) => {
         AjaxUtils.detectAndThrowServerError(data);
-        if (data.value == 'BAD_AUTHENTICATION') {
+        if (data.token == 'BAD_AUTHENTICATION') {
           dispatch(Actions.errorLogin('Les informations sont invalides.'));
         } else {
           StorageUtils.saveConnectedUser({
             username: action.username,
-            token: data.value
+            token: data.token
           }).catch((error) => console.warn(`Error saving user info. ${JSON.stringify(error)}`));
-          dispatch(Actions.successfulRegister(action.username, data.value));
+          dispatch(Actions.successfulRegister(action.username, data.token));
         }
       })
       .catch(() => {

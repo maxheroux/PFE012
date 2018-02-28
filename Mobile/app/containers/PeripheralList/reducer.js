@@ -29,7 +29,6 @@ export default function peripheralListReducer(state: State = initialState, actio
     otherLists = filter(state.lists, list => list.listId != action.listId);
     selectedList = find(state.lists, list => list.listId == action.listId);
   }
-
   switch (action.type) {
     case Constants.toggleSelected:
       const otherItems = filter(selectedList.items, item => item.itemId != action.itemId);
@@ -98,6 +97,7 @@ export default function peripheralListReducer(state: State = initialState, actio
           }
         ]
       };
+    case 'Navigation/NAVIGATE':
     case Constants.exitSelectionMode:
       return {
         ...state,

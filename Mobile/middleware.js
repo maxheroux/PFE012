@@ -6,6 +6,7 @@ import {
 } from 'react-navigation-redux-helpers';
 import * as connectionLogic from './app/containers/Connection/logic';
 import * as navigationLogic from './app/containers/Navigation/logic';
+import * as thermostatLogic from './app/containers/Thermostats/logic';
 
 const navigationMiddleware = createReactNavigationReduxMiddleware(
   "root",
@@ -15,7 +16,10 @@ const navigationMiddleware = createReactNavigationReduxMiddleware(
 const logicMiddleware = createLogicMiddleware([
   connectionLogic.requestLogin,
   connectionLogic.requestRegister,
-  navigationLogic.login
+  navigationLogic.login,
+  thermostatLogic.requestThermostatsList,
+  thermostatLogic.requestCreateThermostat,
+  thermostatLogic.requestModifyThermostat
 ]);
 
 const middleware = applyMiddleware(

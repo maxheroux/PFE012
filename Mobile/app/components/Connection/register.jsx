@@ -92,6 +92,7 @@ export default class Register extends React.Component<Props, State> {
               onChangeText={(port) => this.setState({port})}
               value={this.state.port}
               keyboardType="numeric"
+              returnKeyType='done'
               />
           </Item>
         </Form>

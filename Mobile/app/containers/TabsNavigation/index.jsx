@@ -3,7 +3,7 @@ import { TabNavigator, TabBarBottom, addNavigationHelpers } from 'react-navigati
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from '../Home';
-import Thermostats from '../Thermostats';
+import Thermostats from '../Thermostats/List';
 import Lights from '../Lights';
 import Locks from '../Locks';
 import { addListener } from '../../../middleware';

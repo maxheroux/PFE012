@@ -2,8 +2,8 @@ import { get } from 'lodash';
 import { serverUrl } from '../config';
 
 export const timeout = (ms, promise) => {
-  return new Promise(function(resolve, reject) {
-    setTimeout(function() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
       reject(new Error("timeout"))
     }, ms)
     promise.then(resolve, reject)
@@ -17,11 +17,19 @@ export const detectAndThrowServerError = (dataReceived) => {
 }
 
 export const objectToQueryString = (object) => {
-  return Object.keys(object).map(function(k) {
+  return Object.keys(object).map((k) => {
     return encodeURIComponent(k) + "=" + encodeURIComponent(object[k]);
-  }).join('&')
+  }).join('&');
 };
 
-export const createUrl = (path, paramsObject) => {
-  return `${serverUrl}${path}?${objectToQueryString(paramsObject)}`;
+export const createGetRequest = (path, paramsObject) => {
+  return () => fetch(`${serverUrl}${path}?${objectToQueryString(paramsObject)}`);
+}
+
+export const createPostRequest = (path, paramsObject) => {
+  return () => fetch(`${serverUrl}${path}`, {
+    method: 'post',
+    headers: { "Content-Type" : "text/plain" },
+    body: JSON.stringify(paramsObject)
+  });
 }
