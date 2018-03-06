@@ -17,14 +17,14 @@ export const requestLogin = createLogic({
       })
       .then((data) => {
         AjaxUtils.detectAndThrowServerError(data);
-        if (data.value == 'BAD_AUTHENTICATION') {
+        if (data.token == 'BAD_AUTHENTICATION') {
           dispatch(Actions.errorLogin('Les informations sont invalides.'));
         } else {
           StorageUtils.saveConnectedUser({
             username: action.username,
-            token: data.value
+            token: data.token
           }).catch((error) => console.warn(`Error saving user info. ${JSON.stringify(error)}`));
-          dispatch(Actions.successfulLogin(action.username, data.value));
+          dispatch(Actions.successfulLogin(action.username, data.token));
         }
       })
       .catch(() => {
@@ -50,14 +50,14 @@ export const requestRegister = createLogic({
       })
       .then((data) => {
         AjaxUtils.detectAndThrowServerError(data);
-        if (data.value == 'BAD_AUTHENTICATION') {
+        if (data.token == 'BAD_AUTHENTICATION') {
           dispatch(Actions.errorLogin('Les informations sont invalides.'));
         } else {
           StorageUtils.saveConnectedUser({
             username: action.username,
-            token: data.value
+            token: data.token
           }).catch((error) => console.warn(`Error saving user info. ${JSON.stringify(error)}`));
-          dispatch(Actions.successfulRegister(action.username, data.value));
+          dispatch(Actions.successfulRegister(action.username, data.token));
         }
       })
       .catch(() => {

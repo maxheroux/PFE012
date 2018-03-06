@@ -38,9 +38,9 @@ export default class ModifyThermostat extends React.Component<Props, State> {
       error,
       isFetching,
       nameList: map(selectedItems, i => i.name),
-      currentTemperature: Math.round(meanBy(selectedItems, i => i.currentTemp)),
+      currentTemperature: Math.round(meanBy(selectedItems, i => i.currentTemp) * 10) / 10,
       targetTemperature: Math.round(meanBy(selectedItems, i => i.targetTemp)),
-      currentHumidity: Math.round(meanBy(selectedItems, i => i.currentHumidity))
+      currentHumidity: Math.round(meanBy(selectedItems, i => i.currentHumidity) * 10) / 10
     };
     return (
       <ModifyThermostatComponent {...childProps} />
