@@ -1,52 +1,65 @@
 #include "Arduino.h"
-#include <PID_v1/PID_v1.h>
+#include <PID_v1.h>
 #include <SoftwareSerial.h>
 #include "HeaterController.h"
 
-HeaterController::HeaterController(int pin, double kp, double ki, double kd) :
-pid(&input, &output, &setpoint, kp, ki, kd, DIRECT) {
+HeaterController::HeaterController(int pin, double kp, double ki, double kd) : pid(&input, &output, &setpoint, kp, ki, kd, DIRECT)
+{
 	this->pin = pin;
 	windowStartTime = millis();
 	this->kp = kp;
 	this->ki = ki;
 	this->kd = kd;
-	pid.SetOutputLimits(0, 10);
 	pid.SetMode(AUTOMATIC);
-
+	pid.SetOutputLimits(0, 10);
 }
 
-void HeaterController::setActualTemperature(double temperature) {
+void HeaterController::setCurrentTemperature(double temperature)
+{
 	this->input = temperature;
 }
 
-void HeaterController::setRequiredTemperature(double temperature) {
+void HeaterController::setRequestedTemperature(double temperature)
+{
 	this->setpoint = temperature;
 }
 
-void HeaterController::start() {
-	digitalWrite(pin, LOW);
-}
-
-void HeaterController::stop() {
+void HeaterController::start()
+{
+	if (isHeating)
+		return;
+	isHeating = true;
 	digitalWrite(pin, HIGH);
 }
 
-bool HeaterController::isHeaterOn() {
+void HeaterController::stop()
+{
+	if (!isHeating)
+		return;
+	isHeating = false;
+	digitalWrite(pin, LOW);
+}
+
+bool HeaterController::isHeaterOn()
+{
 	return isHeating;
 }
 
-void HeaterController::compute() {
-	pid.Compute();
+void HeaterController::compute()
+{
 
-	if (millis() - windowStartTime > windowSize) {
+	pid.Compute();
+	if (millis() - windowStartTime > windowSize)
+	{
 		windowStartTime += windowSize;
 	}
-
-	if (output > 0.5)
+	if (output > 1)
 	{
+
 		this->start();
 	}
-	else{
+	else
+	{
 		this->stop();
 	}
 }

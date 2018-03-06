@@ -11,8 +11,8 @@
 class HeaterController {
 public:
 	HeaterController(int pin, double kp, double ki, double kd);
-	void setRequiredTemperature(double temperature);
-	void setActualTemperature(double temperature);
+	void setRequestedTemperature(double temperature);
+	void setCurrentTemperature(double temperature);
 	void start();
 	void stop();
 	bool isHeaterOn();
@@ -21,7 +21,7 @@ public:
 private:
 	int pin;
 	double kp, ki, kd;
-	double setpoint, input, output;
+	double setpoint, input = 0, output = 0;
 	int windowSize;
 	unsigned long windowStartTime;
 	bool isHeating = false;

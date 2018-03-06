@@ -7,13 +7,9 @@
 TemperatureController::TemperatureController(uint8_t sensorPin, uint8_t dhtType, int min,
 											 int max) : dht(sensorPin, dhtType)
 {
-	// pinMode(heaterPin, INPUT);
 	_min = min;
 	_max = max;
-	// dht(sensorPin, dhtType);
-	// heaterController(heaterPin, 2, 5, 1);
-	// heaterController.setActualTemperature(_currentTemperature);
-	// heaterController.setRequestedTemperature(_requestedTemperature);
+	setRequestedTemperature(_min);
 }
 
 float TemperatureController::getCurrentTemperature()

@@ -2,18 +2,30 @@
 #include <ArduinoJson.h>
 #include <SoftwareSerial.h>
 #include <TemperatureController.h>
+#include <HeaterController.h>
 
 #define DHTPIN 2 // Pin which is connected to the DHT sensor.
 #define MIN_TEMPERATURE 10
 #define MAX_TEMPERATURE 30
 #define DHTTYPE DHT22 // DHT 22 (AM2302)
 
+#define HEATERPIN 7 // Pin that should be connected to the relay of heater
+#define HEATER_PID_KP 2
+#define HEATER_PID_KI 5
+#define HEATER_PID_KD 1
 //TODO: Use constants to define message type to expect
 
 TemperatureController temperatureController(DHTPIN, DHTTYPE, MIN_TEMPERATURE, MAX_TEMPERATURE);
+HeaterController heaterController(HEATERPIN, HEATER_PID_KP, HEATER_PID_KI, HEATER_PID_KD);
 SoftwareSerial EEBlue(10, 11); // RX | TX
 void setup()
 {
+	pinMode(HEATERPIN, OUTPUT);
+	
+	float currentTemperature = temperatureController.getCurrentTemperature();
+	heaterController.setCurrentTemperature(currentTemperature);
+	heaterController.setRequestedTemperature(MIN_TEMPERATURE);
+	
 	Serial.begin(9600);
 	EEBlue.begin(9600);
 }
@@ -25,7 +37,6 @@ void loop()
 	{
 		StaticJsonBuffer<512> jsonBuffer;
 		JsonObject &receivedJson = jsonBuffer.parse(EEBlue);
-		receivedJson.prettyPrintTo(Serial);
 		String messageType = receivedJson["messageType"];
 
 		if (messageType == "update")
@@ -40,7 +51,7 @@ void loop()
 				int updateValue = receivedJson["updateValue"];
 
 				temperatureController.setRequestedTemperature(updateValue);
-				Serial.println("Requested Temperature: " + String(temperatureController.getRequestedTemperature()));
+				heaterController.setRequestedTemperature(updateValue);
 			}
 			else if (updateType == "ScreenBrightness"){
 				
@@ -63,15 +74,10 @@ void loop()
 		}
 	}
 
-	if (Serial.available())
-	{
-		StaticJsonBuffer<512> jsonBuffer;
-		JsonObject &root = jsonBuffer.createObject();
-		Serial.println("Sending " + Serial.readString());
-
-		root["Temperature"] = temperatureController.getCurrentTemperature();
-		root["Humidity"] = temperatureController.getHumidity();
-
-		root.printTo(EEBlue);
+	//Reevaluate heating every 5 seconds
+	if (millis() % 5000 == 0){ 
+		heaterController.setCurrentTemperature(temperatureController.getCurrentTemperature());
+		heaterController.compute();
 	}
+	
 }
