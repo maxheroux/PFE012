@@ -4,7 +4,7 @@ import { Form, Item, Label, Input, Button, Text, Spinner } from 'native-base';
 import { View, ScrollView } from 'react-native';
 
 type Props = {
-  submitThermostat: (name: string, bluetoothAddress: string) => void,
+  submitPeripheral: (name: string, bluetoothAddress: string) => void,
   error: string,
   isFetching: boolean,
 };
@@ -41,9 +41,9 @@ export default class Create extends React.Component<Props, State> {
   }
 
   render() {
-    const { error, isFetching, submitThermostat } = this.props;
+    const { error, isFetching, submitPeripheral } = this.props;
     const onSubmitPress = () => {
-      submitThermostat(this.state.name, this.state.bluetoothAddress);
+      submitPeripheral(this.state.name, this.state.bluetoothAddress);
     };
     const errorMessage = error && (
       <Text style={style.error}>{error}</Text>

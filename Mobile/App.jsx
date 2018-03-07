@@ -2,7 +2,7 @@ import React from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
-import middleware from './middleware';
+import middleware, { logicMiddleware } from './middleware';
 import { Font, AppLoading } from "expo";
 import { Root } from "native-base";
 import { StackNavigator } from 'react-navigation';
@@ -11,6 +11,9 @@ import Navigation from './app/containers/Navigation';
 import { StorageUtils } from './utils';
 
 const store = createStore(reducer, middleware);
+logicMiddleware.addDeps({
+  dispatch: store.dispatch
+});
 
 export default class App extends React.Component {
   constructor(props) {

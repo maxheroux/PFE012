@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from '../Home';
 import Thermostats from '../Thermostats/List';
-import Lights from '../Lights';
+import Lights from '../Lights/List';
 import Locks from '../Locks';
 import { addListener } from '../../../middleware';
 

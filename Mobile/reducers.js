@@ -5,13 +5,15 @@ import navigation from './app/containers/Navigation/reducer';
 import tabsNavigation from './app/containers/TabsNavigation/reducer';
 import peripheralList from './app/containers/PeripheralList/reducer';
 import thermostats from './app/containers/Thermostats/reducer';
+import lights from './app/containers/Lights/reducer';
 
 const rootReducer = combineReducers({
   connection,
   navigation,
   tabsNavigation,
   peripheralList,
-  thermostats
+  thermostats,
+  lights
 });
 
 export default rootReducer;

@@ -33,3 +33,22 @@ export const createPostRequest = (path, paramsObject) => {
     body: JSON.stringify(paramsObject)
   });
 }
+
+export const performRequest = (request, successFn, errorAction, dispatch, done) => {
+  timeout(5000, request())
+    .then((resp) => {
+      return resp.json();
+    })
+    .then((data) => {
+      detectAndThrowServerError(data);
+      if (data.value == 'BAD_AUTHENTICATION') {
+        dispatch(errorAction('Les informations sont invalides.'));
+      } else {
+        successFn(data);
+      }
+    })
+    .catch(() => {
+      dispatch(errorAction('Une erreur est survenu lors de la connection avec le server.'));
+    })
+    .then(() => done());
+}

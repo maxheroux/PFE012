@@ -4,7 +4,7 @@ import { Form, Item, Label, Input, Button, Text, Spinner, List, ListItem, Body, 
 import { View, ScrollView } from 'react-native';
 import shallowequal from 'shallowequal';
 import { reduce } from 'lodash';
-import Picker from 'rmc-picker'
+import Picker from 'rmc-picker';
 
 type Props = {
   modifyThermostat: (targetTemp: string) => void,

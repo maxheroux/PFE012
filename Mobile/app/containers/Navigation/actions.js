@@ -16,6 +16,24 @@ export const goToModifyThermostat = (itemIdList) => NavigationActions.navigate({
       itemIdList
     }
 })
+export const goToCreateLight = NavigationActions.navigate({
+    routeName: 'CreateLight'
+})
+export const goToModifyLight = (itemIdList) => NavigationActions.navigate({
+    routeName: 'ModifyLight',
+    params: {
+      itemIdList
+    }
+})
+export const goToCreateLock = NavigationActions.navigate({
+    routeName: 'CreateLock'
+})
+export const goToModifyLock = (itemIdList) => NavigationActions.navigate({
+    routeName: 'ModifyLock',
+    params: {
+      itemIdList
+    }
+})
 export const goToRoute = (routeName) => NavigationActions.navigate({
     routeName: routeName
 })

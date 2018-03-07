@@ -14,6 +14,11 @@ export const errorThermostatsList = (error) => ({
   error
 });
 
+export const startThermostatsListFetchInterval = (interval) => ({
+  type: Constants.startThermostatsListFetchInterval,
+  interval
+});
+
 export const requestCreateThermostat = (name, bluetoothAddress) => ({
   type: Constants.requestCreateThermostat,
   name,

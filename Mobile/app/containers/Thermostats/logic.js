@@ -115,3 +115,20 @@ export const requestCreateThermostat = createLogic({
       .then(() => done());
   }
 });
+
+export const startThermostatsListFetchInterval = createLogic({
+  type: Constants.startThermostatsListFetchInterval,
+  latest: true,
+  transform({ getState, action, dispatch }, next) {
+    let interval = getState().thermostats.list.interval;
+    if (!interval) {
+      interval = setInterval(() => {
+        dispatch(Actions.requestThermostatsList());
+      }, 2000);
+    }
+    next({
+      ...action,
+      interval
+    });
+  }
+});

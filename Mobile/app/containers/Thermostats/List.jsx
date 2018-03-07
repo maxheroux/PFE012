@@ -9,7 +9,8 @@ import * as NavigationActions from '../Navigation/actions';
 
 type Props = {
   requestThermostatsList: () => void,
-  onCreate: () => {},
+  startThermostatsListFetchInterval: () => void,
+  onCreate: () => void,
   onModify: (itemIdList: Array<number>, thermostats: Array<thermostat>) => {},
   error: string,
   isFetching: boolean,
@@ -29,6 +30,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   requestThermostatsList: () => {
     dispatch(Actions.requestThermostatsList());
   },
+  startThermostatsListFetchInterval: () => {
+    dispatch(Actions.startThermostatsListFetchInterval(undefined));
+  },
   onCreate: () => {
     dispatch(NavigationActions.goToCreateThermostat);
   },
@@ -42,8 +46,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class Thermostats extends React.Component<Props, State> {
+
   componentWillMount() {
-    this.props.requestThermostatsList();
+    this.props.startThermostatsListFetchInterval();
   }
 
   render() {

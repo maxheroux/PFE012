@@ -1,5 +1,6 @@
 // @flow
 import * as Constants from './constants';
+import PeripheralReducerHelper from '../../helpers/Peripheral/reducer';
 
 export type thermostat = {
   id: number,
@@ -13,6 +14,7 @@ type list = {
   list: Array<thermostat>,
   isFetching: boolean,
   error: string,
+  interval: any
 }
 
 type create = {
@@ -36,6 +38,7 @@ const initialState: state = {
     list: [],
     isFetching: false,
     error: undefined,
+    interval: undefined,
   },
   modify: {
     isFetching: false,
@@ -47,100 +50,33 @@ const initialState: state = {
   },
 };
 
+const reducerHelper = new PeripheralReducerHelper(
+  Constants.requestThermostatsList,
+  Constants.receiveThermostatsList,
+  Constants.errorThermostatsList,
+  Constants.requestCreateThermostat,
+  Constants.successfulCreateThermostat,
+  Constants.errorCreateThermostat,
+  Constants.requestModifyThermostat,
+  Constants.successfulModifyThermostat,
+  Constants.errorModifyThermostat
+);
+
 export default function thermostatsReducer(state: state = initialState, action: any) {
-  switch (action.type) {
-    // List
-    case Constants.requestThermostatsList:
-      return {
-        ...state,
-        list: {
-          ...state.list,
-          isFetching: true,
-          error: undefined
-        }
-      };
-    case Constants.receiveThermostatsList:
-      return {
-        ...state,
-        list: {
-          ...state.list,
-          isFetching: false,
-          error: undefined,
-          list: action.list
-        }
-      };
-    case Constants.errorThermostatsList:
-      return {
-        ...state,
-        list: {
-          ...state.list,
-          isFetching: false,
-          error: action.error,
-        }
-      };
-    // Create
-    case Constants.requestCreateThermostat:
-      return {
-        ...state,
-        create: {
-          isFetching: true,
-          error: undefined,
-        }
-      };
-    case Constants.successfulCreateThermostat:
-      return {
-        ...state,
-        create: {
-          isFetching: false,
-          error: undefined,
-        }
-      };
-    case Constants.errorCreateThermostat:
-      return {
-        ...state,
-        create: {
-          isFetching: false,
-          error: action.error,
-        }
-      };
-    // Modify
-    case Constants.requestModifyThermostat:
-      return {
-        ...state,
-        modify: {
-          isFetching: true,
-          error: undefined,
-        }
-      };
-    case Constants.successfulModifyThermostat:
-      return {
-        ...state,
-        modify: {
-          isFetching: false,
-          error: undefined,
-        }
-      };
-    case Constants.errorModifyThermostat:
-      return {
-        ...state,
-        modify: {
-          isFetching: false,
-          error: action.error,
-        }
-      };
-    case 'Navigation/NAVIGATE':
-      return {
-        ...state,
-        modify: {
-          ...state.modify,
-          error: undefined,
-        },
-        create: {
-          ...state.create,
-          error: undefined,
-        }
-      };
+  switch(action.type){
+    case Constants.startThermostatsListFetchInterval :
+      if (action.interval) {
+        return {
+          ...state,
+          list: {
+            ...state.list,
+            interval: action.interval,
+          }
+        };
+      } else {
+        return state;
+      }
     default:
-      return state;
+      return reducerHelper.updateState(state, action);
   }
 }

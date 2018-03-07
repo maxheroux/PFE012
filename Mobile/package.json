@@ -26,6 +26,7 @@
     "native-base": "^2.3.7",
     "react": "16.2.0",
     "react-native": "0.52.0",
+    "react-native-color": "0.0.10",
     "react-native-vector-icons": "^4.5.0",
     "react-navigation": "^1.0.2",
     "react-navigation-redux-helpers": "^1.0.1",
@@ -33,6 +34,7 @@
     "redux": "^3.7.2",
     "redux-logic": "^0.12.3",
     "rmc-picker": "^5.0.4",
-    "shallowequal": "^1.0.2"
+    "shallowequal": "^1.0.2",
+    "tinycolor2": "^1.4.1"
   }
 }

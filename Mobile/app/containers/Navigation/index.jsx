@@ -9,6 +9,8 @@ import Header from '../Layout/Header';
 import * as ConnectionActions from '../Connection/actions';
 import CreateThermostat from '../Thermostats/Create';
 import ModifyThermostat from '../Thermostats/Modify';
+import CreateLight from '../Lights/Create';
+import ModifyLight from '../Lights/Modify';
 
 export const AppNavigator = StackNavigator(
   {
@@ -36,6 +38,18 @@ export const AppNavigator = StackNavigator(
       screen: ModifyThermostat,
       navigationOptions: {
         header: (<Header title="Modifier thermo." goBackRoute="Main" />)
+      }
+    },
+    CreateLight: {
+      screen: CreateLight,
+      navigationOptions: {
+        header: (<Header title="Créer lumière" goBackRoute="Main" />)
+      }
+    },
+    ModifyLight: {
+      screen: ModifyLight,
+      navigationOptions: {
+        header: (<Header title="Modifier lumière" goBackRoute="Main" />)
       }
     }
   },
