@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,16 +14,20 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import application.authentication.Client;
 import application.authentication.User;
+import application.peripheral.Peripheral;
 
 @Entity
+@DiscriminatorValue("Domicile")
 @Table(uniqueConstraints= {@UniqueConstraint(columnNames = {"licenseKey"})})
-public class Domicile 
+public class Domicile extends Client  
 {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
+	
 	
 	private int licenseKey;
 	private String name;
@@ -39,18 +44,22 @@ public class Domicile
         )
     @JoinColumn(name = "domicile_id")
     private List<User> users = new ArrayList<>();
-    //**TODO Add list peripheriques
-	
-	public Domicile() { }
-	
-	public Domicile(Integer id)
-	{
-		this.id = id;
+    
+    @OneToMany(
+            cascade = CascadeType.ALL, 
+            orphanRemoval = true
+        )
+    @JoinColumn(name = "domicile_id")
+    private List<Peripheral> peripherals;
+    
+	public Domicile() {
+		super(); 
 	}
 	
 	public Domicile(int id, int licenseKey, String name, String street, int streetNumber, 
-					String postalCode, String city, String state, String country )
+					String postalCode, String city, String state, String country, String username, String password, String salt)
 	{
+		super(username, password, salt);
 		 this.id = id;              
 		 this.licenseKey=licenseKey;
 		 this.name=name;       
@@ -60,16 +69,6 @@ public class Domicile
 		 this.city= city;       
 		 this.state= state;     
 		 this.country= country;    
-	}
-	
-	public Integer getId()
-	{
-		return id;
-	}
-	
-	public void setId(Integer id)
-	{
-		this.id = id;
 	}
 	
 	public int getLicenseKey() {
@@ -150,6 +149,14 @@ public class Domicile
 	
 	public void removeUser(User user) {
 		this.users.remove(user);		
+	}
+
+	public void addPeripheral(Peripheral peripheral) {
+		peripherals.add(peripheral);
+	}
+	
+	public void removePeripheral(Peripheral peripheral) {
+		peripherals.remove(peripheral);
 	}
 	
 }

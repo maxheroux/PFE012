@@ -21,7 +21,8 @@ public class Peripheral
 	
 	private String bluetoothId;
 	private String name;
-	//private String type;
+	//private State currentState;
+	//private ScheduleDetail[][] schedule = new ScheduleDetail[7][24];
 		
 	public Peripheral() { }
 	
@@ -35,7 +36,6 @@ public class Peripheral
 		 this.id = id;              
 		 this.bluetoothId = bluetoothId;
 		 this.name=name;
-		 //this.type = type;
 	}
 
 	public Integer getId() {
