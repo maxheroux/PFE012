@@ -10,7 +10,7 @@ class TemperatureHandler:
     def __init__(self, device_id, port):
         self.device_id = device_id
         self.ser = serial.Serial(port, 9600)
-        self.periodic_poll_delay = 5
+        self.periodic_poll_delay = 2
         self.last_temperature = 0
         self.last_humidity = 0
         self.requested_temperature = 15
@@ -33,10 +33,16 @@ class TemperatureHandler:
         self.ser.writelines(message)
 
     def read(self):
+        waitingLimit = 10
         bytesInBuffer = self.ser.inWaiting()
-        while bytesInBuffer <= 0:
+        while bytesInBuffer <= 0 and waitingLimit > 0:
             time.sleep(0.2)
             bytesInBuffer = self.ser.inWaiting()
+            waitingLimit-=1
+
+        if waitingLimit <=0 and bytesInBuffer <=0:
+            return False
+
         while bytesInBuffer > 0:
             self.readValue = self.ser.read_until()
             bytesInBuffer = self.ser.inWaiting()
@@ -47,19 +53,38 @@ class TemperatureHandler:
         if self.changing_state:
             return
 
-        self.send(json.dumps(
-            {"messageType": "read"}))
-        response = self.read()
+        response = self.read_temperature_response()
+
         response = json.loads(response)
         self.requested_temperature = response['RequestedTemperature']
         self.last_temperature = response['CurrentTemperature']
         self.last_humidity = response['Humidity']
+    
+    def read_temperature_response(self):
+        
+        self.send(json.dumps(
+            {"messageType": "read"}))
+        response = self.read()
+
+        #Message seems not to have been received by peripheric, send it again
+        if response == False:
+            response = self.read_temperature_response()
+
+        return response
+
+
 
     def read_response(self, state_value):
 
         message = json.dumps({"messageType": "update", "updateType": "RequestedTemperature", "updateValue": state_value})
         self.send(message)
-        return self.read()
+        read_message = self.read()
+
+        #Message seems not to have been received by peripheric, send it again
+        if read_message == False:
+            return self.read_response(state_value)
+
+        return read_message
 
 
 class Reader(threading.Thread):

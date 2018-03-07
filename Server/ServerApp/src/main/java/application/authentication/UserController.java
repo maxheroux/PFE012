@@ -38,11 +38,11 @@ public class UserController
 			user.setToken(token);
 			userRepository.save(user);
 			
-			return new Message("Token", token);
+			return new Message(token);
 		}
 		else
 		{
-			return new Message("Token", "BAD_AUTHENTICATION");
+			return new Message("BAD_AUTHENTICATION");
 		}
 	}
 	
@@ -63,6 +63,6 @@ public class UserController
 		user.setToken(token);
 		userRepository.save(user);
 		
-		return new Message("Token", user.getToken());
+		return new Message( user.getToken());
 	}
 }

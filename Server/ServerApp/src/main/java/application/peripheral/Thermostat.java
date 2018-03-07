@@ -8,13 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-@Entity
-@DiscriminatorValue("Thermostat")
-public class Thermostat extends Peripheral
+//@Entity
+//@DiscriminatorValue("Thermostat")
+public class Thermostat extends State
 {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	//@Id
+	//@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	private String desiredTemperature;
 	private String currentTemperature;
