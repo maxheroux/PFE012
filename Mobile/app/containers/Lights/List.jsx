@@ -13,7 +13,8 @@ type Props = {
   onModify: (itemIdList: Array<number>, lights: Array<light>) => {},
   error: string,
   isFetching: boolean,
-  lights: Array<thermostat>
+  hasFetchedOnce: boolean,
+  lights: Array<light>
 };
 
 type State = {
@@ -22,6 +23,7 @@ type State = {
 const mapStateToProps = (state, ownProps) => ({
   error: state.lights.list.error,
   isFetching: state.lights.list.isFetching,
+  hasFetchedOnce: state.lights.list.hasFetchedOnce,
   lights: state.lights.list.list,
 });
 
@@ -47,7 +49,7 @@ export default class Lights extends React.Component<Props, State> {
   }
 
   render() {
-    let { lights, onCreate, onModify, onItemPress } = this.props;
+    let { lights, onCreate, onModify, onItemPress, hasFetchedOnce } = this.props;
     let listItems = map(lights, (item, i) => {
       const props = {
         name: item.name,
@@ -61,6 +63,7 @@ export default class Lights extends React.Component<Props, State> {
     const listProperties = {
       title: 'Lumières',
       listId: 'Lights',
+      hasFetchedOnce,
       onCreate,
       onModify: (itemIndexList) => onModify(itemIndexList, lights),
       onItemPress: (itemIndex) => onModify([itemIndex], lights)

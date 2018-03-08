@@ -14,6 +14,7 @@ type Props = {
   onModify: (itemIdList: Array<number>, thermostats: Array<thermostat>) => {},
   error: string,
   isFetching: boolean,
+  hasFetchedOnce: boolean,
   thermostats: Array<thermostat>
 };
 
@@ -23,6 +24,7 @@ type State = {
 const mapStateToProps = (state, ownProps) => ({
   error: state.thermostats.list.error,
   isFetching: state.thermostats.list.isFetching,
+  hasFetchedOnce: state.thermostats.list.hasFetchedOnce,
   thermostats: state.thermostats.list.list,
 });
 
@@ -52,7 +54,7 @@ export default class Thermostats extends React.Component<Props, State> {
   }
 
   render() {
-    let { thermostats, onCreate, onModify, onItemPress } = this.props;
+    let { thermostats, onCreate, onModify, onItemPress, hasFetchedOnce } = this.props;
     let listItems = map(thermostats, (item, i) => {
       const props = {
         name: item.name,
@@ -67,6 +69,7 @@ export default class Thermostats extends React.Component<Props, State> {
     const listProperties = {
       title: 'Thermostats',
       listId: 'Thermostats',
+      hasFetchedOnce,
       onCreate,
       onModify: (itemIndexList) => onModify(itemIndexList, thermostats),
       onItemPress: (itemIndex) => onModify([itemIndex], thermostats)

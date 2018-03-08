@@ -39,6 +39,7 @@ export default class PeripheralReducerHelper {
           list: {
             ...state.list,
             isFetching: false,
+            hasFetchedOnce: true,
             error: undefined,
             list: action.list
           }
@@ -49,6 +50,7 @@ export default class PeripheralReducerHelper {
           list: {
             ...state.list,
             isFetching: false,
+            hasFetchedOnce: true,
             error: action.error,
           }
         };

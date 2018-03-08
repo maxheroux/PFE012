@@ -16,6 +16,7 @@ export default class Locks extends React.Component {
     const listProperties = {
       title: 'Serrures',
       listId: 'Serrures',
+      hasFetchedOnce: true,
       onCreate: () => {},
       onModify: () => {},
       onItemPress: (itemId) => {}

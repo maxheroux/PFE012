@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Text, Container } from 'native-base';
+import { Text, Container, Spinner } from 'native-base';
 import { ScrollView } from 'react-native';
 import { map, get, some, find, filter } from 'lodash';
 import shallowequal from 'shallowequal';
@@ -14,6 +14,7 @@ type ExternalProps = {
   children: any,
   title: string,
   listId: string,
+  hasFetchedOnce: boolean,
   onCreate: () => void,
   onModify: (itemIdList: Array<number>) => {},
   onItemPress: (itemId: number) => {}
@@ -57,11 +58,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class PeripheralList extends React.Component<Props, State> {
-  shouldComponentUpdate(nextProps, nextState){
+  shouldComponentUpdate(nextProps: Props, nextState: State){
     return this.props.children !== nextProps.children ||
       this.props.title !== nextProps.title ||
       this.props.listId !== nextProps.listId ||
       this.props.isInSelectionMode !== nextProps.isInSelectionMode ||
+      this.props.hasFetchedOnce !== nextProps.hasFetchedOnce ||
       !shallowequal(this.props.items, nextProps.items);
   }
 
@@ -70,6 +72,7 @@ export default class PeripheralList extends React.Component<Props, State> {
       children,
       title,
       isInSelectionMode,
+      hasFetchedOnce,
       items,
       onCreate,
       onModify,
@@ -107,12 +110,22 @@ export default class PeripheralList extends React.Component<Props, State> {
         </ListItem>
       );
     });
+    let content = undefined;
+    if (hasFetchedOnce) {
+      if (listItems.length > 0) {
+        content = listItems
+      } else {
+        content = <Text>Vous n'avez aucun périphérique appartenant à cette catégorie.</Text>;
+      }
+    } else {
+      content = <Spinner color='#777' />;
+    }
 
     return (
       <Container>
         <Header {...headerProps}/>
         <ScrollView>
-          {listItems}
+          {content}
         </ScrollView>
       </Container>
     );

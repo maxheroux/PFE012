@@ -37,6 +37,7 @@ const initialState: state = {
   list: {
     list: [],
     isFetching: false,
+    hasFetchedOnce: false,
     error: undefined,
     interval: undefined,
   },
