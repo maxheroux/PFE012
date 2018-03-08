@@ -44,7 +44,7 @@ export const requestModifyLight = createLogic({
     const loopRequest = (ids) => {
       if (ids.length > 0) {
         const id = ids[0];
-        const newIds = ids.slice(1);
+        const remainingIds = ids.slice(1);
         const request = AjaxUtils.createPostRequest('state/change', {// TODO: find url
           username: getState().connection.username,
           token: getState().connection.token,
@@ -56,11 +56,11 @@ export const requestModifyLight = createLogic({
         });
         return AjaxUtils.performRequest(request, (data) => {
           dispatch(Actions.successfulModifyLight(data.value));
-          if (newIds.length == 0) {
+          if (remainingIds.length == 0) {
             dispatch(NavigationActions.goToRoute('Main'));
           }
         }, Actions.errorModifyLight, dispatch)
-        .then(() => loopRequest(newIds));
+        .then(() => loopRequest(remainingIds));
       }
     };
 

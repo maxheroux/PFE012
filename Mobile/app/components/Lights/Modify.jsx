@@ -4,7 +4,7 @@ import { Form, Item, Label, Input, Button, Text, Spinner, List, ListItem, Body, 
 import { View, ScrollView } from 'react-native';
 import shallowequal from 'shallowequal';
 import { reduce } from 'lodash';
-import { HueSlider, SaturationSlider } from 'react-native-color';
+import { HueSlider, LightnessSlider } from 'react-native-color';
 import tinycolor from 'tinycolor2';
 
 type Props = {
@@ -21,6 +21,11 @@ type State = {
   newBrightness: string,
 };
 
+const isDark = (color) => {
+  const rgbColor = tinycolor(color).toRgb();
+  return rgbColor.r < 100 && rgbColor.g < 100 && rgbColor.b < 100;
+}
+
 const style = {
   container: {
   },
@@ -29,6 +34,7 @@ const style = {
   },
   colorInput: (color) => ({
     backgroundColor: color,
+    color: isDark(color) ? '#FFF' : '#000',
     fontSize: 60,
     fontWeight: 'bold',
     height: 150,
@@ -90,6 +96,11 @@ export default class Modify extends React.Component<Props, State> {
       nameList,
       (final, current, index) => index > 0 ? `${final}, ${current}` : current,
       '');
+    let luminosityText = `${Math.round(parseFloat(this.state.newBrightness) * 100)}%`;
+    if (parseFloat(this.state.newBrightness) == 0) {
+      luminosityText += ' (éteint)';
+    }
+
     return (
       <ScrollView style={style.container}>
         <Input
@@ -110,12 +121,12 @@ export default class Modify extends React.Component<Props, State> {
           </ListItem>
           <ListItem>
             <Body>
-              <Text>Luminosité</Text>
-              <SaturationSlider
+              <Text>Luminosité: {luminosityText}</Text>
+              <LightnessSlider
                 style={style.slider}
                 gradientSteps={40}
                 value={this.state.newBrightness}
-                color={tinycolor(this.state.newColor).toHsl()}
+                color={{ h: 0, s: 0, l: 100 }}
                 onValueChange={(newBrightness) => this.setState({newBrightness})}
               />
             </Body>

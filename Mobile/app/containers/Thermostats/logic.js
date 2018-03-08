@@ -18,7 +18,6 @@ export const requestThermostatsList = createLogic({
         currentHumidity: 30 + i
       });
     }
-    dispatch(Actions.receiveThermostatsList(newThermo));
     // end test
     const request = AjaxUtils.createPostRequest('state/request', {// TODO: find url
       username: getState().connection.username,
@@ -33,6 +32,7 @@ export const requestThermostatsList = createLogic({
         AjaxUtils.detectAndThrowServerError(data);
         if (data.Token == 'BAD_AUTHENTICATION') {
           dispatch(Actions.errorThermostatsList('Les informations sont invalides.'));
+          dispatch(Actions.receiveThermostatsList(newThermo)); // TODO: Remove
         } else {
           let list = newThermo;
           if (data.deviceId) {
@@ -51,6 +51,7 @@ export const requestThermostatsList = createLogic({
       })
       .catch(() => {
         dispatch(Actions.errorThermostatsList('Une erreur est survenu lors de la connection avec le server.'));
+        dispatch(Actions.receiveThermostatsList(newThermo)); // TODO: Remove
       })
       .then(() => done());
   }
@@ -63,7 +64,7 @@ export const requestModifyThermostat = createLogic({
     const loopRequest = (ids) => {
       if (ids.length > 0) {
         const id = ids[0];
-        const newIds = ids.slice(1);
+        const remainingIds = ids.slice(1);
         const request = AjaxUtils.createPostRequest('state/change', {// TODO: find url
           username: getState().connection.username,
           token: getState().connection.token,
@@ -72,11 +73,11 @@ export const requestModifyThermostat = createLogic({
         });
         return AjaxUtils.performRequest(request, (data) => {
           dispatch(Actions.successfulModifyThermostat(data.value));
-          if (newIds.length == 0) {
+          if (remainingIds.length == 0) {
             dispatch(NavigationActions.goToRoute('Main'));
           }
         }, Actions.errorModifyThermostat, dispatch)
-        .then(() => loopRequest(newIds));
+        .then(() => loopRequest(remainingIds));
       }
     };
 

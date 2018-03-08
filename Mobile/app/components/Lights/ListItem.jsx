@@ -48,7 +48,7 @@ export default class LightListItem extends Component<Props, State> {
       <View style={style.container}>
         <View style={style.textContainer}>
           <Text>{name}</Text>
-          <Text note>Luminosité: {Math.round(brightness * 100) / 100}</Text>
+          <Text note>Luminosité: {Math.round(brightness * 100)}%</Text>
         </View>
         <View style={style.colorContainer}>
           <View style={style.color(`#${color}`)}>

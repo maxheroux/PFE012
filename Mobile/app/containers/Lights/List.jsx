@@ -59,7 +59,7 @@ export default class Lights extends React.Component<Props, State> {
     });
 
     const listProperties = {
-      title: 'Lights',
+      title: 'Lumières',
       listId: 'Lights',
       onCreate,
       onModify: (itemIndexList) => onModify(itemIndexList, lights),
