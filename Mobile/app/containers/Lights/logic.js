@@ -32,7 +32,8 @@ export const requestLightsList = createLogic({
     AjaxUtils.performRequest(request, (data) => {
         let list = newLights;// TODO: Retrieve from server
         dispatch(Actions.receiveLightsList(list));
-    }, Actions.errorLightsList, dispatch, done);
+    }, Actions.errorLightsList, dispatch)
+    .then(() => done());
   }
 });
 
@@ -40,16 +41,30 @@ export const requestModifyLight = createLogic({
   type: Constants.requestModifyLight,
   latest: true,
   process({ getState, action }, dispatch, done) {
-    const request = AjaxUtils.createPostRequest('device/modify', {// TODO: find url
-      username: getState().connection.username,
-      token: getState().connection.token,
-      ids: action.ids,
-      targetTemp: action.targetTemp,
-      type: 'thermostat'
-    });
-    AjaxUtils.performRequest(request, (data) => {
-      dispatch(Actions.successfulModifyLight(data.value));
-    }, Actions.errorModifyLight, dispatch, done);
+    const loopRequest = (ids) => {
+      if (ids.length > 0) {
+        const id = ids[0];
+        const newIds = ids.slice(1);
+        const request = AjaxUtils.createPostRequest('state/change', {// TODO: find url
+          username: getState().connection.username,
+          token: getState().connection.token,
+          peripheralId: id,
+          value: {
+            color: action.color,
+            brightness: action.brightness,
+          }
+        });
+        return AjaxUtils.performRequest(request, (data) => {
+          dispatch(Actions.successfulModifyLight(data.value));
+          if (newIds.length == 0) {
+            dispatch(NavigationActions.goToRoute('Main'));
+          }
+        }, Actions.errorModifyLight, dispatch)
+        .then(() => loopRequest(newIds));
+      }
+    };
+
+    loopRequest(action.ids).then(() => done());
   }
 });
 
@@ -66,6 +81,7 @@ export const requestCreateLight = createLogic({
     });
     AjaxUtils.performRequest(request, (data) => {
       dispatch(Actions.successfulCreateLight(data.value));
-    }, Actions.errorCreateLight, dispatch, done);
+    }, Actions.errorCreateLight, dispatch)
+    .then(() => done());
   }
 });

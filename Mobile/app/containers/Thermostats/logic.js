@@ -31,7 +31,7 @@ export const requestThermostatsList = createLogic({
       })
       .then((data) => {
         AjaxUtils.detectAndThrowServerError(data);
-        if (data.value == 'BAD_AUTHENTICATION') {
+        if (data.Token == 'BAD_AUTHENTICATION') {
           dispatch(Actions.errorThermostatsList('Les informations sont invalides.'));
         } else {
           let list = newThermo;
@@ -60,29 +60,27 @@ export const requestModifyThermostat = createLogic({
   type: Constants.requestModifyThermostat,
   latest: true,
   process({ getState, action }, dispatch, done) {
-    const request = AjaxUtils.createPostRequest('device/modify', {// TODO: find url
-      username: getState().connection.username,
-      token: getState().connection.token,
-      ids: action.ids,
-      targetTemp: action.targetTemp,
-      type: 'thermostat'
-    });
-    AjaxUtils.timeout(5000, request())
-      .then((resp) => {
-        return resp.json();
-      })
-      .then((data) => {
-        AjaxUtils.detectAndThrowServerError(data);
-        if (data.value == 'BAD_AUTHENTICATION') {
-          dispatch(Actions.errorModifyThermostat('Les informations sont invalides.'));
-        } else {
+    const loopRequest = (ids) => {
+      if (ids.length > 0) {
+        const id = ids[0];
+        const newIds = ids.slice(1);
+        const request = AjaxUtils.createPostRequest('state/change', {// TODO: find url
+          username: getState().connection.username,
+          token: getState().connection.token,
+          peripheralId: id,
+          value: action.targetTemp,
+        });
+        return AjaxUtils.performRequest(request, (data) => {
           dispatch(Actions.successfulModifyThermostat(data.value));
-        }
-      })
-      .catch(() => {
-        dispatch(Actions.errorModifyThermostat('Une erreur est survenu lors de la connection avec le server.'));
-      })
-      .then(() => done());
+          if (newIds.length == 0) {
+            dispatch(NavigationActions.goToRoute('Main'));
+          }
+        }, Actions.errorModifyThermostat, dispatch)
+        .then(() => loopRequest(newIds));
+      }
+    };
+
+    loopRequest(action.ids).then(() => done());
   }
 });
 
@@ -103,7 +101,7 @@ export const requestCreateThermostat = createLogic({
       })
       .then((data) => {
         AjaxUtils.detectAndThrowServerError(data);
-        if (data.value == 'BAD_AUTHENTICATION') {
+        if (data.Token == 'BAD_AUTHENTICATION') {
           dispatch(Actions.errorCreateThermostat('Les informations sont invalides.'));
         } else {
           dispatch(Actions.successfulCreateThermostat(data.value));

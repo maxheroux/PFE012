@@ -34,21 +34,20 @@ export const createPostRequest = (path, paramsObject) => {
   });
 }
 
-export const performRequest = (request, successFn, errorAction, dispatch, done) => {
-  timeout(5000, request())
+export const performRequest = (request, successFn, errorAction, dispatch) => {
+  return timeout(5000, request())
     .then((resp) => {
       return resp.json();
     })
     .then((data) => {
       detectAndThrowServerError(data);
-      if (data.value == 'BAD_AUTHENTICATION') {
-        dispatch(errorAction('Les informations sont invalides.'));
+      if (data.Token == 'BAD_AUTHENTICATION') {
+        dispatch(errorAction(`Votre session n'est plus valide. Reconnectez vous.`));
       } else {
         successFn(data);
       }
     })
     .catch(() => {
       dispatch(errorAction('Une erreur est survenu lors de la connection avec le server.'));
-    })
-    .then(() => done());
+    });
 }
