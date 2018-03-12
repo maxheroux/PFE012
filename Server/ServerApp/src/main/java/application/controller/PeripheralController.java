@@ -19,6 +19,7 @@ import application.repositories.DomicileRepository;
 import application.repositories.PeripheralRepository;
 import application.repositories.UserRepository;
 import application.utilities.AuthenticationFunctions;
+import application.utilities.PeripheralSerializer;
 
 @RestController
 public class PeripheralController extends JsonController {
@@ -45,6 +46,8 @@ public class PeripheralController extends JsonController {
 
 		if (AuthenticationFunctions.isTokenValid(user, token)) {
 			Domicile dom = domicileRepository.findByUserId(user.getId());
+			
+			gson = new GsonBuilder().registerTypeAdapter(Peripheral.class, new PeripheralSerializer()).create();
 			return gson.toJson(dom.getPeripherals());
 		} else {
 			return getBadAuthJsonString();
@@ -70,6 +73,7 @@ public class PeripheralController extends JsonController {
 			dom.addPeripheral(newPeripheral);
 			peripheralRepository.save(newPeripheral);
 			domicileRepository.save(dom);
+			gson = new GsonBuilder().registerTypeAdapter(Peripheral.class, new PeripheralSerializer()).create();
 			return gson.toJson(dom.getPeripherals());
 		} else {
 			return getBadAuthJsonString();

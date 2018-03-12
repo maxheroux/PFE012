@@ -35,17 +35,17 @@ public class StateController extends JsonController {
 	public String stateRequest(@RequestBody String payload) {
 		Gson gson = new Gson();
 		StateRequest request = gson.fromJson(payload, StateRequest.class);
-
+		
 		String username = request.getUsername();
 		String token = request.getToken();
 
 		User user = userRepository.findByUsername(username);
-
+	
 		if (Authenticate(token, user)) {
-			String response = PostPaylaod(payload, token, user, STATE_REQUEST);
+			String response = PostPayload(payload, token, user, STATE_REQUEST);
 			messageRepository.save(request);
 			return response;
-		} else {
+		}else {
 			return getBadAuthJsonString();
 		}
 	}
@@ -61,10 +61,10 @@ public class StateController extends JsonController {
 		User user = userRepository.findByUsername(username);
 
 		if (Authenticate(token, user)) {
-			String response = PostPaylaod(payload, token, user, STATE_CHANGE);
+			String response = PostPayload(payload, token, user, STATE_CHANGE);
 			messageRepository.save(request);
 			return response;
-		} else {
+		}else {
 			return getBadAuthJsonString();
 		}
 	}

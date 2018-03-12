@@ -1,11 +1,11 @@
 package application.model.peripherals;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import javax.persistence.DiscriminatorValue;
 
 public class PeripheralBuilder {
 
@@ -30,34 +30,17 @@ public class PeripheralBuilder {
 		return newPeripheral;
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+
 	private State getConcretState(String type) {
-		for (Class classType : statesTypes) {
-			for (Annotation annotation : classType.getAnnotations()) {
+		for (Class<?> classType : statesTypes) {
+			DiscriminatorValue anno = (DiscriminatorValue) classType.getAnnotation(DiscriminatorValue.class);
+			if (anno.value().equals(type)) {
+				try {
+					return (State) classType.getConstructor().newInstance();
+				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+						| InvocationTargetException | NoSuchMethodException | SecurityException e) {
 
-				Class<? extends Annotation> annotationType = annotation.annotationType();
-
-				if (annotationType.equals(javax.persistence.DiscriminatorValue.class)) {
-					for (Method method : annotationType.getDeclaredMethods()) {
-						Object value = null;
-
-						try {
-							value = method.invoke(annotation, (Object[]) null);
-						} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-						}
-
-						String valueString = (String) value;
-
-						if (valueString.equals(type)) {
-							try {
-								return (State) classType.getConstructor().newInstance();
-							} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-									| InvocationTargetException | NoSuchMethodException | SecurityException e) {
-
-								return null;
-							}
-						}
-					}
+					return null;
 				}
 			}
 		}

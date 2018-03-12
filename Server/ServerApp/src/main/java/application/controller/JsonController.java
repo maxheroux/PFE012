@@ -17,7 +17,7 @@ public abstract class JsonController {
 		super();
 	}
 
-	protected String PostPaylaod(String payload, String token, User user, String mappingValue) {
+	protected String PostPayload(String payload, String token, User user, String mappingValue) {
 		final String uri = HTTP + user.getPublicIp() + ":" + user.getPort() + mappingValue;
 
 		RestTemplate restTemplate = new RestTemplate();
