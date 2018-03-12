@@ -8,6 +8,8 @@ import com.google.gson.Gson;
 import application.message.StateChange;
 import application.message.StateRequest;
 
+import java.util.Map;
+import java.util.HashMap;
 
 @SpringBootApplication
 public class Application
@@ -23,8 +25,9 @@ public class Application
 		gson.toJson(req, StateRequest.class);
 		
 		System.out.println(gson.toJson(req, StateRequest.class).toString());
-		
-		StateChange change = new StateChange(1, "julien", "requestedTemperature", 22, "asdasddas");
+		Map<String,String> value = new HashMap<>();
+		value.put("RequestedTemperature", "22");		
+		StateChange change = new StateChange(1, "julien", "requestedTemperature", value, "asdasddas");
 		
 		System.out.println(gson.toJson(change, StateChange.class).toString());
 	}

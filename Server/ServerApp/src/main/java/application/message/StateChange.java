@@ -1,12 +1,14 @@
 package application.message;
 
+import java.util.Map;
+
 public class StateChange extends Message {
 	private int peripheralId;
 	private String username;
 	private String valueType;
-	private int value;
+	private Map<String,String> value;
 
-	public StateChange(int peripheralId, String username, String valueType, int value, String token) {
+	public StateChange(int peripheralId, String username, String valueType, Map<String,String> value, String token) {
 		super(token);
 		this.peripheralId = peripheralId;
 		this.username = username;
