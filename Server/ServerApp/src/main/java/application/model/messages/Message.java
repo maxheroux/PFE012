@@ -1,4 +1,4 @@
-package application.message;
+package application.model.messages;
 
 import java.time.LocalDateTime;
 
@@ -7,40 +7,40 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 public class Message {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Expose
 	protected Integer id;
+	@Expose
 	protected LocalDateTime dateTime;
+	@Expose
 	protected String token;
-	
-	public Message()
-	{
+
+	public Message() {
 		dateTime = LocalDateTime.now();
 	}
-	
-	public Message(Integer id, String token)
-	{
+
+	public Message(Integer id, String token) {
 		this();
 		this.id = id;
 		this.token = token;
 	}
-	
-	public Message(String token)
-	{
+
+	public Message(String token) {
 		this();
 		this.token = token;
 	}
-	
-	public Integer getId()
-	{
+
+	public Integer getId() {
 		return id;
 	}
-	
-	public void setId(Integer id)
-	{
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -60,9 +60,4 @@ public class Message {
 		this.token = token;
 	}
 
-
-	
-	
-	
-	
 }

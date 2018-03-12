@@ -2,13 +2,13 @@ package application.utilities;
 
 import java.util.UUID;
 
-import application.authentication.User;
+import application.model.Client;
 
 public class AuthenticationFunctions {
 
-	public static boolean isTokenValid(User user, String token)
+	public static boolean isTokenValid(Client client, String token)
 	{
-		if (user.getToken().equals(token))
+		if (client.getToken().equals(token))
 		{
 			return true;
 		}
