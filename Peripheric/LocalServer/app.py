@@ -28,8 +28,9 @@ def stateChange():
     if not deviceMap.has_key(deviceId):
         return json.dumps({"error":"Device Id {} Not found".format(deviceId)})
     deviceHandler = deviceMap.get(deviceId)
-    response = deviceHandler.change_state(state_value)
-    return response
+    deviceHandler.change_state(state_value)
+    # TODO: Validate that State: OK is needed, it could be someting like http 200 Ok
+    return '{"State": "Ok"}'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
