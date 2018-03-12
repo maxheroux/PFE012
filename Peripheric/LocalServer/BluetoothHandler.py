@@ -3,9 +3,7 @@ from _curses import baudrate
 import serial
 import threading
 import time
-import json
 import Queue as queue
-from perpetualTimer import PerpetualTimer
 
 
 class BluetoothHandler:
@@ -32,12 +30,12 @@ class BluetoothHandler:
 
 class Reader(threading.Thread):
 
-    def __init__(self, ser, message_queue, exception_queue, semaphore):
+    def __init__(self, ser, message_queue, exception_queue):
         threading.Thread.__init__(self)
         self.ser = ser
         self.message_queue = message_queue
         self.exception_queue = exception_queue
-        self.semaphore = semaphore
+        self.semaphore = threading.Semaphore()
         self.is_connection_valid = True
         self.setDaemon(True)
 
@@ -75,12 +73,12 @@ class Reader(threading.Thread):
 
 class Writer(threading.Thread):
 
-    def __init__(self, ser, message_queue, exception_queue, semaphore):
+    def __init__(self, ser, message_queue, exception_queue):
         threading.Thread.__init__(self)
         self.ser = ser
         self.message_queue = message_queue
         self.exception_queue = exception_queue
-        self.semaphore = semaphore
+        self.semaphore = threading.Semaphore()
         self.setDaemon(True)
         self.is_connection_valid = True
 
@@ -122,10 +120,8 @@ class ConnectionManager(threading.Thread):
         self.port = port
         self.exception_queue = queue.Queue()
         self.connect()
-        self.writer_semaphore = threading.Semaphore()
-        self.reader_semaphore = threading.Semaphore()
-        self.writer = Writer(self.ser, writer_queue, self.exception_queue, self.writer_semaphore)
-        self.reader = Reader(self.ser, reader_queue, self.exception_queue, self.reader_semaphore)
+        self.writer = Writer(self.ser, writer_queue, self.exception_queue)
+        self.reader = Reader(self.ser, reader_queue, self.exception_queue)
         self.setDaemon(True)
 
     def run(self):

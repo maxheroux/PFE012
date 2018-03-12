@@ -28,7 +28,9 @@ class TemperatureHandler:
     #TODO: put a comment with state_value format (what it is)
     def change_state(self, state_value):
         self.requested_temperature = state_value
-        self.send(state_value)
+        message = json.dumps(
+            {"messageType": "update", "updateType": "RequestedTemperature", "updateValue": state_value})
+        self.bluetooth_handler.send(message)
 
     def request_temperature(self):
         self.bluetooth_handler.send(json.dumps(

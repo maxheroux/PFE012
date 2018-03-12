@@ -2,13 +2,16 @@
 from flask import Flask
 from flask import request
 from TemperatureHandler import TemperatureHandler
+from LightHandler import LightHandler
 import json
 
 app = Flask(__name__)
 rfcomm0_port = '/dev/rfcomm0'
+rfcomm1_port = '/dev/rfcomm1'
 temperatureHandler = TemperatureHandler(1, rfcomm0_port)
+lightHandler = LightHandler(2, rfcomm1_port)
 
-deviceMap = {1: temperatureHandler}
+deviceMap = {1: temperatureHandler, 2: lightHandler}
 
 
 @app.route('/state/request', methods=['POST'])
