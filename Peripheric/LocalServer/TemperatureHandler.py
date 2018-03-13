@@ -1,111 +1,47 @@
+from _curses import baudrate
+
 import serial
 import threading
 import time
 import json
 from perpetualTimer import PerpetualTimer
+from BluetoothHandler import BluetoothHandler
 
+# TODO: Send something to server if a device isn't found, to let it know that it cannot be used
 class TemperatureHandler:
-
-
     def __init__(self, device_id, port):
         self.device_id = device_id
-        self.ser = serial.Serial(port, 9600)
+        self.port = port
         self.periodic_poll_delay = 2
         self.last_temperature = 0
         self.last_humidity = 0
         self.requested_temperature = 15
-        self.changing_state = False
-        self.read_temperature()
+        self.bluetooth_handler = BluetoothHandler(device_id, port)
+        self.request_timer = PerpetualTimer(self.periodic_poll_delay, self.request_temperature)
         self.reader_timer = PerpetualTimer(self.periodic_poll_delay, self.read_temperature)
+        self.request_timer.start()
         self.reader_timer.start()
 
     def get_data(self):
         return json.dumps({"deviceId": self.device_id,"currentTemperature": self.last_temperature, "requestedTemperature": self.requested_temperature, "currentHumidity":self.last_humidity})
 
+    #TODO: put a comment with state_value format (what it is)
     def change_state(self, state_value):
-        self.changing_state = True
         self.requested_temperature = state_value
-        response = self.read_response(state_value)
-        self.changing_state = False
-        return response
+        self.send(state_value)
 
-    def send(self, message):
-        self.ser.writelines(message)
-
-    def read(self):
-        waitingLimit = 10
-        bytesInBuffer = self.ser.inWaiting()
-        while bytesInBuffer <= 0 and waitingLimit > 0:
-            time.sleep(0.2)
-            bytesInBuffer = self.ser.inWaiting()
-            waitingLimit-=1
-
-        if waitingLimit <=0 and bytesInBuffer <=0:
-            return False
-
-        while bytesInBuffer > 0:
-            self.readValue = self.ser.read_until()
-            bytesInBuffer = self.ser.inWaiting()
-        return self.readValue
+    def request_temperature(self):
+        self.bluetooth_handler.send(json.dumps(
+            {"messageType": "read"}))
 
     def read_temperature(self):
 
-        if self.changing_state:
-            return
+            message = self.bluetooth_handler.read()
+            if message != None:
+                message = json.loads(message)
+                if "RequestedTemperature" in message:
+                    self.requested_temperature = message['RequestedTemperature']
+                    self.last_temperature = message['CurrentTemperature']
+                    self.last_humidity = message['Humidity']
 
-        response = self.read_temperature_response()
-
-        response = json.loads(response)
-        self.requested_temperature = response['RequestedTemperature']
-        self.last_temperature = response['CurrentTemperature']
-        self.last_humidity = response['Humidity']
-    
-    def read_temperature_response(self):
-        
-        self.send(json.dumps(
-            {"messageType": "read"}))
-        response = self.read()
-
-        #Message seems not to have been received by peripheric, send it again
-        if response == False:
-            response = self.read_temperature_response()
-
-        return response
-
-
-
-    def read_response(self, state_value):
-
-        message = json.dumps({"messageType": "update", "updateType": "RequestedTemperature", "updateValue": state_value})
-        self.send(message)
-        read_message = self.read()
-
-        #Message seems not to have been received by peripheric, send it again
-        if read_message == False:
-            return self.read_response(state_value)
-
-        return read_message
-
-
-class Reader(threading.Thread):
-
-    def __init__(self, ser):
-        threading.Thread.__init__(self)
-        self.ser = ser
-        self.readValue = None
-        self.setDaemon(True)
-
-    def run(self):
-
-        bytesInBuffer = self.ser.inWaiting()
-        while bytesInBuffer <= 0:
-            time.sleep(0.2)
-            bytesInBuffer = self.ser.inWaiting()
-        while bytesInBuffer > 0:
-            self.readValue = self.ser.read_until()
-            bytesInBuffer = self.ser.inWaiting()
-
-    def consume(self):
-        consumedValue = self.readValue
-        self.readValue = None
-        return consumedValue
+#           TODO: Handle other messages if needed (Alert)
