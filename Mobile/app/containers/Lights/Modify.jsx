@@ -38,7 +38,7 @@ export default class ModifyLight extends React.Component<Props, State> {
     const avgGreen = meanBy(selectedItems, i => tinycolor(i.color).toRgb().g);
     const avgBlue = meanBy(selectedItems, i => tinycolor(i.color).toRgb().b);
     const childProps = {
-      modifyLight: (targetTemp) => modifyLight(selectedIds, targetTemp),
+      modifyLight: (color, brightness) => modifyLight(selectedIds, color, brightness),
       error,
       isFetching,
       nameList: map(selectedItems, i => i.name),
