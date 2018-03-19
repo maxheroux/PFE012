@@ -25,13 +25,13 @@ public class PeripheralBuilder {
 
 	public Peripheral build() {
 		Peripheral newPeripheral = new Peripheral(bluetoothId, name);
-		newPeripheral.setCurrentState(new Light(false, true, 11, 22));
-		newPeripheral.setCurrentState(getConcretState(type));
+		newPeripheral.setCurrentState(new Light(false, 11));
+		newPeripheral.setCurrentState(getConcreteState(type));
 		return newPeripheral;
 	}
 
 
-	private State getConcretState(String type) {
+	private State getConcreteState(String type) {
 		for (Class<?> classType : statesTypes) {
 			DiscriminatorValue anno = (DiscriminatorValue) classType.getAnnotation(DiscriminatorValue.class);
 			if (anno.value().equals(type)) {

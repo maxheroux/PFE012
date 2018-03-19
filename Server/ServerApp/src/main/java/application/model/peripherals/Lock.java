@@ -7,16 +7,14 @@ import javax.persistence.Entity;
 @DiscriminatorValue("Lock")
 public class Lock extends State {
 	private Boolean currentLock;
-	private Boolean desiredLock;
 
 	public Lock() {
 		super();
 	}
 
-	public Lock(Boolean currentLock, Boolean desiredLock) {
+	public Lock(Boolean currentLock) {
 		super();
 		this.currentLock = currentLock;
-		this.desiredLock = desiredLock;
 	}
 
 	public Boolean getCurrentLock() {
@@ -25,14 +23,6 @@ public class Lock extends State {
 
 	public void setCurrentLock(Boolean currentLock) {
 		this.currentLock = currentLock;
-	}
-
-	public Boolean getDesiredLock() {
-		return desiredLock;
-	}
-
-	public void setDesiredLock(Boolean desiredLock) {
-		this.desiredLock = desiredLock;
 	}
 
 }
