@@ -1,4 +1,4 @@
-package application.authentication;
+package application.controller;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import application.message.Message;
+import application.model.User;
+import application.model.messages.Message;
+import application.repositories.UserRepository;
 import application.utilities.AuthenticationFunctions;
 import application.utilities.HashingFunctions;
 

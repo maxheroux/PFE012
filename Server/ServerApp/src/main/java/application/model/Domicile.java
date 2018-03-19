@@ -1,4 +1,4 @@
-package application.domicile;
+package application.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,21 +14,20 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import application.authentication.Client;
-import application.authentication.User;
-import application.peripheral.Peripheral;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import application.model.peripherals.Peripheral;
 
 @Entity
 @DiscriminatorValue("Domicile")
-@Table(uniqueConstraints= {@UniqueConstraint(columnNames = {"licenseKey"})})
-public class Domicile extends Client  
-{
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "licenseKey" }) })
+public class Domicile extends Client {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
-	
+
 	private int licenseKey;
 	private String name;
 	private String street;
@@ -37,40 +36,35 @@ public class Domicile extends Client
 	private String city;
 	private String state;
 	private String country;
-	
-    @OneToMany(
-            cascade = CascadeType.ALL, 
-            orphanRemoval = true
-        )
-    @JoinColumn(name = "domicile_id")
-    private List<User> users = new ArrayList<>();
-    
-    @OneToMany(
-            cascade = CascadeType.ALL, 
-            orphanRemoval = true
-        )
-    @JoinColumn(name = "domicile_id")
-    private List<Peripheral> peripherals;
-    
+
+	@OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
+	@JoinColumn(name = "home_id")
+	@Fetch(FetchMode.SELECT)
+	private List<User> users = new ArrayList<>();
+
+	@OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
+	@JoinColumn(name = "domicile_id")
+	@Fetch(FetchMode.SELECT)
+	private List<Peripheral> peripherals;
+
 	public Domicile() {
-		super(); 
+		super();
 	}
-	
-	public Domicile(int id, int licenseKey, String name, String street, int streetNumber, 
-					String postalCode, String city, String state, String country, String username, String password, String salt)
-	{
+
+	public Domicile(int licenseKey, String name, String street, int streetNumber, String postalCode, String city,
+			String state, String country, String username, String password, String salt) {
 		super(username, password, salt);
-		 this.id = id;              
-		 this.licenseKey=licenseKey;
-		 this.name=name;       
-		 this.street=street;     
-		 this.streetNumber=streetNumber;  
-		 this.postalCode=postalCode; 
-		 this.city= city;       
-		 this.state= state;     
-		 this.country= country;    
+		this.licenseKey = licenseKey;
+		this.name = name;
+		this.street = street;
+		this.streetNumber = streetNumber;
+		this.postalCode = postalCode;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+		this.peripherals = new ArrayList<>();
 	}
-	
+
 	public int getLicenseKey() {
 		return licenseKey;
 	}
@@ -142,21 +136,26 @@ public class Domicile extends Client
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}
-	
+
 	public void addUser(User user) {
-		this.users.add(user);		
+		this.users.add(user);
 	}
-	
+
 	public void removeUser(User user) {
-		this.users.remove(user);		
+		this.users.remove(user);
 	}
 
 	public void addPeripheral(Peripheral peripheral) {
 		peripherals.add(peripheral);
 	}
-	
+
 	public void removePeripheral(Peripheral peripheral) {
 		peripherals.remove(peripheral);
 	}
+
+	public List<Peripheral> getPeripherals() {
+		return peripherals;
+	}
+
 	
 }
