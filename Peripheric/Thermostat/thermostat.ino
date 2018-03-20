@@ -26,7 +26,6 @@ void setup()
 	heaterController.setCurrentTemperature(currentTemperature);
 	heaterController.setRequestedTemperature(MIN_TEMPERATURE);
 	
-	Serial.begin(9600);
 	EEBlue.begin(9600);
 }
 
@@ -38,7 +37,7 @@ void loop()
 		StaticJsonBuffer<512> jsonBuffer;
 		JsonObject &receivedJson = jsonBuffer.parse(EEBlue);
 		String messageType = receivedJson["messageType"];
-
+		
 		if (messageType == "update")
 		{
 
@@ -68,8 +67,7 @@ void loop()
 			root["Humidity"] = temperatureController.getHumidity();
 			root["CurrentTemperature"] = temperatureController.getCurrentTemperature();
 			root["RequestedTemperature"] = temperatureController.getRequestedTemperature();
-			
-			root.printTo(Serial);
+
 			root.printTo(EEBlue);
 			EEBlue.println();
 		}
