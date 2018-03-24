@@ -69,6 +69,7 @@ void loop()
 			root["CurrentTemperature"] = temperatureController.getCurrentTemperature();
 			root["RequestedTemperature"] = temperatureController.getRequestedTemperature();
 			
+			root.printTo(Serial);
 			root.printTo(EEBlue);
 			EEBlue.println();
 		}
