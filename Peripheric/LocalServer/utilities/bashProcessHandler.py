@@ -8,7 +8,6 @@ class PeripheralCreationProcess:
 
         new_rfcomm_channel = 0
         found_available_channel = False
-
         while not found_available_channel:
 
             if not PeripheralCreationProcess.rfcomm_exists(new_rfcomm_channel):
@@ -19,8 +18,9 @@ class PeripheralCreationProcess:
 
         creation_successful = subprocess.check_output(
             ["utilities/peripheralCreationScript.sh", bluetooth_id, str(new_rfcomm_channel)])
+
         print(creation_successful)
-        if "True" in creation_successful:
+        if "True" in str(creation_successful):
             print("Creation of {} successful with /dev/rfcomm{}".format(bluetooth_id, new_rfcomm_channel))
             return "/dev/rfcomm{}".format(new_rfcomm_channel)
 

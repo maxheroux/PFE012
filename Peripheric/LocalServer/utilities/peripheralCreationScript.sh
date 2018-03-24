@@ -27,7 +27,9 @@ print_message(){
     fi
 }
 
+
 coproc pfeProc {
+
 	bluetoothctl
 }
 
@@ -52,7 +54,7 @@ startScan(){
     readProcessResponse processResponse
     if [[ $processResponse =~ .*$1.* ]]
         then
-            echo $processResponse
+            print_message $processResponse
             print_message 'Device already scanned'
         else
         sendToProcess 'scan on'

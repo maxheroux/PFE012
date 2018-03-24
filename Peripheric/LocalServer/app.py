@@ -32,14 +32,15 @@ def stateChange():
     if deviceId not in deviceMap:
         return json.dumps({"error":"Device Id {} Not found".format(deviceId)})
     deviceHandler = deviceMap.get(deviceId)
-    response = deviceHandler.change_state(state_value)
-    return response
+    deviceHandler.change_state(state_value)
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
 
 @app.route('/peripheral/add', methods=['POST'])
 def addPeripheral():
 
     try:
+
         peripheral = json.loads(request.get_data().decode("utf-8"), object_hook=Peripheral.peripheral_object_hook)
         if peripheral.id not in deviceMap:
             new_rfcomm = PeripheralCreationProcess.create_peripheral(peripheral.bluetooth_id)
@@ -67,6 +68,7 @@ def initialize_peripherals():
             deviceMap[peripheral.id] = temperature_handler
 
 initialize_peripherals()
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

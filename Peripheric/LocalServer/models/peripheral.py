@@ -2,6 +2,7 @@
 class Peripheral(object):
 
 
+
     def __init__(self, id = 0, bluetooth_id = "", name = "", type = "", rfcomm_device = ""):
         self.id = id
         self.bluetooth_id = str(bluetooth_id)
