@@ -42,7 +42,7 @@ public class Application {
 				Peripheral thermo = new Peripheral("AA-BB-CC-AA-AA-232", "ThermoSalon");
 				thermo.setCurrentState(new Thermostat("22", "21", "11", "12"));
 				Peripheral light = new Peripheral("GG-BB-CC-TT-AA-232", "Lumiere Chambre 32");
-				light.setCurrentState(new Light(false, true, 11, 22));
+				light.setCurrentState(new Light(false, 22));
 				dom.addUser(user1);
 				dom.addPeripheral(thermo);
 				dom.addPeripheral(light);
