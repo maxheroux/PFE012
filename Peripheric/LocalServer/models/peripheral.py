@@ -2,7 +2,6 @@
 class Peripheral(object):
 
 
-
     def __init__(self, id = 0, bluetooth_id = "", name = "", type = "", rfcomm_device = ""):
         self.id = id
         self.bluetooth_id = str(bluetooth_id)
@@ -13,4 +12,5 @@ class Peripheral(object):
     @staticmethod
     def peripheral_object_hook(d):
         peripheral = Peripheral(d["id"], d["bluetoothId"], d["name"], d["type"], "")
+
         return peripheral
