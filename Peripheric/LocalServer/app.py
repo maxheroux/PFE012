@@ -2,14 +2,18 @@
 from flask import Flask
 from flask import request
 from TemperatureHandler import TemperatureHandler
+from models.peripheral import Peripheral
+from utilities.bashProcessHandler import PeripheralCreationProcess
+from dataAccess.peripheral import Peripheral_DAO
 import json
 
-app = Flask(__name__)
-rfcomm0_port = '/dev/rfcomm0'
-temperatureHandler = TemperatureHandler(0, rfcomm0_port)
+peripheral_dao = Peripheral_DAO()
 
-deviceMap = {0: temperatureHandler}
-# deviceMap = {}
+app = Flask(__name__)
+
+deviceMap = {}
+
+
 
 @app.route('/state/request', methods=['POST'] )
 def stateRequest():
@@ -36,21 +40,33 @@ def stateChange():
 def addPeripheral():
 
     try:
-        peripheral = json.loads(request.get_json(), object_hook=Peripheral.peripheral_object_hook)
+        peripheral = json.loads(request.get_data().decode("utf-8"), object_hook=Peripheral.peripheral_object_hook)
         if peripheral.id not in deviceMap:
-            print("device id :{}".format(peripheral.id))
-            new_rfcomm = PeripheralCreationProcess.create_peripheral(peripheral.bluetoothId)
+            new_rfcomm = PeripheralCreationProcess.create_peripheral(peripheral.bluetooth_id)
             if new_rfcomm is None:
                 return "Creation failed"
             else:
-                temperatureHandler = TemperatureHandler(peripheral.id, new_rfcomm)
-                deviceMap[peripheral.id] = temperatureHandler
+                peripheral_dao.add_peripheral(peripheral, new_rfcomm)
+                temperature_handler = TemperatureHandler(peripheral.id, new_rfcomm)
+                deviceMap[peripheral.id] = temperature_handler
         else:
             return "Peripheral ID {} already exists".format(peripheral.id)
     except Exception as e:
         print(e)
         return "Bad JSON format"
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+
+
+def initialize_peripherals():
+
+    peripherals = peripheral_dao.get_peripherals()
+
+    for peripheral in peripherals:
+        if peripheral.type == "thermostat":
+            temperature_handler = TemperatureHandler(peripheral.id, peripheral.rfcomm_device)
+            deviceMap[peripheral.id] = temperature_handler
+
+initialize_peripherals()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

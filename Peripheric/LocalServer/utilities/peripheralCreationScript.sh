@@ -27,8 +27,8 @@ print_message(){
     fi
 }
 
-coproc pfeProc { 
-	sudo bluetoothctl
+coproc pfeProc {
+	bluetoothctl
 }
 
 sendToProcess(){
@@ -110,6 +110,7 @@ if [[ $processResponse =~ .*Pairing\ successful.* ]]
 then
     print_message $processResponse
     sudo rfcomm bind $2 $1
+    echo "True"
 # elif [[ $processResponse =~ .*Failed\ to\ pair:\ org\.bluez\.Error\.AuthenticationFailed.* ]]
 # then
 #     pairDevice $1
@@ -123,7 +124,7 @@ then
 #         fi
 else
     print_message $processResponse
+    echo "False"
 fi
 
 
-#Handle this at rfcomm bind command -> Can't create device: Address already in use

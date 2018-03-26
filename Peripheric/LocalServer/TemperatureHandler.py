@@ -1,8 +1,4 @@
-from _curses import baudrate
 
-import serial
-import threading
-import time
 import json
 from perpetualTimer import PerpetualTimer
 from BluetoothHandler import BluetoothHandler
