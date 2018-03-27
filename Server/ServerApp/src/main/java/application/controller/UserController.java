@@ -7,8 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import application.model.Domicile;
 import application.model.User;
 import application.model.messages.Message;
+import application.model.peripherals.Light;
+import application.model.peripherals.Peripheral;
+import application.model.peripherals.Thermostat;
+import application.repositories.DomicileRepository;
 import application.repositories.UserRepository;
 import application.utilities.AuthenticationFunctions;
 import application.utilities.HashingFunctions;
@@ -18,6 +23,8 @@ public class UserController
 {	
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private DomicileRepository domicileRepository;
 	
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -62,8 +69,14 @@ public class UserController
 		
 		// Store info in database
 		User user = new User(username, cryptedPassword, salt, publicIp, port);
+		
+		Domicile dom = new Domicile(123123,username+" Domicile", "Rue "+username, 12, "H1H1H1", "Montreal", "QQ", "Ca", username+"domo",
+				"domodomo", "asd");
+		dom.addUser(user);
+
 		user.setToken(token);
 		userRepository.save(user);
+		dom = domicileRepository.save(dom);
 		
 		return new Message( user.getToken());
 	}
