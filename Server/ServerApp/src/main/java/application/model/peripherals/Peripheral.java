@@ -91,7 +91,7 @@ public class Peripheral {
 		return null;
 	}
 
-	public List<ScheduleDetail> sgetSchedules() {
+	public List<ScheduleDetail> getSchedules() {
 		return schedules;
 	}
 
