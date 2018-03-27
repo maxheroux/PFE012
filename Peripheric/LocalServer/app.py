@@ -2,6 +2,7 @@
 from flask import Flask
 from flask import request
 from TemperatureHandler import TemperatureHandler
+from LightHandler import LightHandler
 from models.peripheral import Peripheral
 from utilities.bashProcessHandler import PeripheralCreationProcess
 from dataAccess.peripheral import Peripheral_DAO
@@ -12,8 +13,6 @@ peripheral_dao = Peripheral_DAO()
 app = Flask(__name__)
 
 deviceMap = {}
-
-
 
 @app.route('/state/request', methods=['POST'] )
 def stateRequest():

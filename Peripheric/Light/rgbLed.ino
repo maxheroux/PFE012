@@ -14,9 +14,8 @@ int bluePin = 9;
 int redValue = 0;
 int greenValue = 0;
 int blueValue = 0;
+float brightness = 0;
 
-//uncomment this line if using a Common Anode LED
-// #define COMMON_ANODE
 
 void setup()
 {
@@ -33,62 +32,39 @@ void loop()
 
     if (EEBlue.available())
     {
-        Serial.println("Received something");
         StaticJsonBuffer<512> jsonBuffer;
         JsonObject &receivedJson = jsonBuffer.parse(EEBlue);
         receivedJson.prettyPrintTo(Serial);
         
         String messageType = receivedJson["messageType"];
 
-        if (messageType == "power")
+        if (messageType == "update")
         {
-            int lightState = receivedJson["lightState"];
+            redValue = receivedJson["red"];
+            greenValue = receivedJson["green"];
+            blueValue = receivedJson["blue"];
+            brightness = receivedJson["brightness"];
 
-            if (lightState > 0)
-            {
-                turnOn();
-            }
-            else
-            {
-                turnOff();
-            }
+            setColor(redValue, greenValue, blueValue, brightness);
         }
-        else if (messageType == "color")
+        else if (messageType == "read")
         {
-            int red = receivedJson["red"];
-            int green = receivedJson["green"];
-            int blue = receivedJson["blue"];
-            float brightness = receivedJson["brightness"];
 
-            setColor(red, green, blue, brightness);
+            JsonObject &root = jsonBuffer.createObject();
+            root["red"] = redValue
+            root["green"] = greenValue
+            root["blue"] = blueValue
+            root["brightness"] = brightness
+		
+			root.printTo(EEBlue);
+			EEBlue.println();
         }
     }
 }
 
-void setColor(int red, int green, int blue, float brightness)
+void setColor(int red, int green, int blue)
 {
-    // Keep color in volatile memory
-    redValue = red*brightness;
-    greenValue = green*brightness;
-    blueValue = blue*brightness;
-
     analogWrite(redPin, redValue);
     analogWrite(greenPin, greenValue);
     analogWrite(bluePin, blueValue);
-}
-
-void turnOn()
-{
-
-    analogWrite(redPin, redValue);
-    analogWrite(greenPin, greenValue);
-    analogWrite(bluePin, blueValue);
-}
-
-void turnOff()
-{
-
-    analogWrite(redPin, 0);
-    analogWrite(greenPin, 0);
-    analogWrite(bluePin, 0);
 }
