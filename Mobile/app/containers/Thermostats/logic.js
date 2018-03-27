@@ -1,58 +1,41 @@
 import { createLogic } from 'redux-logic';
 import * as Constants from './constants';
 import * as Actions from './actions';
-import { AjaxUtils, StorageUtils } from '../../../utils';
+import { AjaxUtils } from '../../../utils';
+import { PeripheralLogicHelper, peripheralType } from '../../helpers/Peripheral/logic';
+
+// TODO: remove after testing
+const placeholderThermos = [];
+for(let i = 0; i < 5; i++){
+  placeholderThermos.push({
+    id: i,
+    name: `Thermo #${i}`,
+    currentTemp: 20 + i,
+    targetTemp: 18 + i,
+    currentHumidity: 30 + i
+  });
+}
 
 export const requestThermostatsList = createLogic({
   type: Constants.requestThermostatsList,
   latest: true,
   process({ getState, action }, dispatch, done) {
-    // TODO: remove after testing
-    const newThermo = [];
-    for(let i = 0; i < 5; i++){
-      newThermo.push({
-        id: i,
-        name: `Thermo #${i}`,
-        currentTemp: 20 + i,
-        targetTemp: 18 + i,
-        currentHumidity: 30 + i
-      });
-    }
-    // end test
-    const request = AjaxUtils.createPostRequest('state/request', {// TODO: find url
-      username: getState().connection.username,
-      token: getState().connection.token,
-      peripheralId: 1
-    });
-    AjaxUtils.timeout(5000, request())
-      .then((resp) => {
-        return resp.json();
-      })
-      .then((data) => {
-        AjaxUtils.detectAndThrowServerError(data);
-        if (data.Token == 'BAD_AUTHENTICATION') {
-          dispatch(Actions.errorThermostatsList('Les informations sont invalides.'));
-          dispatch(Actions.receiveThermostatsList(newThermo)); // TODO: Remove
+    const logicHelper = new PeripheralLogicHelper(
+      peripheralType.thermostat,
+      Actions.errorThermostatsList,
+      getState(),
+      dispatch
+    );
+    logicHelper.fetchPeripherals()
+      .then((items) => {
+        if (items.length > 0) {
+          dispatch(Actions.receiveThermostatsList(items));
         } else {
-          let list = newThermo;
-          if (data.deviceId) {
-            list = [
-              {
-                id: data.deviceId,
-                name: 'Thermo salon',
-                currentTemp: data.currentTemperature,
-                targetTemp: data.requestedTemperature,
-                currentHumidity: data.currentHumidity,
-              }
-            ];
-          }
-          dispatch(Actions.receiveThermostatsList(list));
+          // TODO: remove after testing
+          dispatch(Actions.receiveThermostatsList(placeholderThermos));
         }
       })
-      .catch(() => {
-        dispatch(Actions.errorThermostatsList('Une erreur est survenu lors de la connection avec le server.'));
-        dispatch(Actions.receiveThermostatsList(newThermo)); // TODO: Remove
-      })
+      .catch(() => dispatch(Actions.receiveThermostatsList(placeholderThermos)))// TODO: remove after testing
       .then(() => done());
   }
 });
@@ -61,27 +44,25 @@ export const requestModifyThermostat = createLogic({
   type: Constants.requestModifyThermostat,
   latest: true,
   process({ getState, action }, dispatch, done) {
-    const loopRequest = (ids) => {
-      if (ids.length > 0) {
-        const id = ids[0];
-        const remainingIds = ids.slice(1);
-        const request = AjaxUtils.createPostRequest('state/change', {// TODO: find url
-          username: getState().connection.username,
-          token: getState().connection.token,
-          peripheralId: id,
-          value: action.targetTemp,
-        });
-        return AjaxUtils.performRequest(request, (data) => {
-          dispatch(Actions.successfulModifyThermostat(data.value));
-          if (remainingIds.length == 0) {
-            dispatch(NavigationActions.goToRoute('Main'));
-          }
-        }, Actions.errorModifyThermostat, dispatch)
-        .then(() => loopRequest(remainingIds));
-      }
+    const logicHelper = new PeripheralLogicHelper(
+      peripheralType.thermostat,
+      Actions.errorModifyThermostat,
+      getState(),
+      dispatch
+    );
+    const value = {
+      RequestedTemperature: String(action.targetTemp),
     };
+    const itemSuccessFn = (data) => {
+      dispatch(Actions.successfulModifyThermostat(data.updateValue));
+    }
+    logicHelper.modifyPeripherals(
+      action.ids,
+      value,
+      itemSuccessFn)
+      .catch()
+      .then(() => done());
 
-    loopRequest(action.ids).then(() => done());
   }
 });
 
@@ -89,29 +70,18 @@ export const requestCreateThermostat = createLogic({
   type: Constants.requestCreateThermostat,
   latest: true,
   process({ getState, action }, dispatch, done) {
-    const request = AjaxUtils.createPostRequest('device/create', {// TODO: find url
-      username: getState().connection.username,
-      token: getState().connection.token,
-      name: action.name,
-      bluetoothAddress: action.bluetoothAddress,
-      type: 'thermostat'
-    });
-    AjaxUtils.timeout(5000, request())
-      .then((resp) => {
-        return resp.json();
-      })
-      .then((data) => {
-        AjaxUtils.detectAndThrowServerError(data);
-        if (data.Token == 'BAD_AUTHENTICATION') {
-          dispatch(Actions.errorCreateThermostat('Les informations sont invalides.'));
-        } else {
-          dispatch(Actions.successfulCreateThermostat(data.value));
-        }
-      })
-      .catch(() => {
-        dispatch(Actions.errorCreateThermostat('Une erreur est survenu lors de la connection avec le server.'));
-      })
-      .then(() => done());
+    const logicHelper = new PeripheralLogicHelper(
+      peripheralType.thermostat,
+      Actions.errorCreateThermostat,
+      getState(),
+      dispatch
+    );
+    logicHelper.createPeripheral(action.name, action.bluetoothAddress)
+    .then((data) => {
+      dispatch(Actions.successfulCreateThermostat(data.value));
+    })
+    .catch()
+    .then(() => done());
   }
 });
 
@@ -123,7 +93,7 @@ export const startThermostatsListFetchInterval = createLogic({
     if (!interval) {
       interval = setInterval(() => {
         dispatch(Actions.requestThermostatsList());
-      }, 2000);
+      }, 5000);
     }
     next({
       ...action,

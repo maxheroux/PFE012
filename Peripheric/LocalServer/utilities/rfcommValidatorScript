@@ -1,0 +1,9 @@
+#!/bin/sh
+
+rfcommChannelFile=$1
+
+if [ -e $rfcommChannelFile ]; then
+    echo True;
+else
+    echo False;
+fi

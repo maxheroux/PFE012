@@ -3,7 +3,10 @@ from _curses import baudrate
 import serial
 import threading
 import time
-import Queue as queue
+import json
+from Queue import Queue
+from Queue import Empty as Empty_queue
+from perpetualTimer import PerpetualTimer
 
 
 class BluetoothHandler:
@@ -12,8 +15,8 @@ class BluetoothHandler:
     def __init__(self, device_id, port):
         self.device_id = device_id
         self.port = port
-        self.reading_queue = queue.Queue()
-        self.writing_queue = queue.Queue()
+        self.reading_queue = Queue()
+        self.writing_queue = Queue()
         self.connection_manager = ConnectionManager(port, self.writing_queue, self.reading_queue)
         self.connection_manager.start()
 
@@ -23,8 +26,8 @@ class BluetoothHandler:
     def read(self):
 
         try:
-            message = self.reading_queue.get()
-        except queue.Empty as empty_exception:
+            message = self.reading_queue.get(block=False)
+        except Empty_queue as empty_exception:
             return None
         return message
 
@@ -91,7 +94,7 @@ class Writer(threading.Thread):
                     message = self.message_queue.get(timeout=1)
                     self.ser.writelines(message)
                     self.semaphore.release()
-                except queue.Empty:
+                except Empty_queue:
                     self.semaphore.release()
                     pass
                 except IOError as ex:
@@ -118,7 +121,7 @@ class ConnectionManager(threading.Thread):
     def __init__(self, port, writer_queue, reader_queue):
         threading.Thread.__init__(self)
         self.port = port
-        self.exception_queue = queue.Queue()
+        self.exception_queue = Queue()
         self.connect()
         self.writer = Writer(self.ser, writer_queue, self.exception_queue)
         self.reader = Reader(self.ser, reader_queue, self.exception_queue)
@@ -149,18 +152,18 @@ class ConnectionManager(threading.Thread):
 
         try:
             # Send dumb messages, if connection isn't valid, an exception is thrown
-            self.ser.write("test")
-            self.ser.write("test")
-            self.ser.write("test")
+            self.ser.writelines("test")
+            self.ser.writelines("test")
+            self.ser.writelines("test")
             return True
-        except Exception:
+        except Exception as e:
             return False
 
 
     def connect(self):
 
         print("Try connecting bluetooth on port " + self.port)
-        self.ser = serial.Serial(self.port, 9600, timeout=1, write_timeout=2)
+        self.ser = serial.Serial(self.port, timeout=1, write_timeout=2)
 
         if self.is_connected():
             print("Connection successfully established")
