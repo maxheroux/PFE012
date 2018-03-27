@@ -12,6 +12,6 @@ import application.model.Domicile;
 public interface DomicileRepository extends CrudRepository<Domicile, Long> {
 
 	@Query(value = "Select * FROM client d INNER JOIN client u ON u.home_id = d.id WHERE u.id =:user_id ",nativeQuery=true)
-	public Domicile findByUserId(@Param("user_id")int userId);
 
+	public Domicile findByUserId(@Param("user_id")int userId);
 }
