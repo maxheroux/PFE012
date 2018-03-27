@@ -2,6 +2,8 @@ package application.model.messages;
 
 import com.google.gson.annotations.Expose;
 
+import java.util.Map;
+
 public class StateChange extends Message {
 	@Expose
 	private int peripheralId;
@@ -10,9 +12,9 @@ public class StateChange extends Message {
 	@Expose
 	private String valueType;
 	@Expose
-	private int value;
+	private Map<String,String> value;
 
-	public StateChange(int peripheralId, String username, String valueType, int value, String token) {
+	public StateChange(int peripheralId, String username, String valueType, Map<String,String> value, String token) {
 		super(token);
 		this.peripheralId = peripheralId;
 		this.username = username;

@@ -15,6 +15,8 @@ import application.model.peripherals.Thermostat;
 import application.repositories.DomicileRepository;
 import application.repositories.PeripheralRepository;
 import application.repositories.UserRepository;
+import java.util.Map;
+import java.util.HashMap;
 
 @SpringBootApplication
 public class Application {
