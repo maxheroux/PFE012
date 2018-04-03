@@ -34,11 +34,11 @@ public class Application {
 	InitializingBean sendDatabase() {
 		return () -> {
 			try {
-				User user1 = new User("Sim", "simsim", "asd", "localhost", 23);
+				User user1 = new User("Sim", "simsim", "asd");
 				user1.setToken("2f58261f-a0f2-403f-9d7a-ccf202a962a7");
-				User user2 = new User("Max", "maxmax", "asd", "localhost", 23);
+				User user2 = new User("Max", "maxmax", "asd");
 				Domicile dom = new Domicile(123123, "Dom1", "Rue Trwqer", 12, "H1H1H1", "Montreal", "QQ", "Ca", "domo",
-						"domodomo", "asd");
+						"domodomo", "asd", "localhost", 23);
 				dom.setToken("3f58261f-a0f2-403f-9d7a-ccf202a962a7");
 				Peripheral thermo = new Peripheral("AA-BB-CC-AA-AA-232", "ThermoSalon");
 				thermo.setCurrentState(new Thermostat("22", "21", "11", "12"));
