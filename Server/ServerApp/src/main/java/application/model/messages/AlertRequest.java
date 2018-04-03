@@ -11,12 +11,12 @@ public class AlertRequest extends Message {
 	@Expose
 	private boolean isRead;
 	
-	public AlertRequest(int domicileId, String token, String type, boolean isRead)
+	public AlertRequest(int domicileId, String token, String type)
 	{
 		super(token);
 		this.domicileId = domicileId;
 		this.type = type;
-		this.isRead = isRead;
+		this.isRead = false;
 	}
 	
 	public int getDomicileId() {
