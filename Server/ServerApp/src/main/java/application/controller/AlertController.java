@@ -61,7 +61,6 @@ public class AlertController extends JsonController {
 				}
 			}
 			
-			gson = new GsonBuilder().registerTypeAdapter(Peripheral.class, new PeripheralSerializer()).create();
 			return gson.toJson(alerts);
 		} else {
 			return getBadAuthJsonString();
@@ -73,23 +72,14 @@ public class AlertController extends JsonController {
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 		AlertRequest request = gson.fromJson(payload, AlertRequest.class);
 
-		String username = request.getUsername();
-		String token = request.getToken();
-
-		User user = userRepository.findByUsername(username);
-
-		if (AuthenticationFunctions.isTokenValid(user, token)) {
-			Domicile dom = domicileRepository.findByUserId(user.getId());
-			Alert newAlert = new Alert(request.getDescription(), request.getIsRead());
-			
-			dom.addAlert(newAlert);
-			alertRepository.save(newAlert);
-			domicileRepository.save(dom);
-			
-			gson = new GsonBuilder().registerTypeAdapter(Peripheral.class, new PeripheralSerializer()).create();
-			return gson.toJson(dom.getAlerts());
-		} else {
-			return getBadAuthJsonString();
-		}
+		Domicile dom = domicileRepository.findById(request.getDomicileId());
+		
+		Alert newAlert = new Alert(request.getDescription(), request.getIsRead());
+		
+		dom.addAlert(newAlert);
+		alertRepository.save(newAlert);
+		domicileRepository.save(dom);
+		
+		return "OK";
 	}
 }
