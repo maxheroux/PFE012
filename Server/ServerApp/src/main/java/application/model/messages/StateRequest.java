@@ -1,7 +1,12 @@
 package application.model.messages;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 import com.google.gson.annotations.Expose;
 
+@Entity
+@DiscriminatorValue("StateRequest")
 public class StateRequest extends Message {
 	
 	@Expose
@@ -9,6 +14,7 @@ public class StateRequest extends Message {
 	@Expose
 	private String username;
 
+	public StateRequest() {}
 	public StateRequest(int peripheralId, String username, String token) {
 		super(token);
 		this.peripheralId = peripheralId;
