@@ -5,30 +5,27 @@ import com.google.gson.annotations.Expose;
 public class AlertRequest extends Message {
 
 	@Expose
-	private String username;
+	private int domicileId;
 	@Expose
 	private String description;
 	@Expose
 	private boolean isRead;
 	
-	public AlertRequest(String token, String username, String description, boolean isRead)
+	public AlertRequest(int domicileId, String description, boolean isRead)
 	{
-		super(token);
-		this.username = username;
+		this.domicileId = domicileId;
 		this.description = description;
 		this.isRead = isRead;
 	}
 	
-	public String getUsername() 
-	{
-		return username;
+	public int getDomicileId() {
+		return domicileId;
 	}
 
-	public void setUsername(String username) 
-	{
-		this.username = username;
+	public void setDomicileId(int domicileId) {
+		this.domicileId = domicileId;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
