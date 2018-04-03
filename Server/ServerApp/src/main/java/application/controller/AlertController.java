@@ -85,7 +85,7 @@ public class AlertController extends JsonController {
 				break;
 			}
 					
-			Alert newAlert = new Alert(description, request.getIsRead());
+			Alert newAlert = new Alert(description);
 			
 			dom.addAlert(newAlert);
 			alertRepository.save(newAlert);

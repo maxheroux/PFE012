@@ -25,10 +25,10 @@ public class Alert {
 		this.dateTime = LocalDateTime.now();
 	}
 	
-	public Alert(String description, boolean isRead)
+	public Alert(String description)
 	{
 		this.description = description;
-		this.isRead = isRead;
+		this.isRead = false;
 		this.dateTime = LocalDateTime.now();
 	}
 	
