@@ -46,6 +46,11 @@ public class Domicile extends Client {
 	@JoinColumn(name = "domicile_id")
 	@Fetch(FetchMode.SELECT)
 	private List<Peripheral> peripherals;
+	
+	@OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
+	@JoinColumn(name = "alert_id")
+	@Fetch(FetchMode.SELECT)
+	private List<Alert> alerts;
 
 	public Domicile() {
 		super();
@@ -63,6 +68,7 @@ public class Domicile extends Client {
 		this.state = state;
 		this.country = country;
 		this.peripherals = new ArrayList<>();
+		this.alerts = new ArrayList<>();
 	}
 
 	public int getLicenseKey() {
@@ -157,5 +163,18 @@ public class Domicile extends Client {
 		return peripherals;
 	}
 
+	public List<Alert> getAlerts()
+	{
+		return alerts;
+	}
 	
+	public void addAlert(Alert alert)
+	{
+		alerts.add(alert);
+	}
+	
+	public void removeAlert(Alert alert)
+	{
+		alerts.remove(alert);
+	}
 }
