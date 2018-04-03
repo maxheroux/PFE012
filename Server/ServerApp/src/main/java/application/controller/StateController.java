@@ -42,7 +42,7 @@ public class StateController extends JsonController {
 		User user = userRepository.findByUsername(username);
 	
 		if (Authenticate(token, user)) {
-			String response = PostPayload(payload, token, user, STATE_REQUEST);
+			String response = PostPayload(payload, user, STATE_REQUEST);
 			messageRepository.save(request);
 			return response;
 		}else {
@@ -61,7 +61,7 @@ public class StateController extends JsonController {
 		User user = userRepository.findByUsername(username);
 
 		if (Authenticate(token, user)) {
-			String response = PostPayload(payload, token, user, STATE_CHANGE);
+			String response = PostPayload(payload, user, STATE_CHANGE);
 			messageRepository.save(request);
 			return response;
 		}else {

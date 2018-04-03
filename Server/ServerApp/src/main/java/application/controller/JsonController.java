@@ -1,10 +1,13 @@
 package application.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.JsonObject;
 
+import application.model.Domicile;
 import application.model.User;
+import application.repositories.DomicileRepository;
 import application.utilities.AuthenticationFunctions;
 
 public abstract class JsonController {
@@ -13,12 +16,18 @@ public abstract class JsonController {
 	private static final String TOKEN = "Token";
 	private static final String BAD_AUTHENTICATION = "BAD_AUTHENTICATION";
 
+	@Autowired
+	private DomicileRepository domicileRepository;
+	
 	public JsonController() {
 		super();
 	}
 
-	protected String PostPayload(String payload, String token, User user, String mappingValue) {
-		final String uri = HTTP + user.getPublicIp() + ":" + user.getPort() + mappingValue;
+	protected String PostPayload(String payload, User user, String mappingValue) {
+		
+		Domicile dom = domicileRepository.findByUserId(user.getId());
+		
+		final String uri = HTTP + dom.getPublicIp() + ":" + dom.getPort() + mappingValue;
 
 		RestTemplate restTemplate = new RestTemplate();
 		String receivedObject = restTemplate.postForObject(uri, payload, String.class);

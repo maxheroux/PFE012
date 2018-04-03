@@ -7,20 +7,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.JsonObject;
+
 import application.model.Domicile;
 import application.model.User;
 import application.model.messages.Message;
-import application.model.peripherals.Light;
-import application.model.peripherals.Peripheral;
-import application.model.peripherals.Thermostat;
 import application.repositories.DomicileRepository;
 import application.repositories.UserRepository;
 import application.utilities.AuthenticationFunctions;
 import application.utilities.HashingFunctions;
 
 @RestController
-public class UserController 
+public class UserController extends JsonController
 {	
+	private static final String STATE_SETUP = "/domicile/setup";
+	
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
@@ -66,18 +67,30 @@ public class UserController
 		
 		// Generate token
 		String token = AuthenticationFunctions.generateToken();
+		String domToken = AuthenticationFunctions.generateToken();
 		
 		// Store info in database
-		User user = new User(username, cryptedPassword, salt, publicIp, port);
+		User user = new User(username, cryptedPassword, salt);
+		user.setToken(token);
 		
 		Domicile dom = new Domicile(123123,username+" Domicile", "Rue "+username, 12, "H1H1H1", "Montreal", "QQ", "Ca", username+"domo",
-				"domodomo", "asd");
+				"domodomo", "asd", publicIp, port);
+		dom.setToken(domToken);
 		dom.addUser(user);
 
-		user.setToken(token);
 		userRepository.save(user);
 		dom = domicileRepository.save(dom);
 		
-		return new Message( user.getToken());
+		JsonObject innerObject = new JsonObject();
+		innerObject.addProperty("domicileId", dom.getId());
+		innerObject.addProperty("token", dom.getToken());
+
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.add("publisher", innerObject);
+		
+		@SuppressWarnings("unused")
+		String response = PostPayload(jsonObject.toString(), user, STATE_SETUP);
+		
+		return new Message(user.getToken());
 	}
 }
