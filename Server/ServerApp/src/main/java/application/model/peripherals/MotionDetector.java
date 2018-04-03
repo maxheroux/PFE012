@@ -11,6 +11,12 @@ public class MotionDetector extends State {
 	public MotionDetector() {
 		super();
 	}
+	
+	public void setStateValue(String field, String value) {
+		if (field.equals("detectedMotion")){
+			detectedMotion = Boolean.valueOf(value);
+		}
+	}
 
 	public MotionDetector(Boolean detectedMotion) {
 		super();

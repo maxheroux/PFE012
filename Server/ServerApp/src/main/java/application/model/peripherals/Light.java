@@ -12,6 +12,12 @@ public class Light extends State {
 	public Light() {
 		super();
 	}
+	
+	public void setStateValue(String field, String value) {
+		if (field.equals("currentStateOn")){
+			currentStateOn = Boolean.valueOf(value);
+		}
+	}
 
 	public Light(Boolean currentStateOn, int currentBrightness) {
 		super();

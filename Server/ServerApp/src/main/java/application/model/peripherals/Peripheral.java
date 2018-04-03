@@ -41,12 +41,6 @@ public class Peripheral {
 	public Peripheral() {
 		super();
 		schedules = new ArrayList<>();
-		for (int i = 0; i < 7; i++) {
-			for (int j = 0; j < 24; j++) {
-				ScheduleDetail schedule = new ScheduleDetail(j, i);
-				schedules.add(schedule);
-			}
-		}
 	}
 
 	public Peripheral(String bluetoothId, String name) {
@@ -102,6 +96,7 @@ public class Peripheral {
 				scheduleToSet = detail;
 		}
 		scheduleToSet.setState(schedule.getState());
+		schedules.add(scheduleToSet);
 	}
 
 }

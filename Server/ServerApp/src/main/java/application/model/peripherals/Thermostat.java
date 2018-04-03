@@ -57,4 +57,9 @@ public class Thermostat extends State {
 		this.currentHumidity = currentHumidity;
 	}
 
+	public void setStateValue(String field, String value) {
+		if (field.equals("desiredTemperature")){
+			setDesiredTemperature(value);
+		}
+	}
 }

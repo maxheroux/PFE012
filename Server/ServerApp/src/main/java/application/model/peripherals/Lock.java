@@ -11,6 +11,12 @@ public class Lock extends State {
 	public Lock() {
 		super();
 	}
+	
+	public void setStateValue(String field, String value) {
+		if (field.equals("currentLock")){
+			currentLock = Boolean.valueOf(value);
+		}
+	}
 
 	public Lock(Boolean currentLock) {
 		super();

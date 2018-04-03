@@ -25,4 +25,6 @@ public class CODetector extends State {
 		this.level = level;
 	}
 
+	public void setStateValue(String field, String value) {
+	}
 }

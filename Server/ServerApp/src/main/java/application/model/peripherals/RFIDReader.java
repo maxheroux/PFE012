@@ -12,6 +12,9 @@ public class RFIDReader extends State {
 		super();
 		this.readRFID = "";
 	}
+	
+	public void setStateValue(String field, String value) {
+	}
 
 	public RFIDReader(String readRFID) {
 		super();
