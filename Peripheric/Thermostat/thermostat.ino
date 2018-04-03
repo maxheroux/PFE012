@@ -31,7 +31,6 @@ void setup()
 	float currentTemperature = temperatureController.getCurrentTemperature();
 	heaterController.setCurrentTemperature(currentTemperature);
 	heaterController.setRequestedTemperature(MIN_TEMPERATURE);
-	Serial.begin(9600);
 	EEBlue.begin(9600);
 }
 
@@ -94,6 +93,5 @@ void loop()
 			root["alertType"] = "gas";
 			root.printTo(EEBlue);
 			EEBlue.println();
-			root.prettyPrintTo(Serial);
 	}
 }
