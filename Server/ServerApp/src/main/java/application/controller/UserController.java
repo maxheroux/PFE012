@@ -85,11 +85,8 @@ public class UserController extends JsonController
 		innerObject.addProperty("domicileId", dom.getId());
 		innerObject.addProperty("token", dom.getToken());
 
-		JsonObject jsonObject = new JsonObject();
-		jsonObject.add("publisher", innerObject);
-		
 		@SuppressWarnings("unused")
-		String response = PostPayload(jsonObject.toString(), user, STATE_SETUP);
+		String response = PostPayload(innerObject.toString(), user, STATE_SETUP);
 		
 		return new Message(user.getToken());
 	}
