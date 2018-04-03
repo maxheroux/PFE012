@@ -39,6 +39,7 @@ public class Application {
 				User user2 = new User("Max", "maxmax", "asd", "localhost", 23);
 				Domicile dom = new Domicile(123123, "Dom1", "Rue Trwqer", 12, "H1H1H1", "Montreal", "QQ", "Ca", "domo",
 						"domodomo", "asd");
+				dom.setToken("3f58261f-a0f2-403f-9d7a-ccf202a962a7");
 				Peripheral thermo = new Peripheral("AA-BB-CC-AA-AA-232", "ThermoSalon");
 				thermo.setCurrentState(new Thermostat("22", "21", "11", "12"));
 				Peripheral light = new Peripheral("GG-BB-CC-TT-AA-232", "Lumiere Chambre 32");

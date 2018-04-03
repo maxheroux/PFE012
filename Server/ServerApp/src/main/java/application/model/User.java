@@ -10,7 +10,6 @@ import javax.persistence.UniqueConstraint;
 @Table(uniqueConstraints= {@UniqueConstraint(columnNames = {"username"})})
 public class User extends Client
 {
-	
 	private String publicIp;
 	private int port;
 	

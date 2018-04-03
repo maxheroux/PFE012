@@ -17,12 +17,10 @@ import application.model.Domicile;
 import application.model.User;
 import application.model.messages.AlertRequest;
 import application.model.messages.StateRequest;
-import application.model.peripherals.Peripheral;
 import application.repositories.AlertRepository;
 import application.repositories.DomicileRepository;
 import application.repositories.UserRepository;
 import application.utilities.AuthenticationFunctions;
-import application.utilities.PeripheralSerializer;
 
 @RestController
 public class AlertController extends JsonController {
@@ -73,13 +71,31 @@ public class AlertController extends JsonController {
 		AlertRequest request = gson.fromJson(payload, AlertRequest.class);
 
 		Domicile dom = domicileRepository.findById(request.getDomicileId());
+		String description = "";
 		
-		Alert newAlert = new Alert(request.getDescription(), request.getIsRead());
+		if (AuthenticationFunctions.isTokenValid(dom, request.getToken())) 
+		{
+			switch (request.getType())
+			{
+			case "Gas":
+				description = "Alert! Gas detected!";
+				break;
+			default:
+				description = "Warning!";
+				break;
+			}
+					
+			Alert newAlert = new Alert(description, request.getIsRead());
+			
+			dom.addAlert(newAlert);
+			alertRepository.save(newAlert);
+			domicileRepository.save(dom);
 		
-		dom.addAlert(newAlert);
-		alertRepository.save(newAlert);
-		domicileRepository.save(dom);
-		
-		return "OK";
+			return "OK";
+		}
+		else
+		{
+			return getBadAuthJsonString();
+		}
 	}
 }
