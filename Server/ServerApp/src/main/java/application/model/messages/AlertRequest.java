@@ -7,14 +7,15 @@ public class AlertRequest extends Message {
 	@Expose
 	private int domicileId;
 	@Expose
-	private String description;
+	private String type;
 	@Expose
 	private boolean isRead;
 	
-	public AlertRequest(int domicileId, String description, boolean isRead)
+	public AlertRequest(int domicileId, String token, String type, boolean isRead)
 	{
+		super(token);
 		this.domicileId = domicileId;
-		this.description = description;
+		this.type = type;
 		this.isRead = isRead;
 	}
 	
@@ -26,12 +27,12 @@ public class AlertRequest extends Message {
 		this.domicileId = domicileId;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getType() {
+		return type;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 	public boolean getIsRead() {
