@@ -73,7 +73,7 @@ public class Application {
 				
 				User julien_remote = new User("julien_remote", HashingFunctions.hashPassword("pfe", julienSalt), julienSalt);
 				julien_remote.setToken("2f58261f-a0f2-403f-9d7a-ccf202a962a7");
-				Domicile domJulienRemote = new Domicile(1111, "Appart Julien", "Rue La Fontaine", 4674, "H1V1P7", "Montreal", "QC", "Ca", "domojj",
+				Domicile domJulienRemote = new Domicile(1111, "Appart Julien", "Rue La Fontaine", 4674, "H1V1P7", "Montreal", "QC", "Ca", "domojre",
 						"domodomo", "asd", "projetjmhome.ddns.net", 22321);
 				Peripheral julienThermoRemote = new Peripheral("98:D3:31:B3:D5:DD", "Salon");
 				julienThermoRemote.setCurrentState(new Thermostat("22", "21", "11", "12"));
