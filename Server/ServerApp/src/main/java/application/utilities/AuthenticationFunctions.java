@@ -8,7 +8,7 @@ public class AuthenticationFunctions {
 
 	public static boolean isTokenValid(Client client, String token)
 	{
-		if (client.getToken().equals(token))
+		if (client != null && client.getToken().equals(token))
 		{
 			return true;
 		}

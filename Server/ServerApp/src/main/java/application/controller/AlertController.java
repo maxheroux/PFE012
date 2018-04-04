@@ -65,7 +65,7 @@ public class AlertController extends JsonController {
 		}
 	}
 	
-	@RequestMapping(value = ALERT_ADD, method = RequestMethod.POST, consumes = "text/plain")
+	@RequestMapping(value = ALERT_ADD, method = RequestMethod.POST)
 	public String add(@RequestBody String payload) {
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 		AlertRequest request = gson.fromJson(payload, AlertRequest.class);
@@ -77,7 +77,7 @@ public class AlertController extends JsonController {
 		{
 			switch (request.getType())
 			{
-			case "Gas":
+			case "gas":
 				description = "Alert! Gas detected!";
 				break;
 			default:
