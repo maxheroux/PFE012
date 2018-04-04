@@ -10,15 +10,12 @@ public class StateChange extends Message {
 	@Expose
 	private String username;
 	@Expose
-	private String valueType;
-	@Expose
 	private Map<String,String> value;
 
-	public StateChange(int peripheralId, String username, String valueType, Map<String,String> value, String token) {
+	public StateChange(int peripheralId, String username,  Map<String,String> value, String token) {
 		super(token);
 		this.peripheralId = peripheralId;
 		this.username = username;
-		this.valueType = valueType;
 		this.value = value;
 	}
 
@@ -29,4 +26,22 @@ public class StateChange extends Message {
 	public String getUsername() {
 		return username;
 	}
+
+	public Map<String, String> getValue() {
+		return value;
+	}
+
+	public void setValue(Map<String, String> value) {
+		this.value = value;
+	}
+
+	public void setPeripheralId(int peripheralId) {
+		this.peripheralId = peripheralId;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	
 }

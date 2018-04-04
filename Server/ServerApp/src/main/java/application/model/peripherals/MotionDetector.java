@@ -1,5 +1,8 @@
 package application.model.peripherals;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -16,6 +19,12 @@ public class MotionDetector extends State {
 		if (field.equals("detectedMotion")){
 			detectedMotion = Boolean.valueOf(value);
 		}
+	}
+	
+	public Map<String, String> getStateValues() {
+		Map<String,String> values = new HashMap<>();
+		values.put("detectedMotion", Boolean.toString(detectedMotion));
+		return values;
 	}
 
 	public MotionDetector(Boolean detectedMotion) {

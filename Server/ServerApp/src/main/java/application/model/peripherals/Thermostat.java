@@ -1,5 +1,8 @@
 package application.model.peripherals;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -16,6 +19,15 @@ public class Thermostat extends State {
 		this.currentTemperature = "0";
 		this.brigthness = "0";
 		this.currentHumidity = "0";
+	}
+	
+	public Map<String, String> getStateValues() {
+		Map<String,String> values = new HashMap<>();
+		values.put("desiredTemperature",desiredTemperature);
+		values.put("currentTemperature",currentTemperature);
+		values.put("brigthness",brigthness);
+		values.put("currentHumidity",currentHumidity);
+		return values;
 	}
 
 	public Thermostat(String desiredTemperature, String currentTemperature, String brigthness, String currentHumidity) {

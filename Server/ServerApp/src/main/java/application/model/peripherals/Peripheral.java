@@ -90,13 +90,13 @@ public class Peripheral {
 	}
 
 	public void setSchedule(ScheduleDetail schedule) {
-		ScheduleDetail scheduleToSet = new ScheduleDetail(schedule.getHourOfDay(), schedule.getDayOfWeek());
+		ScheduleDetail scheduleToRemove = new ScheduleDetail(schedule.getHourOfDay(), schedule.getDayOfWeek());
 		for (ScheduleDetail detail : schedules) {
 			if (detail.getDayOfWeek() == schedule.getDayOfWeek() && detail.getHourOfDay() == schedule.getHourOfDay())
-				scheduleToSet = detail;
+				scheduleToRemove = detail;
 		}
-		scheduleToSet.setState(schedule.getState());
-		schedules.add(scheduleToSet);
+		schedules.remove(scheduleToRemove);
+		schedules.add(schedule);
 	}
 
 }
