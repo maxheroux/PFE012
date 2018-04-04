@@ -61,7 +61,8 @@ public class StateController extends JsonController {
 
 		if (Authenticate(token, user)) {
 			String response = PostPayload(payload, token, user, STATE_CHANGE);
-			messageRepository.save(request);
+			request = messageRepository.save(request);
+			request.getValues();
 			return response;
 		}else {
 			return getBadAuthJsonString();

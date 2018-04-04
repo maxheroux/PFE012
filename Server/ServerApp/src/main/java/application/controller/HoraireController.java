@@ -44,7 +44,6 @@ public class HoraireController extends JsonController {
 		User user = userRepository.findByUsername(username);
 
 		if (Authenticate(token, user)) {
-			List<ScheduleDetail> details = new ArrayList<>();
 			List<Schedule> schedules = new ArrayList<>();
 			Iterable<Peripheral> peripherals = peripheralRepository.findAll(request.getPeripheralIds());
 

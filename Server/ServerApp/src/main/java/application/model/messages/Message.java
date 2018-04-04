@@ -2,16 +2,20 @@ package application.model.messages;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
 
 import com.google.gson.annotations.Expose;
 
 @Entity
+@Inheritance
+@DiscriminatorColumn(name="type")
 public class Message {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Expose
