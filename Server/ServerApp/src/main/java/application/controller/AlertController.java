@@ -65,7 +65,7 @@ public class AlertController extends JsonController {
 		}
 	}
 	
-	@RequestMapping(value = ALERT_ADD, method = RequestMethod.POST)
+	@RequestMapping(value = ALERT_ADD, method = RequestMethod.POST, consumes = "text/plain")
 	public String add(@RequestBody String payload) {
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 		AlertRequest request = gson.fromJson(payload, AlertRequest.class);
