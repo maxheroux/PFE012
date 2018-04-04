@@ -20,21 +20,18 @@ public class StateChange extends Message {
 	@Expose
 	private String username;
 	@Expose
-	private String valueType;
-	@Expose
 	@ElementCollection
 	@MapKeyColumn(name="name")
 	@Column(name="value")
 	@CollectionTable(name="statechange_values", joinColumns=@JoinColumn(name="id"))
-	private Map<String,String> values;
+	private Map<String,String> value;
 
 	public StateChange() {}
-	public StateChange(int peripheralId, String username, String valueType, Map<String,String> value, String token) {
+	public StateChange(int peripheralId, String username, Map<String,String> values, String token) {
 		super(token);
 		this.peripheralId = peripheralId;
 		this.username = username;
-		this.valueType = valueType;
-		this.values = value;
+		this.value = values;
 	}
 
 	public int getPeripheralId() {
@@ -44,4 +41,21 @@ public class StateChange extends Message {
 	public String getUsername() {
 		return username;
 	}
+
+	public Map<String, String> getValues() {
+		return value;
+	}
+
+	public void setValues(Map<String, String> values) {
+		this.value = values;
+	}
+
+	public void setPeripheralId(int peripheralId) {
+		this.peripheralId = peripheralId;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 }

@@ -21,7 +21,11 @@ public abstract class JsonController {
 		final String uri = HTTP + user.getPublicIp() + ":" + user.getPort() + mappingValue;
 
 		RestTemplate restTemplate = new RestTemplate();
-		String receivedObject = restTemplate.postForObject(uri, payload, String.class);
+		String receivedObject = "Could not post to "+uri;
+		try {
+			receivedObject = restTemplate.postForObject(uri, payload, String.class);
+		} catch (Exception e) {
+		}
 
 		return receivedObject;
 	}

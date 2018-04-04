@@ -22,7 +22,6 @@ public class StateController extends JsonController {
 
 	private static final String STATE_CHANGE = "/state/change";
 	private static final String STATE_REQUEST = "/state/request";
-
 	@Autowired
 	private MessageRepository messageRepository;
 	@Autowired
@@ -62,7 +61,8 @@ public class StateController extends JsonController {
 
 		if (Authenticate(token, user)) {
 			String response = PostPayload(payload, token, user, STATE_CHANGE);
-			messageRepository.save(request);
+			request = messageRepository.save(request);
+			request.getValues();
 			return response;
 		}else {
 			return getBadAuthJsonString();
