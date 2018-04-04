@@ -1,1 +1,32 @@
+// /horaire/change
+{
+	"username": "Sim",
+	"token": "2f58261f-a0f2-403f-9d7a-ccf202a962a7",
+	"scheduleList": [{
+			"idPeripheral": 1,
+			"dayOfWeek": 0,
+			"hourOfDay": 12,
+			"value": {
+				"targetTemperature": "30"
+			}
+		},
+		{
+			"idPeripheral": 1,
+			"dayOfWeek": 6,
+			"hourOfDay": 12,
+			"value": {
+				"targetTemperature": "30"
+			}
+		}
+	]
+}
 
+
+// /peripheral/add
+{
+  "type": "Thermostat",
+  "username": "Sim",
+  "token": "2f58261f-a0f2-403f-9d7a-ccf202a962a7",
+  "name": "Lock 1212222",
+  "bluetoothId": "sdfsdf"
+}
