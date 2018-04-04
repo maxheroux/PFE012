@@ -7,7 +7,7 @@
 			"dayOfWeek": 0,
 			"hourOfDay": 12,
 			"value": {
-				"targetTemperature": "30"
+				"desiredTemperature": "30"
 			}
 		},
 		{
@@ -15,7 +15,15 @@
 			"dayOfWeek": 6,
 			"hourOfDay": 12,
 			"value": {
-				"targetTemperature": "30"
+				"desiredTemperature": "21"
+			}
+		},
+		{
+			"idPeripheral": 2,
+			"dayOfWeek": 1,
+			"hourOfDay": 9,
+			"value": {
+				"currentStateOn": "true"
 			}
 		}
 	]
@@ -31,6 +39,40 @@
 	"token": "2f58261f-a0f2-403f-9d7a-ccf202a962a7"
 }
 
+// /horaire/request REPLY
+[
+   {
+      "idPeripheral":1,
+      "hourOfDay":12,
+      "dayOfWeek":0,
+      "value":{
+         "currentTemperature":"0",
+         "currentHumidity":"0",
+         "brigthness":"0",
+         "desiredTemperature":"30"
+      }
+   },
+   {
+      "idPeripheral":1,
+      "hourOfDay":12,
+      "dayOfWeek":6,
+      "value":{
+         "currentTemperature":"0",
+         "currentHumidity":"0",
+         "brigthness":"0",
+         "desiredTemperature":"21"
+      }
+   },
+   {
+      "idPeripheral":2,
+      "hourOfDay":9,
+      "dayOfWeek":1,
+      "value":{
+         "currentBrightness":"0",
+         "currentStateOn":"true"
+      }
+   }
+]
 
 // /peripheral/add
 {
