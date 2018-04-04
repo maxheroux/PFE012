@@ -4,11 +4,14 @@ from flask import request
 from TemperatureHandler import TemperatureHandler
 from LightHandler import LightHandler
 from models.peripheral import Peripheral
+from models.domicile import Domicile
 from utilities.bashProcessHandler import PeripheralCreationProcess
 from dataAccess.peripheral import Peripheral_DAO
+from dataAccess.domicile import DomicileConfigurationDAO
 import json
 
 peripheral_dao = Peripheral_DAO()
+domicile_dao = DomicileConfigurationDAO()
 
 app = Flask(__name__)
 
@@ -34,6 +37,13 @@ def stateChange():
     deviceHandler.change_state(state_value)
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
+
+@app.route('/domicile/setup', methods=['POST'])
+def setup_domicile_config():
+    print(request.get_data())
+    domicile = json.loads(request.get_data().decode("utf-8"), object_hook=Domicile.domicile_object_hook)
+    domicile_dao.save_domicile_configuration(domicile)
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
 @app.route('/peripheral/add', methods=['POST'])
 def addPeripheral():
@@ -63,7 +73,7 @@ def initialize_peripherals():
 
     for peripheral in peripherals:
         if peripheral.type == "thermostat":
-            temperature_handler = TemperatureHandler(peripheral.id, peripheral.rfcomm_device)
+            temperature_handler = TemperatureHandler(peripheral.id, peripheral.rfcomm_device, "http://vps170412.vps.ovh.ca:8080")
             deviceMap[peripheral.id] = temperature_handler
 
 initialize_peripherals()
