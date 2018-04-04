@@ -75,10 +75,13 @@ public class Application {
 				julien_remote.setToken("2f58261f-a0f2-403f-9d7a-ccf202a962a7");
 				Domicile domJulienRemote = new Domicile(1111, "Appart Julien", "Rue La Fontaine", 4674, "H1V1P7", "Montreal", "QC", "Ca", "domojj",
 						"domodomo", "asd", "projetjmhome.ddns.net", 22321);
+				Peripheral julienThermoRemote = new Peripheral("98:D3:31:B3:D5:DD", "Salon");
+				julienThermoRemote.setCurrentState(new Thermostat("22", "21", "11", "12"));
 				domJulienRemote.setToken("3f58261f-a0f2-403f-9d7a-ccf202a962a8");
 				domJulienRemote.addUser(julien_remote);
-				domJulienRemote.addPeripheral(julienThermo);
+				domJulienRemote.addPeripheral(julienThermoRemote);
 				julien_remote = userRepository.save(julien_remote);
+				julienThermoRemote = peripheralRepository.save(julienThermoRemote);
 				domJulienRemote = domicileRepository.save(domJulienRemote);
 				
 				System.out.println("Default data loaded in database");
