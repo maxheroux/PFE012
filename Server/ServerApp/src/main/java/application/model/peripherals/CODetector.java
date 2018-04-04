@@ -1,5 +1,8 @@
 package application.model.peripherals;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -25,4 +28,14 @@ public class CODetector extends State {
 		this.level = level;
 	}
 
+	public void setStateValue(String field, String value) {
+		level = Integer.getInteger(value);
+	}
+
+	public Map<String, String> getStateValues() {
+		Map<String,String> values = new HashMap<>();
+		values.put("level", Integer.toString(level));
+		return values;
+	}
+	
 }
