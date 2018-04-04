@@ -7,9 +7,7 @@ import requests
 # TODO: Send something to server if a device isn't found, to let it know that it cannot be used
 class TemperatureHandler:
 
-
-
-    def __init__(self, device_id, port, postUrl):
+    def __init__(self, device_id, port, post_url):
         self.device_id = device_id
         self.port = port
         self.periodic_poll_delay = 2
@@ -21,7 +19,7 @@ class TemperatureHandler:
         self.reader_timer = PerpetualTimer(self.periodic_poll_delay, self.read_temperature)
         self.request_timer.start()
         self.reader_timer.start()
-        self.postUrl = postUrl
+        self.post_url = post_url
         domicileConfig = DomicileConfigurationDAO().get_domicile_configuration()
         self.domicile_id = domicileConfig.domicileId
         self.domicile_token = domicileConfig.token
@@ -33,9 +31,11 @@ class TemperatureHandler:
 
     # TODO: put a comment with state_value format (what it is)
     def change_state(self, state_value):
-        self.requested_temperature = state_value
-        self.bluetooth_handler.send(json.dumps(
-            {"messageType": "update", "updateType": "RequestedTemperature", "updateValue": state_value}))
+        if "requestedTemperature" in state_value:
+            self.requested_temperature = state_value["requestedTemperature"]
+            self.bluetooth_handler.send(json.dumps(
+                {"messageType": "update", "updateType": "RequestedTemperature", "updateValue": self.requested_temperature}))
+
 
     def request_temperature(self):
         self.bluetooth_handler.send(json.dumps(
@@ -55,8 +55,8 @@ class TemperatureHandler:
             elif "alertType" in message:
                 data = json.dumps(
                     {"type": message["alertType"], "domicileId": self.domicile_id, "token": self.domicile_token })
-                requests.post(self.postUrl + "/alert/add", json=data)
-                print(self.postUrl + "/alert/add")
+                requests.post(self.post_url + "/alert/add", data=data, headers={'content-type':'text/plain'})
+                print(self.post_url + "/alert/add")
                 print(data)
 
 

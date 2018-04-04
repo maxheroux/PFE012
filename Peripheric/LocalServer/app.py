@@ -10,6 +10,8 @@ from dataAccess.peripheral import Peripheral_DAO
 from dataAccess.domicile import DomicileConfigurationDAO
 import json
 
+SERVER_ADDRESS = "http://192.168.0.166:8080"
+
 peripheral_dao = Peripheral_DAO()
 domicile_dao = DomicileConfigurationDAO()
 
@@ -19,7 +21,7 @@ deviceMap = {}
 
 @app.route('/state/request', methods=['POST'] )
 def stateRequest():
-    data = request.get_json()
+    data = json.loads(request.get_data())
     deviceId = data['peripheralId']
     if deviceId not in deviceMap:
         return json.dumps({"error":"Device Id {} Not found".format(deviceId)})
@@ -28,7 +30,7 @@ def stateRequest():
 
 @app.route('/state/change', methods=['POST'])
 def stateChange():
-    data = request.get_json()
+    data = json.loads(request.get_data())
     deviceId = data['peripheralId']
     state_value = data['value']
     if deviceId not in deviceMap:
@@ -73,7 +75,7 @@ def initialize_peripherals():
 
     for peripheral in peripherals:
         if peripheral.type == "thermostat":
-            temperature_handler = TemperatureHandler(peripheral.id, peripheral.rfcomm_device, "http://vps170412.vps.ovh.ca:8080")
+            temperature_handler = TemperatureHandler(peripheral.id, peripheral.rfcomm_device, SERVER_ADDRESS)
             deviceMap[peripheral.id] = temperature_handler
 
 initialize_peripherals()
