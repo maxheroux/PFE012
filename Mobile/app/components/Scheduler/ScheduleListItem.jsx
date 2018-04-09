@@ -8,28 +8,40 @@ import { map, some } from 'lodash';
 type Props = {
   selectedDays: Array<number>,
   name: string,
-  onClick: () => {},
+  onClick: () => void,
 };
 
 type State = {
 };
 
+const dayText = {
+  width: 30,
+  color: 'white',
+  borderColor: 'gray',
+  borderWidth: 1,
+  textAlign: 'center',
+  marginLeft: 6,
+  marginRight: 6,
+  borderRadius: 5,
+  padding: 2,
+};
 const style = {
   selectedDayText: {
-    backgroundColor: 'rgb(90, 200, 250)',
-    width: 20,
+    backgroundColor: 'rgb(0,122,255)',
+    ...dayText,
   },
   unselectedDayText: {
-    backgroundColor: 'lightgrey',
-    width: 20,
+    backgroundColor: 'lightgray',
+    ...dayText,
   },
   daysContainer: {
+    marginTop: 10,
     flex: 1,
     flexDirection: 'row',
   }
 }
 
-const days = ['d', 'l', 'm', 'm', 'j', 'v', 's'];
+const days = ['D', 'L', 'M', 'M', 'J', 'V', 'S'];
 
 export default class ScheduleListItem extends Component<Props, State> {
 
@@ -39,7 +51,7 @@ export default class ScheduleListItem extends Component<Props, State> {
       const dayIsSelected = some(selectedDays, sd => sd == index);
       const usedStyle = dayIsSelected ? style.selectedDayText : style.unselectedDayText;
       return (
-        <Text style={usedStyle}>
+        <Text style={usedStyle} key={`jourHoraire${index}`}>
           {day}
         </Text>
       );

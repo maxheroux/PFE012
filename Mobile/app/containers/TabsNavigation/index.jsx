@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from '../Home';
 import Thermostats from '../Thermostats/List';
 import Lights from '../Lights/List';
-import Locks from '../Locks';
+import Locks from '../Locks/List';
 import { addListener } from '../../../middleware';
 
 const getTitleForRoute = (route) => {

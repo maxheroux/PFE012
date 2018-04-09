@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { filter, map, meanBy } from 'lodash';
-import ModifyThermostatComponent from '../../components/Thermostats/Modify';
+import Details from '../../components/Thermostats/Details';
 import * as Actions from './actions';
 
 type Props = {
@@ -43,7 +43,7 @@ export default class ModifyThermostat extends React.Component<Props, State> {
       currentHumidity: Math.round(meanBy(selectedItems, i => i.currentHumidity) * 10) / 10
     };
     return (
-      <ModifyThermostatComponent {...childProps} />
+      <Details {...childProps} />
     )
   }
 }

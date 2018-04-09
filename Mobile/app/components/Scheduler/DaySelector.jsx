@@ -7,8 +7,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { map, some, filter } from 'lodash';
 
 type Props = {
-  onConfirm: (selectedDays: Array<number>) => {},
-  onCancel: () => {},
+  onConfirm: (selectedDays: Array<number>) => void,
+  onCancel: () => void,
   isVisible: boolean,
 };
 
@@ -20,9 +20,17 @@ const style = {
   button: {
     margin: 10
   },
+  container: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+  },
+  listItem: {
+    height: 61,
+  }
 }
 
-const days = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+const days = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
 
 export default class DaySelector extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -55,14 +63,27 @@ export default class DaySelector extends React.Component<Props, State> {
     const { onConfirm, onCancel, isVisible } = this.props;
     const { selectedDays } = this.state;
 
+    const wrappedConfirm = (selectedDays) => {
+      this.setState({ selectedDays: [] });
+      onConfirm(selectedDays);
+    }
+
+    const wrappedCancel = (selectedDays) => {
+      this.setState({ selectedDays: [] });
+      onCancel();
+    }
+
     const list = map(days, (day, index) => {
       const isCurrentlySelected = some(selectedDays, dayId => dayId == index);
       const rightContent = isCurrentlySelected &&
-        <Ionicons name="ios-checkmark" size={25} color="#b5b5b5"/>;
+        <Ionicons name="ios-checkmark" size={30} color="#b5b5b5"/>;
       return (
-        <ListItem onPress={this.toggleDaySelected(index).bind(this)}>
+        <ListItem
+          onPress={() => this.toggleDaySelected(index)}
+          key={`daySelect${index}`}
+          style={style.listItem}>
           <Body>
-            {day}
+            <Text>{day}</Text>
           </Body>
           <Right>
             {rightContent}
@@ -74,16 +95,18 @@ export default class DaySelector extends React.Component<Props, State> {
     return (
       <Modal isVisible={isVisible}>
         <ScrollView>
-          {list}
-          <View style={style.button}>
-            <Button block onPress={onConfirm(selectedDays)}>
-              <Text>Confirmer</Text>
-            </Button>
-          </View>
-          <View style={style.button}>
-            <Button block transparent onPress={onCancel}>
-              <Text>Annuler</Text>
-            </Button>
+          <View style={style.container}>
+            {list}
+            <View style={style.button}>
+              <Button block onPress={() => wrappedConfirm(selectedDays)}>
+                <Text>Confirmer</Text>
+              </Button>
+            </View>
+            <View style={style.button}>
+              <Button block transparent onPress={wrappedCancel}>
+                <Text>Annuler</Text>
+              </Button>
+            </View>
           </View>
         </ScrollView>
       </Modal>

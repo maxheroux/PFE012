@@ -1,10 +1,11 @@
 // @flow
 import * as React from 'react';
-import { Form, Item, Label, Input, Button, Text, Spinner, List, ListItem, Body, Right} from 'native-base';
+import { Form, Item, Label, Input, Button, Text, Spinner, List, ListItem, Body, Right } from 'native-base';
 import { View, ScrollView } from 'react-native';
 import shallowequal from 'shallowequal';
 import { reduce } from 'lodash';
 import Picker from 'rmc-picker';
+import SegmentedControlTab from 'react-native-segmented-control-tab';
 
 type Props = {
   modifyThermostat: (targetTemp: string) => void,
@@ -34,7 +35,7 @@ const style = {
     color: 'red',
     margin: 10,
     textAlign: 'center'
-  }
+  },
 }
 
 export default class Modify extends React.Component<Props, State> {
