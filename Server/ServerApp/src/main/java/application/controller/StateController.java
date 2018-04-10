@@ -14,7 +14,8 @@ import com.google.gson.Gson;
 import application.model.User;
 import application.model.messages.StateChange;
 import application.model.messages.StateRequest;
-import application.repositories.MessageRepository;
+import application.repositories.StateChangeRepository;
+import application.repositories.StateRequestRepository;
 import application.repositories.UserRepository;
 
 @RestController
@@ -23,7 +24,9 @@ public class StateController extends JsonController {
 	private static final String STATE_CHANGE = "/state/change";
 	private static final String STATE_REQUEST = "/state/request";
 	@Autowired
-	private MessageRepository messageRepository;
+	private StateChangeRepository stateChangeRepository;
+	@Autowired
+	private StateRequestRepository stateRequestRepository;
 	@Autowired
 	private UserRepository userRepository;
 
@@ -42,7 +45,7 @@ public class StateController extends JsonController {
 	
 		if (Authenticate(token, user)) {
 			String response = PostPayload(payload, token, user, STATE_REQUEST);
-			messageRepository.save(request);
+			stateRequestRepository.save(request);
 			return response;
 		}else {
 			return getBadAuthJsonString();
@@ -61,7 +64,7 @@ public class StateController extends JsonController {
 
 		if (Authenticate(token, user)) {
 			String response = PostPayload(payload, token, user, STATE_CHANGE);
-			request = messageRepository.save(request);
+			request = stateChangeRepository.save(request);
 			request.getValues();
 			return response;
 		}else {

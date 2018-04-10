@@ -27,6 +27,7 @@ public class HoraireController extends JsonController {
 
 	private static final String HORAIRE_CHANGE = "/horaire/change";
 	private static final String HORAIRE_REQUEST = "/horaire/request";
+	private static final String HORAIRE_AUTOMATIC = "/horaire/automatic";
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -88,6 +89,33 @@ public class HoraireController extends JsonController {
 
 			String response = PostPayload(payload, token, user, HORAIRE_CHANGE);
 			return response;
+		} else {
+			return getBadAuthJsonString();
+		}
+	}
+	
+	@RequestMapping(value = HORAIRE_AUTOMATIC, method = RequestMethod.POST, consumes = "text/plain")
+	public String horaireA(@RequestBody String payload) {
+		Gson gson = new Gson();
+		HoraireRequest request = gson.fromJson(payload, HoraireRequest.class);
+
+		String username = request.getUsername();
+		String token = request.getToken();
+
+		User user = userRepository.findByUsername(username);
+
+		if (Authenticate(token, user)) {
+			List<Schedule> schedules = new ArrayList<>();
+			Iterable<Peripheral> peripherals = peripheralRepository.findAll(request.getPeripheralIds());
+
+			for (Peripheral peripheral : peripherals) {
+				for (ScheduleDetail detail : peripheral.getSchedules()) {
+					schedules.add(new Schedule(peripheral.getId(), detail.getHourOfDay(), detail.getDayOfWeek(), detail.getState().getStateValues()));
+				}
+			}
+			
+			
+			return gson.toJson(schedules);
 		} else {
 			return getBadAuthJsonString();
 		}
