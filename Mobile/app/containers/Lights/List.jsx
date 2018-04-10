@@ -66,7 +66,8 @@ export default class Lights extends React.Component<Props, State> {
       hasFetchedOnce,
       onCreate,
       onModify: (itemIndexList) => onModify(itemIndexList, lights),
-      onItemPress: (itemIndex) => onModify([itemIndex], lights)
+      onItemPress: (itemIndex) => onModify([itemIndex], lights),
+      isEditable: true,
     }
     return (
       <List {...listProperties}>

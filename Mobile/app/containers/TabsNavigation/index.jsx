@@ -6,6 +6,7 @@ import Home from '../Home';
 import Thermostats from '../Thermostats/List';
 import Lights from '../Lights/List';
 import Locks from '../Locks/List';
+import OtherPeripherals from '../OtherPeripherals/List';
 import { addListener } from '../../../middleware';
 
 const getTitleForRoute = (route) => {
@@ -18,6 +19,8 @@ const getTitleForRoute = (route) => {
       return 'Lumières';
     case 'Locks':
       return 'Serrures';
+    case 'OtherPeripherals':
+      return 'Capteurs';
   }
 }
 
@@ -46,6 +49,12 @@ export const Navigator = TabNavigator(
       navigationOptions: {
         title: getTitleForRoute('Locks')
       }
+    },
+    OtherPeripherals: {
+      screen: OtherPeripherals,
+      navigationOptions: {
+        title: getTitleForRoute('OtherPeripherals')
+      }
     }
   },
   {
@@ -65,6 +74,9 @@ export const Navigator = TabNavigator(
             break;
           case 'Locks':
             iconName = `ios-unlock${focused ? '' : '-outline'}`;
+            break;
+          case 'OtherPeripherals':
+            iconName = `ios-radio${focused ? '' : '-outline'}`;
             break;
         }
 

@@ -13,6 +13,7 @@ import CreateLight from '../Lights/Create';
 import ModifyLight from '../Lights/Modify';
 import CreateLock from '../Locks/Create';
 import ModifyLock from '../Locks/Modify';
+import CreateOtherPeripheral from '../OtherPeripherals/Create';
 import DailySchedule from '../Scheduler/DailySchedule';
 
 export const AppNavigator = StackNavigator(
@@ -66,6 +67,12 @@ export const AppNavigator = StackNavigator(
       screen: ModifyLock,
       navigationOptions: {
         header: (<Header title="Modifier serrure" goBackRoute="Main" />)
+      }
+    },
+    CreateOtherPeripheral: {
+      screen: CreateOtherPeripheral,
+      navigationOptions: {
+        header: (<Header title="Créer capteur" goBackRoute="Main" />)
       }
     },
     DailySchedule: {

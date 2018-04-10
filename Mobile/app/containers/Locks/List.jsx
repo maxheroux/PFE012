@@ -66,7 +66,8 @@ export default class Locks extends React.Component<Props, State> {
       hasFetchedOnce,
       onCreate,
       onModify: (itemIndexList) => onModify(itemIndexList, locks),
-      onItemPress: (itemIndex) => onModify([itemIndex], locks)
+      onItemPress: (itemIndex) => onModify([itemIndex], locks),
+      isEditable: true,
     }
     return (
       <List {...listProperties}>
