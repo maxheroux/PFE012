@@ -1,0 +1,130 @@
+// /horaire/change
+{
+	"username": "Sim",
+	"token": "2f58261f-a0f2-403f-9d7a-ccf202a962a7",
+	"scheduleList": [{
+			"idPeripheral": 1,
+			"dayOfWeek": 0,
+			"hourOfDay": 12,
+			"value": {
+				"desiredTemperature": "30"
+			}
+		},
+		{
+			"idPeripheral": 1,
+			"dayOfWeek": 6,
+			"hourOfDay": 12,
+			"value": {
+				"desiredTemperature": "21"
+			}
+		},
+		{
+			"idPeripheral": 2,
+			"dayOfWeek": 1,
+			"hourOfDay": 9,
+			"value": {
+				"currentStateOn": "true"
+			}
+		}
+	]
+}
+
+// /horaire/request
+{
+	"peripheralIds": [
+		1,
+		2
+	],
+	"username": "Sim",
+	"token": "2f58261f-a0f2-403f-9d7a-ccf202a962a7"
+}
+
+// /horaire/request REPLY
+[
+   {
+      "idPeripheral":1,
+      "hourOfDay":12,
+      "dayOfWeek":0,
+      "value":{
+         "currentTemperature":"0",
+         "currentHumidity":"0",
+         "brigthness":"0",
+         "desiredTemperature":"30"
+      }
+   },
+   {
+      "idPeripheral":1,
+      "hourOfDay":12,
+      "dayOfWeek":6,
+      "value":{
+         "currentTemperature":"0",
+         "currentHumidity":"0",
+         "brigthness":"0",
+         "desiredTemperature":"21"
+      }
+   },
+   {
+      "idPeripheral":2,
+      "hourOfDay":9,
+      "dayOfWeek":1,
+      "value":{
+         "currentBrightness":"0",
+         "currentStateOn":"true"
+      }
+   }
+]
+
+// /peripheral/add
+{
+  "type": "Thermostat",
+  "username": "Sim",
+  "token": "2f58261f-a0f2-403f-9d7a-ccf202a962a7",
+  "name": "Lock 1212222",
+  "bluetoothId": "sdfsdf"
+}
+
+// /peripheral/list
+[
+  {
+    "id": 1,
+    "bluetoothId": "AA-BB-CC-AA-AA-232",
+    "name": "ThermoSalon",
+    "type": "Thermostat"
+  },
+  {
+    "id": 2,
+    "bluetoothId": "GG-BB-CC-TT-AA-232",
+    "name": "Lumiere Chambre 32",
+    "type": "Light"
+  },
+  {
+    "id": 3,
+    "bluetoothId": "sdfsdf",
+    "name": "Lock 1212",
+    "type": "Lock"
+  },
+  {
+    "id": 4,
+    "bluetoothId": "sdfsdf",
+    "name": "Lock 1212",
+    "type": "Lock"
+  }
+]
+
+// /state/request
+{
+	"peripheralId": 1,
+	"username": "Sim",
+	"token": "2f58261f-a0f2-403f-9d7a-ccf202a962a7"
+}
+
+// /state/change
+{
+	"peripheralId": 1,
+	"username": "Sim",
+	"value": {
+		"currentBrightness": "2",
+		"currentStateOn": "True"
+	},
+	"token": "2f58261f-a0f2-403f-9d7a-ccf202a962a7"
+}

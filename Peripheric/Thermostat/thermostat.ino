@@ -3,11 +3,16 @@
 #include <SoftwareSerial.h>
 #include <TemperatureController.h>
 #include <HeaterController.h>
+#include <GasSensorController.h>
+
 
 #define DHTPIN 2 // Pin which is connected to the DHT sensor.
 #define MIN_TEMPERATURE 10
 #define MAX_TEMPERATURE 30
 #define DHTTYPE DHT22 // DHT 22 (AM2302)
+
+#define GAS_DETECTOR_PIN 0
+#define GAS_THRESHOLD 400
 
 #define HEATERPIN 7 // Pin that should be connected to the relay of heater
 #define HEATER_PID_KP 2
@@ -17,16 +22,15 @@
 
 TemperatureController temperatureController(DHTPIN, DHTTYPE, MIN_TEMPERATURE, MAX_TEMPERATURE);
 HeaterController heaterController(HEATERPIN, HEATER_PID_KP, HEATER_PID_KI, HEATER_PID_KD);
+GasSensorController gasSensorController(GAS_DETECTOR_PIN, GAS_THRESHOLD);
 SoftwareSerial EEBlue(10, 11); // RX | TX
 void setup()
 {
 	pinMode(HEATERPIN, OUTPUT);
-	
+
 	float currentTemperature = temperatureController.getCurrentTemperature();
 	heaterController.setCurrentTemperature(currentTemperature);
 	heaterController.setRequestedTemperature(MIN_TEMPERATURE);
-	
-	Serial.begin(9600);
 	EEBlue.begin(9600);
 }
 
@@ -53,8 +57,8 @@ void loop()
 				temperatureController.setRequestedTemperature(updateValue);
 				heaterController.setRequestedTemperature(updateValue);
 			}
-			else if (updateType == "ScreenBrightness"){
-				
+			else if (updateType == "ScreenBrightness")
+			{
 			}
 
 			root["state"] = "OK";
@@ -68,16 +72,26 @@ void loop()
 			root["Humidity"] = temperatureController.getHumidity();
 			root["CurrentTemperature"] = temperatureController.getCurrentTemperature();
 			root["RequestedTemperature"] = temperatureController.getRequestedTemperature();
-			
+
 			root.printTo(EEBlue);
 			EEBlue.println();
 		}
 	}
 
 	//Reevaluate heating every 5 seconds
-	if (millis() % 5000 == 0){ 
+	if (millis() % 5000 == 0)
+	{
 		heaterController.setCurrentTemperature(temperatureController.getCurrentTemperature());
 		heaterController.compute();
 	}
-	
+
+	if (millis() % 2000 == 0 && gasSensorController.isThresholdExceeded())
+	{
+			StaticJsonBuffer<512> jsonBuffer;
+			JsonObject &root = jsonBuffer.createObject();
+			root["messageType"] = "alert";
+			root["alertType"] = "gas";
+			root.printTo(EEBlue);
+			EEBlue.println();
+	}
 }
