@@ -89,7 +89,7 @@ export class PeripheralLogicHelper {
         if (itemIds.length > 0) {
           const id = itemIds[0];
           const remainingIds = itemIds.slice(1);
-          return fetchPeripheralById(id)
+          return this.fetchPeripheralById(id)
             .then((data) => {
               //update the item list with the latest peripheral info
               const correspondingItem = find(items, item => item.id == id);
@@ -111,7 +111,7 @@ export class PeripheralLogicHelper {
   }
 
   fetchPeripheralById(id) {
-    const request = AjaxUtils.createPostRequest('/state/request', {
+    const request = AjaxUtils.createPostRequest('state/request', {
       ...this.connectionInfo,
       peripheralId: id,
     });

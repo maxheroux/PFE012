@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Spinner } from 'native-base';
 import { map, filter } from 'lodash';
 import type { alert } from './reducer';
 import * as Actions from './actions';
@@ -48,6 +49,11 @@ export default class Alerts extends React.Component<Props, State> {
       }
       return <ListItem {...props}/>;
     });
+    if (!hasFetchedOnce) {
+      listItems = [(
+        <Spinner color='#777' />
+      )];
+    }
     return (
       <List>
         {listItems}

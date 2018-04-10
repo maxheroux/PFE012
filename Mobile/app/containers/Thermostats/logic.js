@@ -28,6 +28,7 @@ export const requestThermostatsList = createLogic({
     );
     logicHelper.fetchPeripherals()
       .then((items) => {
+        console.warn('requestThermostatsList' + JSON.stringify(items));
         if (items.length > 0) {
           dispatch(Actions.receiveThermostatsList(items));
         } else {

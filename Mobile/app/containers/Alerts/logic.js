@@ -2,6 +2,7 @@ import { createLogic } from 'redux-logic';
 import * as Constants from './constants';
 import * as Actions from './actions';
 import { AjaxUtils } from '../../../utils';
+import { map } from 'lodash';
 
 // TODO: remove after testing
 const placeholderAlerts = [];
@@ -21,9 +22,13 @@ export const requestAlertsList = createLogic({
       username: getState().connection.username,
       token: getState().connection.token,
     };
-    const request = AjaxUtils.createPostRequest('peripheral/list', connectionInfo); // TODO: find url
+    const request = AjaxUtils.createPostRequest('alert/list', connectionInfo); // TODO: find url
     AjaxUtils.performRequest(request, (data) => {
-      const items = data;
+      const items = map(data, (item) => ({
+        date: item.dateTime,
+        message: item.description,
+        isRead: true,
+      }));
 
       if (items.length > 0) {
         dispatch(Actions.receiveAlertsList(items));
