@@ -10,7 +10,7 @@ import javax.persistence.Inheritance;
 @Entity
 @Inheritance
 @DiscriminatorColumn(name="type")
-public abstract class State {
+public abstract class State implements StateValue {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
@@ -21,4 +21,5 @@ public abstract class State {
 	public State(Integer id) {
 		this.id = id;
 	}
+	
 }
