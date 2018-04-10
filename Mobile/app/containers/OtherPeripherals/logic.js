@@ -20,7 +20,7 @@ export const requestOtherPeripheralsList = createLogic({
   process({ getState, action }, dispatch, done) {
     //TODO: find type
     const logicHelper = new PeripheralLogicHelper(
-      peripheralType.otherPeripheral,
+      'Sensors',
       Actions.errorOtherPeripheralsList,
       getState(),
       dispatch

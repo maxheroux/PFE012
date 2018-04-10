@@ -10,6 +10,7 @@ import * as thermostatLogic from './app/containers/Thermostats/logic';
 import * as lightLogic from './app/containers/Lights/logic';
 import * as lockLogic from './app/containers/Locks/logic';
 import * as otherPeripheralLogic from './app/containers/OtherPeripherals/logic';
+import * as alertLogic from './app/containers/Alerts/logic';
 
 const navigationMiddleware = createReactNavigationReduxMiddleware(
   "root",
@@ -32,6 +33,8 @@ export const logicMiddleware = createLogicMiddleware([
   lockLogic.requestModifyLock,
   otherPeripheralLogic.requestOtherPeripheralsList,
   otherPeripheralLogic.requestCreateOtherPeripheral,
+  alertLogic.requestAlertsList,
+  alertLogic.startAlertsListFetchInterval,
 ]);
 
 const middleware = applyMiddleware(

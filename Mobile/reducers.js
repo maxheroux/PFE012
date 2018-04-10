@@ -8,6 +8,7 @@ import thermostats from './app/containers/Thermostats/reducer';
 import lights from './app/containers/Lights/reducer';
 import locks from './app/containers/Locks/reducer';
 import otherPeripherals from './app/containers/OtherPeripherals/reducer';
+import alerts from './app/containers/Alerts/reducer';
 
 const rootReducer = combineReducers({
   connection,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
   thermostats,
   lights,
   locks,
-  otherPeripherals
+  otherPeripherals,
+  alerts
 });
 
 export default rootReducer;
