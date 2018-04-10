@@ -15,8 +15,8 @@ import com.google.gson.GsonBuilder;
 import application.model.Alert;
 import application.model.Domicile;
 import application.model.User;
-import application.model.messages.AlertRequest;
-import application.model.messages.StateRequest;
+import application.model.messages.AlertListRequest;
+import application.model.messages.AlertAddRequest;
 import application.repositories.AlertRepository;
 import application.repositories.DomicileRepository;
 import application.repositories.UserRepository;
@@ -39,7 +39,7 @@ public class AlertController extends JsonController {
 	public String list(@RequestBody String payload)
 	{
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-		StateRequest request = gson.fromJson(payload, StateRequest.class);
+		AlertListRequest request = gson.fromJson(payload, AlertListRequest.class);
 
 		String username = request.getUsername();
 		String token = request.getToken();
@@ -68,7 +68,7 @@ public class AlertController extends JsonController {
 	@RequestMapping(value = ALERT_ADD, method = RequestMethod.POST, consumes = "text/plain")
 	public String add(@RequestBody String payload) {
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-		AlertRequest request = gson.fromJson(payload, AlertRequest.class);
+		AlertAddRequest request = gson.fromJson(payload, AlertAddRequest.class);
 
 		Domicile dom = domicileRepository.findById(request.getDomicileId());
 		String description = "";

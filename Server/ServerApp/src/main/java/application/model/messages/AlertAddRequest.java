@@ -2,7 +2,7 @@ package application.model.messages;
 
 import com.google.gson.annotations.Expose;
 
-public class AlertRequest extends Message {
+public class AlertAddRequest extends Message {
 
 	@Expose
 	private int domicileId;
@@ -11,7 +11,7 @@ public class AlertRequest extends Message {
 	@Expose
 	private boolean isRead;
 	
-	public AlertRequest(int domicileId, String token, String type)
+	public AlertAddRequest(int domicileId, String token, String type)
 	{
 		super(token);
 		this.domicileId = domicileId;
