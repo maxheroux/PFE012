@@ -38,7 +38,7 @@ public class Domicile extends Client {
 	private String country;
 
 	@OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
-	@JoinColumn(name = "home_id")
+	@JoinColumn(name = "domicile_id")
 	@Fetch(FetchMode.SELECT)
 	private List<User> users = new ArrayList<>();
 
@@ -48,7 +48,7 @@ public class Domicile extends Client {
 	private List<Peripheral> peripherals;
 
 	public Domicile() {
-		super();
+		//super();
 	}
 
 	public Domicile(int licenseKey, String name, String street, int streetNumber, String postalCode, String city,
