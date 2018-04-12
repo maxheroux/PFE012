@@ -59,11 +59,10 @@ public class Application {
 	}
 
 	public void generateData() {
-		int peripheralId = 3;// ThermoSalon
+		int peripheralId = 1;// ThermoSalon
 		User user = userRepository.findByUsername("Sim");
 		String username = user.getUsername();
 		String token = user.getToken();
-
 		for (int month = 0; month < 12; month++) {
 			Calendar calendar = Calendar.getInstance();
 			calendar.set(2018, month, 1);
@@ -72,16 +71,22 @@ public class Application {
 			System.out.println("Month" + month + "Number of day: " + daysInMonth);
 			for (int day = 1; day <= daysInMonth; day++) {
 				for (int hour = 0; hour <= 23; hour++) {
-					Map<String, String> data = new HashMap<String, String>();
-					int temp = temperatureGenerator(hour);
-					// current_tempature,desired_temperature\
-					String value = String.valueOf(temp);
-					data.put("desired_temperature", value);
-					LocalDateTime dateTime = LocalDateTime.of(2018, month + 1, day, hour, 0);
-					// dateTime.withYear(2018).withMonth(month).withDayOfMonth(day).withHour(hour);
-					StateChange stateChange = new StateChange(peripheralId, username, data, token);
-					stateChange.setDateTime(dateTime);
-					messageRepository.save(stateChange);
+					//Reduce size of state request to represent a smaller dataset(not 9k for 1 year)
+					//Get about 2% of data size
+					int random = ThreadLocalRandom.current().nextInt(1, 1000);
+					if (random <= 20) {
+						Map<String, String> data = new HashMap<String, String>();
+						int temp = temperatureGenerator(hour);
+						// current_tempature,desired_temperature\
+						String value = String.valueOf(temp);
+						data.put("desired_temperature", value);
+						LocalDateTime dateTime = LocalDateTime.of(2018, month + 1, day, hour, 0);
+						// dateTime.withYear(2018).withMonth(month).withDayOfMonth(day).withHour(hour);
+						StateChange stateChange = new StateChange(peripheralId, username, data, token);
+						stateChange.setDateTime(dateTime);
+						messageRepository.save(stateChange);
+					}
+
 				}
 
 			}
@@ -97,18 +102,17 @@ public class Application {
 				boolean generateData = true;
 				if (generateData == false) {
 					List<String> rfids = new ArrayList<String>();
-					for (int i = 0; i < 10; i++)
-					{
+					for (int i = 0; i < 10; i++) {
 						String rfid = "RFID#" + Integer.toString(i);
 						rfids.add(rfid);
 					}
-					
+
 					User user1 = new User("Sim", "simsim", "asd");
 					user1.setRfids(rfids);
 					user1.setToken("2f58261f-a0f2-403f-9d7a-ccf202a962a7");
 					User user2 = new User("Max", "maxmax", "asd");
-					Domicile dom = new Domicile(123123, "Dom1", "Rue Trwqer", 12, "H1H1H1", "Montreal", "QQ", "Ca", "domo",
-							"domodomo", "asd", "localhost", 23);
+					Domicile dom = new Domicile(123123, "Dom1", "Rue Trwqer", 12, "H1H1H1", "Montreal", "QQ", "Ca",
+							"domo", "domodomo", "asd", "localhost", 23);
 					dom.setToken("3f58261f-a0f2-403f-9d7a-ccf202a962a7");
 					Peripheral thermo = new Peripheral("AA-BB-CC-AA-AA-232", "ThermoSalon");
 					thermo.setCurrentState(new Thermostat("22", "21", "11", "12"));
@@ -122,14 +126,14 @@ public class Application {
 					thermo = peripheralRepository.save(thermo);
 					light = peripheralRepository.save(light);
 					dom = domicileRepository.save(dom);
-					
-					
+
 					String julienSalt = HashingFunctions.generateSalt();
-					
-					User julien_local = new User("julien_local", HashingFunctions.hashPassword("pfe", julienSalt), julienSalt);
+
+					User julien_local = new User("julien_local", HashingFunctions.hashPassword("pfe", julienSalt),
+							julienSalt);
 					julien_local.setToken("2f58261f-a0f2-403f-9d7a-ccf202a962a7");
-					Domicile domJulienLocal = new Domicile(1234, "Appart Julien", "Rue La Fontaine", 4674, "H1V1P7", "Montreal", "QC", "Ca", "domojj",
-							"domodomo", "asd", "192.168.0.177", 5000);
+					Domicile domJulienLocal = new Domicile(1234, "Appart Julien", "Rue La Fontaine", 4674, "H1V1P7",
+							"Montreal", "QC", "Ca", "domojj", "domodomo", "asd", "192.168.0.177", 5000);
 					domJulienLocal.setToken("3f58261f-a0f2-403f-9d7a-ccf202a962a8");
 					Peripheral julienThermo = new Peripheral("98:D3:31:B3:D5:DD", "Salon");
 					julienThermo.setCurrentState(new Thermostat("22", "21", "11", "12"));
@@ -138,13 +142,13 @@ public class Application {
 					julien_local = userRepository.save(julien_local);
 					julienThermo = peripheralRepository.save(julienThermo);
 					domJulienLocal = domicileRepository.save(domJulienLocal);
-					
+
 					String salt_remote = HashingFunctions.generateSalt();
 					String encryptedPassword = HashingFunctions.hashPassword("pfe", salt_remote);
 					User julien_remote = new User("julien_remote", encryptedPassword, salt_remote);
 					julien_remote.setToken("2f58261f-a0f2-403f-9d7a-ccf202a962a7");
-					Domicile domJulienRemote = new Domicile(1111, "Appart Julien", "Rue La Fontaine", 4674, "H1V1P7", "Montreal", "QC", "Ca", "domojre",
-							"domodomo", "asd", "projetjmhome.ddns.net", 22321);
+					Domicile domJulienRemote = new Domicile(1111, "Appart Julien", "Rue La Fontaine", 4674, "H1V1P7",
+							"Montreal", "QC", "Ca", "domojre", "domodomo", "asd", "projetjmhome.ddns.net", 22321);
 					Peripheral julienThermoRemote = new Peripheral("98:D3:31:B3:D5:DD", "Salon");
 					julienThermoRemote.setCurrentState(new Thermostat("22", "21", "11", "12"));
 					domJulienRemote.setToken("3f58261f-a0f2-403f-9d7a-ccf202a962a8");
