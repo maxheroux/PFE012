@@ -36,6 +36,8 @@ public class Domicile extends Client {
 	private String city;
 	private String state;
 	private String country;
+	private String publicIp;
+	private int port;
 
 	@OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
 	@JoinColumn(name = "domicile_id")
@@ -46,13 +48,18 @@ public class Domicile extends Client {
 	@JoinColumn(name = "domicile_id")
 	@Fetch(FetchMode.SELECT)
 	private List<Peripheral> peripherals;
+	
+	@OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
+	@JoinColumn(name = "alert_id")
+	@Fetch(FetchMode.SELECT)
+	private List<Alert> alerts;
 
 	public Domicile() {
 		//super();
 	}
 
 	public Domicile(int licenseKey, String name, String street, int streetNumber, String postalCode, String city,
-			String state, String country, String username, String password, String salt) {
+			String state, String country, String username, String password, String salt, String publicIp, int port) {
 		super(username, password, salt);
 		this.licenseKey = licenseKey;
 		this.name = name;
@@ -62,7 +69,10 @@ public class Domicile extends Client {
 		this.city = city;
 		this.state = state;
 		this.country = country;
+		this.setPublicIp(publicIp);
+		this.setPort(port);
 		this.peripherals = new ArrayList<>();
+		this.alerts = new ArrayList<>();
 	}
 
 	public int getLicenseKey() {
@@ -128,6 +138,26 @@ public class Domicile extends Client {
 	public void setCountry(String country) {
 		this.country = country;
 	}
+	
+	public String getPublicIp() 
+	{
+		return publicIp;
+	}
+
+	public void setPublicIp(String publicIp) 
+	{
+		this.publicIp = publicIp;
+	}
+
+	public int getPort() 
+	{
+		return port;
+	}
+
+	public void setPort(int port) 
+	{
+		this.port = port;
+	}
 
 	public List<User> getUsers() {
 		return users;
@@ -157,5 +187,18 @@ public class Domicile extends Client {
 		return peripherals;
 	}
 
+	public List<Alert> getAlerts()
+	{
+		return alerts;
+	}
 	
+	public void addAlert(Alert alert)
+	{
+		alerts.add(alert);
+	}
+	
+	public void removeAlert(Alert alert)
+	{
+		alerts.remove(alert);
+	}
 }

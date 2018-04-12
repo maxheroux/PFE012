@@ -1,7 +1,14 @@
 package application.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -9,38 +16,24 @@ import javax.persistence.UniqueConstraint;
 @DiscriminatorValue("User")
 @Table(uniqueConstraints= {@UniqueConstraint(columnNames = {"username"})})
 public class User extends Client
-{
-	
-	private String publicIp;
-	private int port;
+{	
+	@ElementCollection
+	@CollectionTable(name="Rfid", joinColumns=@JoinColumn(name="user_id"))
+	@Column(name="rfid")
+	private List<String> rfids = new ArrayList<String>();
 	
 	public User() {}
 	
-	public User(String username, String password, String salt, String publicIp, int port)
+	public User(String username, String password, String salt)
 	{
 		super(username, password, salt);
-		this.setPublicIp(publicIp);
-		this.setPort(port);
-	}
-	
-	public String getPublicIp() 
-	{
-		return publicIp;
 	}
 
-	public void setPublicIp(String publicIp) 
-	{
-		this.publicIp = publicIp;
+	public List<String> getRfids() {
+		return rfids;
 	}
 
-	public int getPort() 
-	{
-		return port;
+	public void setRfids(List<String> rfids) {
+		this.rfids = rfids;
 	}
-
-	public void setPort(int port) 
-	{
-		this.port = port;
-	}
-	
 }
