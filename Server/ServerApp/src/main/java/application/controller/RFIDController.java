@@ -12,12 +12,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import application.model.User;
-import application.model.messages.RfidAddRequest;
+import application.model.messages.RFIDAddRequest;
 import application.repositories.UserRepository;
 import application.utilities.AuthenticationFunctions;
 
 @RestController
-public class RfidController extends JsonController {
+public class RFIDController extends JsonController {
 	
 	private static final String RFIDTAG_ADD = "/rfidtag/add";
 	
@@ -28,7 +28,7 @@ public class RfidController extends JsonController {
 	public String add(@RequestBody String payload)
 	{
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-		RfidAddRequest request = gson.fromJson(payload, RfidAddRequest.class);
+		RFIDAddRequest request = gson.fromJson(payload, RFIDAddRequest.class);
 		
 		String username = request.getUsername();
 		String token = request.getToken();
