@@ -73,9 +73,10 @@ public class PeripheralController extends JsonController {
 			dom.addPeripheral(newPeripheral);
 			peripheralRepository.save(newPeripheral);
 			domicileRepository.save(dom);
-			PostPayload(payload, user, PERIPHERAL_ADD);
 			gson = new GsonBuilder().registerTypeAdapter(Peripheral.class, new PeripheralSerializer()).create();
-			return gson.toJson(dom.getPeripherals());
+			String jsonPeripherals = gson.toJson(dom.getPeripherals());
+			PostPayload(jsonPeripherals, user, PERIPHERAL_ADD);
+			return jsonPeripherals;
 		} else {
 			return getBadAuthJsonString();
 		}
