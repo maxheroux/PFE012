@@ -1,5 +1,8 @@
 package application;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -35,8 +38,16 @@ public class Application {
 	InitializingBean sendDatabase() {
 		return () -> {
 			try {
-								
+					
+				List<String> rfids = new ArrayList<String>();
+				for (int i = 0; i < 10; i++)
+				{
+					String rfid = "RFID#" + Integer.toString(i);
+					rfids.add(rfid);
+				}
+				
 				User user1 = new User("Sim", "simsim", "asd");
+				user1.setRfids(rfids);
 				user1.setToken("2f58261f-a0f2-403f-9d7a-ccf202a962a7");
 				User user2 = new User("Max", "maxmax", "asd");
 				Domicile dom = new Domicile(123123, "Dom1", "Rue Trwqer", 12, "H1H1H1", "Montreal", "QQ", "Ca", "domo",
