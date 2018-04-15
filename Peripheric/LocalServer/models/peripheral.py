@@ -11,6 +11,9 @@ class Peripheral(object):
 
     @staticmethod
     def peripheral_object_hook(d):
-        peripheral = Peripheral(d["id"], d["bluetoothId"], d["name"], d["type"], "")
-
-        return peripheral
+        peripherals = []
+        for peripheral in d:
+            print(peripheral)
+            peripheral = Peripheral(peripheral["id"], peripheral["bluetoothId"], peripheral["name"], peripheral["type"], "")
+            peripherals.append(peripheral)
+        return peripherals

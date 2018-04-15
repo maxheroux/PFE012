@@ -31,8 +31,8 @@ class TemperatureHandler:
 
     # TODO: put a comment with state_value format (what it is)
     def change_state(self, state_value):
-        if "requestedTemperature" in state_value:
-            self.requested_temperature = state_value["requestedTemperature"]
+        if "RequestedTemperature" in state_value:
+            self.requested_temperature = state_value["RequestedTemperature"]
             self.bluetooth_handler.send(json.dumps(
                 {"messageType": "update", "updateType": "RequestedTemperature", "updateValue": self.requested_temperature}))
 
@@ -53,10 +53,11 @@ class TemperatureHandler:
                 self.last_temperature = message['CurrentTemperature']
                 self.last_humidity = message['Humidity']
             elif "alertType" in message:
+                print(message)
                 data = json.dumps(
                     {"type": message["alertType"], "domicileId": self.domicile_id, "token": self.domicile_token })
-                requests.post(self.post_url + "/alert/add", data=data, headers={'content-type':'text/plain'})
                 print(self.post_url + "/alert/add")
                 print(data)
+                requests.post(self.post_url + "/alert/add", data=data, headers={'content-type':'text/plain'})
 
 

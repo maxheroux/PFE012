@@ -1,0 +1,16 @@
+{
+    "clang-format.executable": "/home/julien/.vscode/extensions/xaver.clang-format-1.6.1",
+    "files.associations": {
+        "chrono": "cpp",
+        "random": "cpp",
+        "limits": "cpp",
+        "valarray": "cpp",
+        "bitset": "cpp",
+        "array": "cpp",
+        "slist": "cpp",
+        "rope": "cpp",
+        "initializer_list": "cpp",
+        "utility": "cpp",
+        "thread": "cpp"
+    }
+}

@@ -1,0 +1,124 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "/usr/include",
+                "/usr/local/include",
+                "${workspaceRoot}"
+            ],
+            "defines": [],
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "path": [
+                    "/usr/include",
+                    "/usr/local/include",
+                    "${workspaceRoot}"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            },
+            "macFrameworkPath": [
+                "/System/Library/Frameworks",
+                "/Library/Frameworks"
+            ]
+        },
+        {
+            "name": "Linux",
+            "includePath": [
+                "/usr/include/c++/5",
+                "/usr/include/x86_64-linux-gnu/c++/5",
+                "/usr/include/c++/5/backward",
+                "/usr/lib/gcc/x86_64-linux-gnu/5/include",
+                "/usr/local/include",
+                "/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed",
+                "/usr/include/x86_64-linux-gnu",
+                "/usr/include",
+                "/home/julien/Arduino/libraries/ArduinoJson/src",
+                "/home/julien/Arduino/libraries/DHT_sensor_library/",
+                "/home/julien/Arduino/libraries/Adafruit_Unified_Sensor/",
+                "/home/julien/Arduino/libraries/TemperatureController/",
+                "/home/julien/Arduino/libraries/GasSensorController/",
+                "/home/julien/Arduino/libraries/GasSensorController/GasSensorController.cpp",
+                "/home/julien/Arduino/libraries/GasSensorController/GasSensorController.h",
+                "/home/julien/Arduino/libraries/TemperatureController/",
+                "/home/julien/Arduino/libraries/HeaterController/",
+                "/home/julien/Arduino/libraries/LcdController/",
+                "/opt/arduino-1.8.5/libraries/",
+                "/opt/arduino-1.8.5/hardware/arduino/avr/cores/arduino/",
+                "/opt/arduino-1.8.5/hardware/arduino/avr/libraries/EEPROM/src",
+                "/opt/arduino-1.8.5/hardware/arduino/avr/libraries/SPI/src",
+                "/opt/arduino-1.8.5/hardware/arduino/avr/libraries/SoftwareSerial/src",
+                "/opt/arduino-1.8.5/hardware/arduino/avr/libraries/Wire/src",
+                "/opt/arduino-1.8.5/hardware/tools/avr/avr/include/",
+                "/opt/arduino-1.8.5/hardware/tools/avr/avr/include/avr/",
+                "/opt/arduino-1.8.5/hardware/tools/avr/avr/include/compat/",
+                "/opt/arduino-1.8.5/hardware/tools/avr/avr/include/util/",
+                "/opt/arduino-1.8.5/hardware/tools/avr/lib/gcc/avr/4.*.*/include/",
+                "/opt/arduino-1.8.5/hardware/tools/avr/lib/gcc/avr/4.*.*/include-fixed/",
+                "/home/julien/Arduino/libraries/MFRC522/src"
+            ],
+            "defines": [],
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "path": [
+                    "/usr/include/c++/5",
+                    "/usr/include/x86_64-linux-gnu/c++/5",
+                    "/usr/include/c++/5/backward",
+                    "/usr/lib/gcc/x86_64-linux-gnu/5/include",
+                    "/usr/local/include",
+                    "/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed",
+                    "/usr/include/x86_64-linux-gnu",
+                    "/usr/include",
+                    "/home/julien/Arduino/libraries/ArduinoJson/src",
+                    "/home/julien/Arduino/libraries/DHT_sensor_library/",
+                    "/home/julien/Arduino/libraries/Adafruit_Unified_Sensor/",
+                    "/home/julien/Arduino/libraries/PID/",
+                    "/home/julien/Arduino/libraries/TemperatureController/",
+                    "/home/julien/Arduino/libraries/HeaterController/",
+                    "/home/julien/Arduino/libraries/GasSensorController/",
+                    "/home/julien/Arduino/libraries/LcdController/",
+                    "/opt/arduino-1.8.5/libraries/",
+                    "/opt/arduino-1.8.5/hardware/arduino/avr/cores/arduino/",
+                    "/opt/arduino-1.8.5/hardware/arduino/avr/libraries/EEPROM/src",
+                    "/opt/arduino-1.8.5/hardware/arduino/avr/libraries/SPI/src",
+                    "/opt/arduino-1.8.5/hardware/arduino/avr/libraries/SoftwareSerial/src",
+                    "/opt/arduino-1.8.5/hardware/arduino/avr/libraries/Wire/src",
+                    "/opt/arduino-1.8.5/hardware/tools/avr/avr/include/",
+                    "/opt/arduino-1.8.5/hardware/tools/avr/avr/include/avr/",
+                    "/opt/arduino-1.8.5/hardware/tools/avr/avr/include/compat/",
+                    "/opt/arduino-1.8.5/hardware/tools/avr/avr/include/util/",
+                    "/opt/arduino-1.8.5/hardware/tools/avr/lib/gcc/avr/4.*.*/include/",
+                    "/opt/arduino-1.8.5/hardware/tools/avr/lib/gcc/avr/4.*.*/include-fixed/",
+                    "/home/julien/Arduino/libraries/MFRC522/src"
+                ],
+                "limitSymbolsToIncludedHeaders": false,
+                "databaseFilename": ""
+            },
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        },
+        {
+            "name": "Win32",
+            "includePath": [
+                "C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/include",
+                "${workspaceRoot}"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE"
+            ],
+            "intelliSenseMode": "msvc-x64",
+            "browse": {
+                "path": [
+                    "C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/include/*",
+                    "${workspaceRoot}"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
+        }
+    ],
+    "version": 3
+}
