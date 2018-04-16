@@ -6,10 +6,16 @@
 
 #define RSTPIN 9
 #define SSPIN 10
+#define PIEZOPIN 3
 MFRC522 rfid(SSPIN, RSTPIN);
+
 SoftwareSerial EEBlue(5, 6);
 String tagInProcess = "";
 bool isProcessingTag = false;
+
+const long thresholdDelay = 5000;
+unsigned long previousMillis = 0;
+
 void setup()
 {
 
@@ -25,12 +31,12 @@ void loop()
 {
 
   String tagId = getid();
-  
+
   if (!isProcessingTag)
   {
     if (tagId != "")
     {
-      tone(3, 1760);
+      tone(PIEZOPIN, 1760);
       Serial.println("Tag id is: " + tagId);
       tagInProcess = tagId;
       StaticJsonBuffer<512> jsonBuffer;
@@ -38,14 +44,38 @@ void loop()
       root["tagId"] = tagId;
       root.printTo(EEBlue);
       EEBlue.println();
+
+      //Start timing for response delay
+      previousMillis = millis();
+
       root.prettyPrintTo(Serial);
       isProcessingTag = true;
       delay(350);
-      noTone(3);
+      noTone(PIEZOPIN);
     }
   }
   else
   {
+
+    unsigned long currentMillis = millis();
+    if (currentMillis - previousMillis >= thresholdDelay)
+    {
+      
+      isProcessingTag = false;
+      tagInProcess = "";
+      tone(PIEZOPIN, 494);
+      delay(500);
+      noTone(PIEZOPIN);
+      tone(PIEZOPIN, 494);
+      delay(500);
+      tone(PIEZOPIN, 250);
+      delay(300);
+      noTone(PIEZOPIN);
+      Serial.println("Request expired");
+      Serial.println("Access Denied");
+      return;
+    }
+
     //Read to get response from bluetooth, flash a yellow light, if response, red if refused, green if approved
     if (EEBlue.available())
     {
@@ -58,22 +88,22 @@ void loop()
       {
         if (receivedJson["accepted"] == "true")
         {
-          tone(3, 2093);
+          tone(PIEZOPIN, 2093);
           delay(200);
-          noTone(3);
-          tone(3, 2637);
+          noTone(PIEZOPIN);
+          tone(PIEZOPIN, 2637);
           delay(200);
-          noTone(3);
+          noTone(PIEZOPIN);
           Serial.println("Access Accepted");
         }
         else
         {
-          tone(3, 740);
+          tone(PIEZOPIN, 740);
           delay(400);
-          noTone(3);
-          tone(3, 494);
+          noTone(PIEZOPIN);
+          tone(PIEZOPIN, 494);
           delay(300);
-          noTone(3);
+          noTone(PIEZOPIN);
           Serial.println("Access Denied");
         }
         isProcessingTag = false;
