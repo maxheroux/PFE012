@@ -2,7 +2,7 @@ import { createLogic } from 'redux-logic';
 import * as Constants from './constants';
 import * as Actions from './actions';
 import { AjaxUtils } from '../../../utils';
-import { map } from 'lodash';
+import { map, filter, isEmpty } from 'lodash';
 
 // TODO: remove after testing
 const placeholderAlerts = [];
@@ -24,7 +24,8 @@ export const requestAlertsList = createLogic({
     };
     const request = AjaxUtils.createPostRequest('alert/list', connectionInfo); // TODO: find url
     AjaxUtils.performRequest(request, (data) => {
-      const items = map(data, (item) => ({
+      const dataWithValue = filter(data, i => !isEmpty(i));
+      const items = map(dataWithValue, (item) => ({
         date: item.dateTime,
         message: item.description,
         isRead: true,

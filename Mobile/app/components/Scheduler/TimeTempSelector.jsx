@@ -28,6 +28,13 @@ const style = {
   pickersContainer: {
     flex: 1,
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+    marginTop: 20,
+  },
+  individualPickerContainer: {
+    flex: 3
   }
 }
 
@@ -53,8 +60,8 @@ export default class TimeTempSelector extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      selectedHour: 12,
-      selectedTemperature: 25,
+      selectedHour: `${12}`,
+      selectedTemperature: `${25}`,
     };
   }
 
@@ -67,17 +74,21 @@ export default class TimeTempSelector extends React.Component<Props, State> {
         <ScrollView>
           <View style={style.container}>
             <View style={style.pickersContainer}>
-              <Picker
-                selectedValue={selectedTemperature}
-                onValueChange={(itemValue, itemIndex) => this.setState({selectedTemperature: itemValue})}>
-                {tempPickerValues}
-              </Picker>
+              <View style={style.individualPickerContainer}>
+                <Picker
+                  selectedValue={selectedTemperature}
+                  onValueChange={(itemValue, itemIndex) => this.setState({selectedTemperature: itemValue})}>
+                  {tempPickerValues}
+                </Picker>
+              </View>
               <Text> à </Text>
-              <Picker
-                selectedValue={selectedHour}
-                onValueChange={(itemValue, itemIndex) => this.setState({selectedHour: itemValue})}>
-                {hourPickerValues}
-              </Picker>
+              <View style={style.individualPickerContainer}>
+                <Picker
+                  selectedValue={selectedHour}
+                  onValueChange={(itemValue, itemIndex) => this.setState({selectedHour: itemValue})}>
+                  {hourPickerValues}
+                </Picker>
+              </View>
             </View>
             <View style={style.button}>
               <Button block onPress={() => onConfirm(selectedHour, selectedTemperature)}>

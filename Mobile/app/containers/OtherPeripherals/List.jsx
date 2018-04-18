@@ -54,7 +54,7 @@ export default class OtherPeripherals extends React.Component<Props, State> {
     });
 
     const listProperties = {
-      title: 'Capteurs',
+      title: 'Autres',
       listId: 'OtherPeripherals',
       hasFetchedOnce,
       onCreate,

@@ -40,12 +40,3 @@ export const goToCreateOtherPeripheral = NavigationActions.navigate({
 export const goToRoute = (routeName) => NavigationActions.navigate({
     routeName: routeName
 })
-export const goToDailySchedule = (scheduleIndex, initialValues, onSubmit, goBackRoute) => NavigationActions.navigate({
-    routeName: 'DailySchedule',
-    params: {
-      scheduleIndex,
-      initialValues,
-      onSubmit,
-      goBackRoute,
-    }
-})

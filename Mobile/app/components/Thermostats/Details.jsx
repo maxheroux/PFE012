@@ -8,15 +8,17 @@ import SegmentedControlTab from 'react-native-segmented-control-tab';
 import Header from '../../containers/Layout/Header';
 import Manual from './Manual';
 import ScheduleList from '../../containers/Scheduler/Scheduler';
+import type { modify as ModificationStatus } from '../../containers/Thermostats/reducer';
 
 type Props = {
-  modifyThermostat: (targetTemp: string) => void,
-  error: string,
-  isFetching: boolean,
+  saveChanges: (modeIndex) => void,
+  updateTargetTemperature: () => void,
+  updateSchedule: (newSchedule) => void,
   nameList: Array<string>,
   currentTemperature: string,
   targetTemperature: string,
   currentHumidity: string,
+  modificationStatus: ModificationStatus,
 };
 
 type State = {
@@ -61,25 +63,53 @@ export default class Details extends React.Component<Props, State> {
       this.props.targetTemperature !== nextProps.targetTemperature ||
       this.props.currentHumidity !== nextProps.currentHumidity ||
       this.props.currentTemperature !== nextProps.currentTemperature ||
+      this.props.modificationStatus !== nextProps.modificationStatus ||
       this.state.selectedViewIndex !== nextState.selectedViewIndex ||
       !shallowequal(this.props.nameList, nextProps.nameList);
   }
 
   render() {
+    const {
+      saveChanges,
+      updateTargetTemperature,
+      updateSchedule,
+      nameList,
+      currentTemperature,
+      targetTemperature,
+      currentHumidity,
+      modificationStatus
+    } = this.props;
     const { selectedViewIndex } = this.state;
 
     let content = undefined;
     switch (selectedViewIndex) {
       case 1:
         const scheduleProps = {
-          initialValues: []
+          schedules: modificationStatus.schedules.list,
+          error: modificationStatus.error || modificationStatus.schedules.error,
+          isFetching: modificationStatus.isFetching || modificationStatus.schedules.isFetching,
+          updateSchedule,
         };
         content = <ScheduleList {...scheduleProps}/>;
         break;
       case 2:
+        content = (
+          <Text style={{margin: 15}}>
+            Le mode automatique gère automatiquement les températures des thermostats sélectionnés.
+          </Text>
+        );
         break;
       case 0:
       default:
+        const manualProps = {
+          error: modificationStatus.error,
+          isFetching: modificationStatus.isFetching,
+          updateTargetTemperature,
+          nameList,
+          currentTemperature,
+          targetTemperature,
+          currentHumidity,
+        }
         content = <Manual {...this.props}/>;
         break;
     }
@@ -88,7 +118,12 @@ export default class Details extends React.Component<Props, State> {
 
     return (
       <Container>
-        <Header title="Modifier thermo." goBackRoute="Main"/>
+        <Header
+          title="Modifier thermo."
+          goBackRoute="Main"
+          rightBtnText="OK"
+          rightBtnFn={() => saveChanges(selectedViewIndex)}
+        />
         <Content style={style.content}>
           {content}
         </Content>

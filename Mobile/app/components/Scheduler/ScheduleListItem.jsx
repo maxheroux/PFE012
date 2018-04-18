@@ -20,8 +20,8 @@ const dayText = {
   borderColor: 'gray',
   borderWidth: 1,
   textAlign: 'center',
-  marginLeft: 6,
-  marginRight: 6,
+  marginLeft: 3,
+  marginRight: 3,
   borderRadius: 5,
   padding: 2,
 };

@@ -45,13 +45,13 @@ export default class Alerts extends React.Component<Props, State> {
         date: item.date,
         message: item.message,
         isRead: item.isRead,
-        key: i
+        key: `alert#${i}`
       }
       return <ListItem {...props}/>;
     });
     if (!hasFetchedOnce) {
       listItems = [(
-        <Spinner color='#777' />
+        <Spinner color='#777' key="alertSpinner"/>
       )];
     }
     return (

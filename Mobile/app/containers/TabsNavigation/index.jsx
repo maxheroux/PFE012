@@ -20,7 +20,7 @@ const getTitleForRoute = (route) => {
     case 'Locks':
       return 'Serrures';
     case 'OtherPeripherals':
-      return 'Capteurs';
+      return 'Autres';
   }
 }
 

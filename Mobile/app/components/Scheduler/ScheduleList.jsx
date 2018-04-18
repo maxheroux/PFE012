@@ -5,11 +5,16 @@ import { ScrollView, View } from 'react-native';
 import { map, get, some, find, filter } from 'lodash';
 import DaySelector from './DaySelector';
 import ScheduleListItem from './ScheduleListItem';
-import type { ListItem, Props } from '../../containers/Scheduler/Scheduler';
+import type { ListItem } from '../../containers/Scheduler/Scheduler';
+
+type Props = {
+  listItems: Array<ListItem>,
+  onItemSelection: (index: number) => void,
+  onNewSchedule: () => void
+};
 
 type State = {
   isDaySelectorOpen: boolean,
-  listItems: Array<ListItem>,
 };
 
 const style = {
@@ -27,33 +32,12 @@ export default class ScheduleList extends React.Component<Props, State> {
     super(props);
     this.state = {
       isDaySelectorOpen: false,
-      listItems: props.initialValues || [],
     };
   }
 
-  addNewListItem(selectedDays: Array<number>) {
-    const currentListItems = this.state.listItems;
-    const newListItems = currentListItems.concat([
-      {
-        selectedDays,
-        dailySchedule: [],
-      }
-    ]);
-    this.setState({ listItems: newListItems });
-  }
-
-  updateDailySchedule(scheduleIndex, dailySchedule) {
-    const listItems = [...this.state.listItems];
-    listItems[scheduleIndex] = {
-      ...listItems[scheduleIndex],
-      dailySchedule: dailySchedule,
-    }
-    this.setState({ listItems });
-  }
-
   render() {
-    const { isDaySelectorOpen, listItems } = this.state;
-    const { onItemSelection } = this.props;
+    const { isDaySelectorOpen } = this.state;
+    const { onItemSelection, onNewSchedule, listItems } = this.props;
 
     const headerProps = {
       title: 'Programmation',
@@ -61,7 +45,7 @@ export default class ScheduleList extends React.Component<Props, State> {
     };
     const daySelectorProps = {
       onConfirm: (selectedDays) => {
-        this.addNewListItem(selectedDays);
+        onNewSchedule(selectedDays);
         this.setState({ isDaySelectorOpen: false });
       },
       onCancel: () => this.setState({ isDaySelectorOpen: false }),
@@ -73,10 +57,7 @@ export default class ScheduleList extends React.Component<Props, State> {
         selectedDays: item.selectedDays,
         name: `Horaire #${index + 1}`,
         key: `scheduleListItem${index}`,
-        onClick: () => onItemSelection(
-          index,
-          item.dailySchedule,
-          (scheduleIndex, dailySchedule) => this.updateDailySchedule(scheduleIndex, dailySchedule)),
+        onClick: () => onItemSelection(index),
       }
       return <ScheduleListItem {...listItemProps} />;
     });

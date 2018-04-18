@@ -6,7 +6,7 @@ import { map, get, some, find, filter } from 'lodash';
 import TimeTempSelector from './TimeTempSelector';
 import DailyScheduleListItem from './DailyScheduleListItem';
 
-export type ListItem = {
+type ListItem = {
   hour: number,
   temperature: number,
 }
@@ -14,6 +14,10 @@ export type ListItem = {
 type Props = {
   listItems: Array<ListItem>,
   addNewListItem: (hour: number, temperature: number) => void,
+  removeSchedule: () => void,
+  goBack: () => void,
+  error: string,
+  isFetching: boolean,
 };
 
 type State = {
@@ -27,7 +31,12 @@ const style = {
   noContentText: {
     textAlign: 'center',
     padding: 15,
-  }
+  },
+  error: {
+    color: 'red',
+    margin: 10,
+    textAlign: 'center'
+  },
 }
 
 export default class DailySchedule extends React.Component<Props, State> {
@@ -40,7 +49,14 @@ export default class DailySchedule extends React.Component<Props, State> {
 
   render() {
     const { isTimeTempSelectorOpen } = this.state;
-    const { listItems, addNewListItem } = this.props;
+    const { listItems, addNewListItem, goBack, removeSchedule, error, isFetching } = this.props;
+
+    if (isFetching) {
+      return <Spinner color='rgb(90,200,250)' />;
+    }
+    if (error) {
+      <Text style={style.error}>{error}</Text>
+    }
 
     const timeTempSelectorProps = {
       onConfirm: (hour: number, temperature: number) => {
@@ -76,6 +92,18 @@ export default class DailySchedule extends React.Component<Props, State> {
           <Button block
             onPress={() => this.setState({ isTimeTempSelectorOpen: true })}>
             <Text>Nouvelle Température</Text>
+          </Button>
+        </View>
+        <View style={style.button}>
+          <Button block danger
+            onPress={() => removeSchedule()}>
+            <Text>Supprimer l'horaire</Text>
+          </Button>
+        </View>
+        <View style={style.button}>
+          <Button block transparent
+            onPress={() => goBack()}>
+            <Text>Retour à l'horaire</Text>
           </Button>
         </View>
         <TimeTempSelector {...timeTempSelectorProps} />

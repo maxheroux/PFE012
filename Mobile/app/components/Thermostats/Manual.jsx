@@ -8,7 +8,7 @@ import Picker from 'rmc-picker';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 
 type Props = {
-  modifyThermostat: (targetTemp: string) => void,
+  updateTargetTemperature: (targetTemp: string) => void,
   error: string,
   isFetching: boolean,
   nameList: Array<string>,
@@ -18,7 +18,6 @@ type Props = {
 };
 
 type State = {
-  newTargetTemperature: string,
 };
 
 const style = {
@@ -39,12 +38,6 @@ const style = {
 }
 
 export default class Modify extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      newTargetTemperature: `${props.targetTemperature}`,
-    };
-  }
 
   shouldComponentUpdate(nextProps: Props, nextState: State) {
     return this.props.error !== nextProps.error ||
@@ -52,7 +45,6 @@ export default class Modify extends React.Component<Props, State> {
       this.props.targetTemperature !== nextProps.targetTemperature ||
       this.props.currentHumidity !== nextProps.currentHumidity ||
       this.props.currentTemperature !== nextProps.currentTemperature ||
-      this.state.newTargetTemperature !== nextState.newTargetTemperature ||
       !shallowequal(this.props.nameList, nextProps.nameList);
   }
 
@@ -60,15 +52,12 @@ export default class Modify extends React.Component<Props, State> {
     const {
       error,
       isFetching,
-      modifyThermostat,
+      updateTargetTemperature,
       targetTemperature,
       currentTemperature,
       currentHumidity,
       nameList
     } = this.props;
-    const onSubmitPress = () => {
-      modifyThermostat(this.state.newTargetTemperature);
-    };
     const errorMessage = error && (
       <Text style={style.error}>{error}</Text>
     );
@@ -87,8 +76,8 @@ export default class Modify extends React.Component<Props, State> {
     return (
       <ScrollView style={style.container}>
         <Picker
-          selectedValue={this.state.newTargetTemperature}
-          onValueChange={(itemValue, itemIndex) => this.setState({newTargetTemperature: itemValue})}>
+          selectedValue={targetTemperature}
+          onValueChange={(itemValue, itemIndex) => updateTargetTemperature(itemValue)}>
           {pickerValues}
         </Picker>
         <List>
@@ -116,11 +105,6 @@ export default class Modify extends React.Component<Props, State> {
           </ListItem>
         </List>
         {errorMessage}
-        <View style={style.button}>
-          <Button block onPress={onSubmitPress} disabled={isFetching}>
-            <Text>Modifier</Text>
-          </Button>
-        </View>
         {isFetching && <Spinner color='rgb(90,200,250)' />}
       </ScrollView>
     );
