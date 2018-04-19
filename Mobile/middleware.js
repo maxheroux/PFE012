@@ -36,6 +36,7 @@ export const logicMiddleware = createLogicMiddleware([
   otherPeripheralLogic.requestCreateOtherPeripheral,
   alertLogic.requestAlertsList,
   alertLogic.startAlertsListFetchInterval,
+  alertLogic.requestMarkAlertRead,
 ]);
 
 const middleware = applyMiddleware(

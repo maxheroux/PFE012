@@ -1,9 +1,10 @@
 // @flow
 import React, { Component } from 'react';
-import { View, Text, List } from 'native-base';
+import { View, Text, List, Button } from 'native-base';
 
 type Props = {
-  children: any
+  children: any,
+  markAlertsAsRead: () => void,
 };
 
 type State = {
@@ -16,11 +17,21 @@ const style = {
   },
   title: {
     fontSize: 25,
-    textAlign: 'center',
     marginBottom: 10,
+    flex: 2,
   },
   noAlertText: {
     textAlign: 'center',
+  },
+  titleContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  button: {
+    flex: 1,
+  },
+  buttonText: {
+    textAlign: 'right',
   }
 };
 
@@ -28,7 +39,8 @@ export default class AlertList extends Component<Props, State> {
 
   render() {
     const {
-      children
+      children,
+      markAlertsAsRead
     } = this.props;
 
     let content = undefined;
@@ -54,9 +66,16 @@ export default class AlertList extends Component<Props, State> {
 
     return (
       <View style={containerStyle}>
-        <Text style={style.title}>
-          Alertes récentes
-        </Text>
+        <View style={style.titleContainer}>
+          <Text style={style.title}>
+            Alertes récentes
+          </Text>
+          <View style={style.button}>
+            <Button block transparent onPress={markAlertsAsRead}>
+              <Text style={style.buttonText}>Marquer comme lues</Text>
+            </Button>
+          </View>
+        </View>
         {content}
       </View>
     );

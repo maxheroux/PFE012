@@ -124,7 +124,9 @@ export const requestModifyThermostat = createLogic({
       dispatch(Actions.successfulModifyThermostat());
       NavigationActions.goToMain();
     })
-    .catch(e => dispatch(Actions.errorModifyThermostat(e)))
+    .catch(e => {
+      dispatch(Actions.errorModifyThermostat(e))
+    })
     .then(() => done());
   }
 });

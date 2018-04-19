@@ -8,6 +8,7 @@ import { map, filter, isEmpty } from 'lodash';
 const placeholderAlerts = [];
 for(let i = 0; i < 5; i++){
   placeholderAlerts.push({
+    id: i,
     date: `12/12/2012`,
     message: `Message d'alerte #${i}`,
     isRead: false,
@@ -22,10 +23,11 @@ export const requestAlertsList = createLogic({
       username: getState().connection.username,
       token: getState().connection.token,
     };
-    const request = AjaxUtils.createPostRequest('alert/list', connectionInfo); // TODO: find url
+    const request = AjaxUtils.createPostRequest('alert/list', connectionInfo);
     AjaxUtils.performRequest(request, (data) => {
       const dataWithValue = filter(data, i => !isEmpty(i));
       const items = map(dataWithValue, (item) => ({
+        id: item.id,
         date: item.dateTime,
         message: item.description,
         isRead: true,
@@ -59,5 +61,29 @@ export const startAlertsListFetchInterval = createLogic({
       ...action,
       interval
     });
+  }
+});
+
+export const requestMarkAlertRead = createLogic({
+  type: Constants.requestMarkAlertRead,
+  latest: true,
+  process({ getState, action }, dispatch, done) {
+    const alertIds = map(getState().alerts.list.list, i => {
+      return i.id;
+    });
+    const params = {
+      username: getState().connection.username,
+      token: getState().connection.token,
+      alertIds,
+    };
+    const request = AjaxUtils.createPostRequest('alert/remove', params);
+    AjaxUtils.performRequest(request, (data) => {
+      dispatch(Actions.receiveMarkAlertRead());
+      dispatch(Actions.requestAlertsList());
+    })
+    .catch(error => {
+      dispatch(Actions.errorMarkAlertRead(`Une erreur est survenue. Les alertes n'ont pas pu être marquées comme lues.`));
+    })
+    .then(() => done());
   }
 });

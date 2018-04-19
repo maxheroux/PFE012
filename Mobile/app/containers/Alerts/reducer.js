@@ -2,6 +2,7 @@
 import * as Constants from './constants';
 
 export type alert = {
+  id: number,
   date: string,
   message: string,
   isRead: boolean,

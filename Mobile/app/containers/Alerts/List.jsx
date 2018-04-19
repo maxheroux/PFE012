@@ -9,6 +9,7 @@ import List from '../../components/Alerts/List';
 
 type Props = {
   startAlertsListFetchInterval: () => void,
+  markAlertsAsRead: () => void,
   error: string,
   isFetching: boolean,
   hasFetchedOnce: boolean,
@@ -29,6 +30,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   startAlertsListFetchInterval: () => {
     dispatch(Actions.startAlertsListFetchInterval(undefined));
   },
+  markAlertsAsRead: () => {
+
+  }
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -39,7 +43,7 @@ export default class Alerts extends React.Component<Props, State> {
   }
 
   render() {
-    let { alerts, onCreate, onItemPress, hasFetchedOnce } = this.props;
+    let { alerts, onCreate, onItemPress, hasFetchedOnce, markAlertsAsRead } = this.props;
     let listItems = map(alerts, (item, i) => {
       const props = {
         date: item.date,
@@ -54,8 +58,12 @@ export default class Alerts extends React.Component<Props, State> {
         <Spinner color='#777' key="alertSpinner"/>
       )];
     }
+
+    const listProps = {
+      markAlertsAsRead,
+    }
     return (
-      <List>
+      <List {...listProps}>
         {listItems}
       </List>
     );
