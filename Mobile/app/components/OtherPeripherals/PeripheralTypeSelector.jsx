@@ -31,7 +31,7 @@ const style = {
   }
 };
 
-const types = [peripheralType.RFIDReader, peripheralType.motionDetector, peripheralType.CODetector];
+const types = [peripheralType.RFIDReader, peripheralType.RFIDTag, peripheralType.motionDetector, peripheralType.CODetector];
 
 export default class PeripheralTypeSelector extends React.Component<Props, State> {
 

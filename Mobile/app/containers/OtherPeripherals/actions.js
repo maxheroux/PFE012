@@ -14,11 +14,12 @@ export const errorOtherPeripheralsList = (error) => ({
   error
 });
 
-export const requestCreateOtherPeripheral = (name, bluetoothAddress, peripheralType) => ({
+export const requestCreateOtherPeripheral = (name, bluetoothAddress, peripheralType, identificator) => ({
   type: Constants.requestCreateOtherPeripheral,
   name,
   bluetoothAddress,
-  peripheralType
+  peripheralType,
+  identificator
 });
 
 export const successfulCreateOtherPeripheral = (id) => ({

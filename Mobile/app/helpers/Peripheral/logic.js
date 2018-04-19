@@ -7,6 +7,7 @@ export const peripheralType = {
   light: 'Light',
   lock: 'Lock',
   RFIDReader: 'RFIDReader',
+  RFIDTag: 'RFIDTag',
   motionDetector: 'MotionDetector',
   CODetector: 'CODetector',
 }

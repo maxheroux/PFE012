@@ -43,17 +43,34 @@ export const requestCreateOtherPeripheral = createLogic({
   type: Constants.requestCreateOtherPeripheral,
   latest: true,
   process({ getState, action }, dispatch, done) {
-    const logicHelper = new PeripheralLogicHelper(
-      undefined,
-      Actions.errorCreateOtherPeripheral,
-      getState(),
-      dispatch
-    );
-    logicHelper.createPeripheral(action.name, action.bluetoothAddress, action.peripheralType)
-    .then((data) => {
+    let data;
+    let url;
+    if (action.peripheralType == peripheralType.RFIDTag){
+      url = 'rfidtag/add';
+      data = {
+        username: getState().connection.username,
+        token: getState().connection.token,
+        tagId: action.identificator
+      }
+    } else {
+      url = 'peripheral/add';
+      data = {
+        username: getState().connection.username,
+        token: getState().connection.token,
+        name: action.name,
+        bluetoothId: action.bluetoothAddress,
+        type: action.peripheralType
+      }
+    }
+    const request = AjaxUtils.createPostRequest(url, data);
+    return AjaxUtils.performRequest(request, (data) => {
+      return data;
+    }).then((data) => {
       dispatch(Actions.successfulCreateOtherPeripheral(data.value));
     })
-    .catch()
-    .then(() => done());
+    .catch(error => {
+      dispatch(Actions.errorCreateOtherPeripheral(error.message))
+    })
+    .then(() => done());;
   }
 });

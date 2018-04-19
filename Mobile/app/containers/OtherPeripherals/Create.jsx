@@ -4,7 +4,11 @@ import CreateOtherPeripheralComponent from '../../components/OtherPeripherals/Cr
 import * as Actions from './actions';
 
 type Props = {
-  submitPeripheral: (name: string, bluetoothAddress: string, type: string) => void,
+  submitPeripheral: (
+    name: string,
+    bluetoothAddress: string,
+    type: string,
+    identificator: string) => void,
   error: string,
   isFetching: boolean,
 };
@@ -18,8 +22,8 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  submitPeripheral: (name, bluetoothAddress, type) => {
-    dispatch(Actions.requestCreateOtherPeripheral(name, bluetoothAddress, type));
+  submitPeripheral: (name, bluetoothAddress, type, identificator) => {
+    dispatch(Actions.requestCreateOtherPeripheral(name, bluetoothAddress, type, identificator));
   },
 });
 
