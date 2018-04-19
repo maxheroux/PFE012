@@ -86,7 +86,7 @@ public class HoraireController extends JsonController {
 				peripheralRepository.save(peripheral);
 			}
 
-			String response = PostPayload(payload, token, user, HORAIRE_CHANGE);
+			String response = PostPayload(payload, user, HORAIRE_CHANGE);
 			return response;
 		} else {
 			return getBadAuthJsonString();
