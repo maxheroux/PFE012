@@ -49,7 +49,7 @@ export const requestModifyLock = createLogic({
       dispatch
     );
     const value = {
-      IsLocked: String(action.isLocked),
+      isLocked: action.isLocked,
     };
     const itemSuccessFn = (data) => {
       dispatch(Actions.successfulModifyLock(data.updateValue));

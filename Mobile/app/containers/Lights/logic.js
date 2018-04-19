@@ -4,6 +4,7 @@ import * as Constants from './constants';
 import * as Actions from './actions';
 import { AjaxUtils } from '../../../utils';
 import { PeripheralLogicHelper, peripheralType } from '../../helpers/Peripheral/logic';
+import { map } from 'lodash';
 
 // TODO: remove after testing
 const placeholderLights = [];
@@ -33,13 +34,24 @@ export const requestLightsList = createLogic({
     logicHelper.fetchPeripherals()
       .then((items) => {
         if (items.length > 0) {
-          dispatch(Actions.receiveLightsList(items));
+          const formattedList = map(items, i => {
+            const color = tinycolor(i.color).toHex();
+            return {
+              id: i.id,
+              name: i.name,
+              color: color,
+              brightness: i.brightness,
+            };
+          });
+          dispatch(Actions.receiveLightsList(formattedList));
         } else {
           // TODO: remove after testing
           dispatch(Actions.receiveLightsList(placeholderLights));
         }
       })
-      .catch(() => dispatch(Actions.receiveLightsList(placeholderLights)))// TODO: remove after testing
+      .catch((error) => {
+        dispatch(Actions.receiveLightsList(placeholderLights))
+      })// TODO: remove after testing
       .then(() => done());
   }
 });
