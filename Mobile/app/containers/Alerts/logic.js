@@ -28,9 +28,9 @@ export const requestAlertsList = createLogic({
       const dataWithValue = filter(data, i => !isEmpty(i));
       const items = map(dataWithValue, (item) => ({
         id: item.id,
-        date: item.dateTime,
+        date: `${item.dateTime.date.day}/${item.dateTime.date.month}/${item.dateTime.date.year} ${item.dateTime.time.hour}:${item.dateTime.time.minute}`,
         message: item.description,
-        isRead: true,
+        isRead: false,
       }));
 
       if (items.length > 0) {

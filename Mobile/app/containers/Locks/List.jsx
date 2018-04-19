@@ -8,7 +8,7 @@ import * as Actions from './actions';
 import * as NavigationActions from '../Navigation/actions';
 
 type Props = {
-  requestLocksList: () => void,
+  startLocksListFetchInterval: () => void,
   onCreate: () => void,
   onModify: (itemIdList: Array<number>, locks: Array<lock>) => {},
   error: string,
@@ -28,8 +28,8 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  requestLocksList: () => {
-    dispatch(Actions.requestLocksList());
+  startLocksListFetchInterval: () => {
+    dispatch(Actions.startLocksListFetchInterval(undefined));
   },
   onCreate: () => {
     dispatch(NavigationActions.goToCreateLock);
@@ -46,7 +46,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 export default class Locks extends React.Component<Props, State> {
 
   componentWillMount() {
-    this.props.requestLocksList();
+    this.props.startLocksListFetchInterval();
   }
 
   render() {

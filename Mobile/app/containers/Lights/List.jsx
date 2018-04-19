@@ -8,7 +8,7 @@ import * as Actions from './actions';
 import * as NavigationActions from '../Navigation/actions';
 
 type Props = {
-  requestLightsList: () => void,
+  startLightsListFetchInterval: () => void,
   onCreate: () => {},
   onModify: (itemIdList: Array<number>, lights: Array<light>) => {},
   error: string,
@@ -28,8 +28,8 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  requestLightsList: () => {
-    dispatch(Actions.requestLightsList());
+  startLightsListFetchInterval: () => {
+    dispatch(Actions.startLightsListFetchInterval(undefined));
   },
   onCreate: () => {
     dispatch(NavigationActions.goToCreateLight);
@@ -45,7 +45,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 @connect(mapStateToProps, mapDispatchToProps)
 export default class Lights extends React.Component<Props, State> {
   componentWillMount() {
-    this.props.requestLightsList();
+    this.props.startLightsListFetchInterval();
   }
 
   render() {

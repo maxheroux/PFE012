@@ -100,3 +100,20 @@ export const requestCreateLight = createLogic({
     .then(() => done());
   }
 });
+
+export const startLightsListFetchInterval = createLogic({
+  type: Constants.startLightsListFetchInterval,
+  latest: true,
+  transform({ getState, action, dispatch }, next) {
+    let interval = getState().lights.list.interval;
+    if (!interval) {
+      interval = setInterval(() => {
+        dispatch(Actions.requestLightsList());
+      }, 5000);
+    }
+    next({
+      ...action,
+      interval
+    });
+  }
+});

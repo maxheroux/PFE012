@@ -15,7 +15,7 @@ type list = {
   list: Array<thermostat>,
   isFetching: boolean,
   error: string,
-  interval: any
+  interval: any,
 }
 
 type create = {

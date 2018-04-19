@@ -8,7 +8,6 @@ import * as Actions from './actions';
 import * as NavigationActions from '../Navigation/actions';
 
 type Props = {
-  requestThermostatsList: () => void,
   startThermostatsListFetchInterval: () => void,
   onCreate: () => void,
   onModify: (itemIdList: Array<number>, thermostats: Array<thermostat>) => {},
@@ -29,9 +28,6 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  requestThermostatsList: () => {
-    dispatch(Actions.requestThermostatsList());
-  },
   startThermostatsListFetchInterval: () => {
     dispatch(Actions.startThermostatsListFetchInterval(undefined));
   },

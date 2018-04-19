@@ -82,3 +82,20 @@ export const requestCreateLock = createLogic({
     .then(() => done());
   }
 });
+
+export const startLocksListFetchInterval = createLogic({
+  type: Constants.startLocksListFetchInterval,
+  latest: true,
+  transform({ getState, action, dispatch }, next) {
+    let interval = getState().locks.list.interval;
+    if (!interval) {
+      interval = setInterval(() => {
+        dispatch(Actions.requestLocksList());
+      }, 5000);
+    }
+    next({
+      ...action,
+      interval
+    });
+  }
+});

@@ -12,6 +12,7 @@ type list = {
   list: Array<lock>,
   isFetching: boolean,
   error: string,
+  interval: any,
 }
 
 type create = {
@@ -36,6 +37,7 @@ const initialState: state = {
     isFetching: false,
     hasFetchedOnce: false,
     error: undefined,
+    interval: undefined,
   },
   modify: {
     isFetching: false,
@@ -61,6 +63,18 @@ const reducerHelper = new PeripheralReducerHelper(
 
 export default function locksReducer(state: state = initialState, action: any) {
   switch(action.type){
+    case Constants.startLocksListFetchInterval :
+      if (action.interval) {
+        return {
+          ...state,
+          list: {
+            ...state.list,
+            interval: action.interval,
+          }
+        };
+      } else {
+        return state;
+      }
     default:
       return reducerHelper.updateState(state, action);
   }

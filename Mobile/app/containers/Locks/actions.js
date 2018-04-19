@@ -14,6 +14,11 @@ export const errorLocksList = (error) => ({
   error
 });
 
+export const startLocksListFetchInterval = (interval) => ({
+  type: Constants.startLocksListFetchInterval,
+  interval
+});
+
 export const requestCreateLock = (name, bluetoothAddress) => ({
   type: Constants.requestCreateLock,
   name,
