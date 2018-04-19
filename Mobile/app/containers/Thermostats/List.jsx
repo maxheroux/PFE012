@@ -72,7 +72,8 @@ export default class Thermostats extends React.Component<Props, State> {
       hasFetchedOnce,
       onCreate,
       onModify: (itemIndexList) => onModify(itemIndexList, thermostats),
-      onItemPress: (itemIndex) => onModify([itemIndex], thermostats)
+      onItemPress: (itemIndex) => onModify([itemIndex], thermostats),
+      isEditable: true,
     }
     return (
       <List {...listProperties}>

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { View, Text } from 'native-base';
 import shallowequal from 'shallowequal';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import tinycolor from 'tinycolor2';
 
 type Props = {
   name: string,
@@ -12,6 +13,11 @@ type Props = {
 
 type State = {
 };
+
+const isDark = (color) => {
+  const rgbColor = tinycolor(color).toRgb();
+  return rgbColor.r < 100 && rgbColor.g < 100 && rgbColor.b < 100;
+}
 
 const style = {
   container: {
@@ -34,7 +40,10 @@ const style = {
     padding: 7,
     borderRadius: 7,
     minWidth: 90,
-  })
+  }),
+  colorHexText: (color) => ({
+    color: isDark(color) ? '#FFF' : '#000',
+  }),
 };
 
 export default class LightListItem extends Component<Props, State> {
@@ -52,7 +61,7 @@ export default class LightListItem extends Component<Props, State> {
         </View>
         <View style={style.colorContainer}>
           <View style={style.color(`#${color}`)}>
-            <Text>#{color}</Text>
+            <Text style={style.colorHexText(color)}>#{color}</Text>
           </View>
         </View>
       </View>

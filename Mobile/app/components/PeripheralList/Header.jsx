@@ -8,6 +8,7 @@ type Props = {
   title: string,
   isSelecting: boolean,
   hasSelectedItems: boolean,
+  isEditable: boolean,
   create: () => void,
   enterSelectionMode: () => void,
   exitSelectionMode: () => void,
@@ -68,7 +69,8 @@ export default class PeripheralHeader extends Component<Props, State> {
       exitSelectionMode,
       confirmSelection,
       selectAll,
-      selectNone
+      selectNone,
+      isEditable
     } = this.props;
 
     let confirmSelectionBtnTextStyle = style.btnText;
@@ -107,13 +109,16 @@ export default class PeripheralHeader extends Component<Props, State> {
         </Header>
       );
     }
+    const leftBtn = isEditable ? (
+      <Left>
+        <Button small transparent onPress={enterSelectionMode} style={style.enterSelectionModeBtn}>
+          <Text style={style.btnText}>Modifier</Text>
+        </Button>
+      </Left>
+    ) : <Left />
     return (
       <Header style={style.header}>
-        <Left>
-          <Button small transparent onPress={enterSelectionMode} style={style.enterSelectionModeBtn}>
-            <Text style={style.btnText}>Modifier</Text>
-          </Button>
-        </Left>
+        {leftBtn}
         <Body>
           <Title style={style.title}>{title}</Title>
         </Body>

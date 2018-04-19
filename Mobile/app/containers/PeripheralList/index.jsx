@@ -15,6 +15,7 @@ type ExternalProps = {
   title: string,
   listId: string,
   hasFetchedOnce: boolean,
+  isEditable: boolean,
   onCreate: () => void,
   onModify: (itemIdList: Array<number>) => {},
   onItemPress: (itemId: number) => {}
@@ -82,6 +83,7 @@ export default class PeripheralList extends React.Component<Props, State> {
       selectNone,
       enterSelectionMode,
       exitSelectionMode,
+      isEditable,
     } = this.props;
 
     const headerProps = {
@@ -93,7 +95,8 @@ export default class PeripheralList extends React.Component<Props, State> {
       exitSelectionMode,
       confirmSelection: () => onModify(map(filter(items, i => i.isSelected), i => i.itemId)),
       selectAll,
-      selectNone
+      selectNone,
+      isEditable
     };
 
     const listItems = map(children, (child, index) => {
@@ -102,7 +105,8 @@ export default class PeripheralList extends React.Component<Props, State> {
         isInSelectionMode,
         isSelected: some(items, i => i.itemId == index && i.isSelected),
         goToDetails: () => onItemPress(index),
-        toggleSelected: () => toggleSelected(index)
+        toggleSelected: () => toggleSelected(index),
+        isEditable,
       }
       return (
         <ListItem {...listItemProperties}>
