@@ -15,8 +15,9 @@ import com.google.gson.GsonBuilder;
 import application.model.Alert;
 import application.model.Domicile;
 import application.model.User;
-import application.model.messages.AlertListRequest;
 import application.model.messages.AlertAddRequest;
+import application.model.messages.AlertListRequest;
+import application.model.messages.AlertRemoveRequest;
 import application.repositories.AlertRepository;
 import application.repositories.DomicileRepository;
 import application.repositories.UserRepository;
@@ -27,6 +28,7 @@ public class AlertController extends JsonController {
 
 	private static final String ALERT_LIST = "/alert/list";
 	private static final String ALERT_ADD = "/alert/add";
+	private static final String ALERT_REMOVE = "/alert/remove";
 	
 	@Autowired
 	private AlertRepository alertRepository;
@@ -38,7 +40,7 @@ public class AlertController extends JsonController {
 	@RequestMapping(value = ALERT_LIST, method = RequestMethod.POST, consumes = "text/plain")
 	public String list(@RequestBody String payload)
 	{
-		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+		Gson gson = new Gson();
 		AlertListRequest request = gson.fromJson(payload, AlertListRequest.class);
 
 		String username = request.getUsername();
@@ -78,10 +80,10 @@ public class AlertController extends JsonController {
 			switch (request.getType())
 			{
 			case "gas":
-				description = "Alert! Gas detected!";
+				description = "Alert! Detection de gaz!";
 				break;
 			default:
-				description = "Warning!";
+				description = "Attention!";
 				break;
 			}
 					
@@ -94,6 +96,35 @@ public class AlertController extends JsonController {
 			return "OK";
 		}
 		else
+		{
+			return getBadAuthJsonString();
+		}
+	}
+	
+	@RequestMapping(value = ALERT_REMOVE, method = RequestMethod.POST, consumes = "text/plain")
+	public String remove(@RequestBody String payload) 
+	{
+		Gson gson = new Gson();
+		AlertRemoveRequest request = gson.fromJson(payload, AlertRemoveRequest.class);
+		
+		String username = request.getUsername();
+		String token = request.getToken();
+
+		User user = userRepository.findByUsername(username);
+
+		if (Authenticate(token, user)) 
+		{
+			Iterable<Alert> alerts = alertRepository.findAll(request.getAlertIds());
+			
+			for (Alert alert : alerts) 
+			{
+				alert.setIsRead(true);
+				alertRepository.save(alert);
+			}
+			
+			return "Ok";
+		} 
+		else 
 		{
 			return getBadAuthJsonString();
 		}

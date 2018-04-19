@@ -100,7 +100,7 @@ public class Application {
 			try {
 
 				boolean generateData = true;
-				if (generateData == false) {
+				if (generateData == true) {
 					List<String> rfids = new ArrayList<String>();
 					for (int i = 0; i < 10; i++) {
 						String rfid = "RFID#" + Integer.toString(i);
