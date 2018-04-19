@@ -3,6 +3,7 @@ package application.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,17 +11,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 
 import application.model.User;
 import application.model.messages.HoraireChange;
 import application.model.messages.HoraireRequest;
 import application.model.messages.Schedule;
+import application.model.messages.StateChange;
 import application.model.peripherals.Peripheral;
 import application.model.peripherals.ScheduleDetail;
 import application.model.peripherals.State;
 import application.repositories.PeripheralRepository;
 import application.repositories.UserRepository;
+import application.utilities.TemperatureAutomaticScheduler;
 
 @RestController
 public class HoraireController extends JsonController {
@@ -33,6 +37,8 @@ public class HoraireController extends JsonController {
 	private UserRepository userRepository;
 	@Autowired
 	private PeripheralRepository peripheralRepository;
+	
+	
 
 	@RequestMapping(value = HORAIRE_REQUEST, method = RequestMethod.POST, consumes = "text/plain")
 	public String horaireRequest(@RequestBody String payload) {
@@ -95,7 +101,7 @@ public class HoraireController extends JsonController {
 	}
 	
 	@RequestMapping(value = HORAIRE_AUTOMATIC, method = RequestMethod.POST, consumes = "text/plain")
-	public String horaireA(@RequestBody String payload) {
+	public String horaireAutomaic(@RequestBody String payload) {
 		Gson gson = new Gson();
 		HoraireRequest request = gson.fromJson(payload, HoraireRequest.class);
 
@@ -105,8 +111,15 @@ public class HoraireController extends JsonController {
 		User user = userRepository.findByUsername(username);
 
 		if (Authenticate(token, user)) {
+			TemperatureAutomaticScheduler scheduler = new TemperatureAutomaticScheduler();
+			
 			List<Schedule> schedules = new ArrayList<>();
-			Iterable<Peripheral> peripherals = peripheralRepository.findAll(request.getPeripheralIds());
+			List<Peripheral> peripherals = Lists.newArrayList(peripheralRepository.findAll(request.getPeripheralIds()));
+			
+			List<Integer> ids = peripherals.stream().map(Peripheral::getId).collect(Collectors.toList());
+
+			
+			scheduler.getAutomaticHoraire(ids);
 
 			for (Peripheral peripheral : peripherals) {
 				for (ScheduleDetail detail : peripheral.getSchedules()) {
