@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch(Actions.startAlertsListFetchInterval(undefined));
   },
   markAlertsAsRead: () => {
-
+    dispatch(Actions.requestMarkAlertRead());
   }
 });
 
