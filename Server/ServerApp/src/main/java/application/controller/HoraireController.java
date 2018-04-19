@@ -101,7 +101,7 @@ public class HoraireController extends JsonController {
 	}
 	
 	@RequestMapping(value = HORAIRE_AUTOMATIC, method = RequestMethod.POST, consumes = "text/plain")
-	public String horaireAutomaic(@RequestBody String payload) {
+	public String horaireAutomatic(@RequestBody String payload) {
 		Gson gson = new Gson();
 		HoraireRequest request = gson.fromJson(payload, HoraireRequest.class);
 
