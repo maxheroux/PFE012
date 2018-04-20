@@ -1,5 +1,5 @@
 {
     "board": "arduino:avr:uno",
-    "sketch": "RfidController.ino",
+    "sketch": "LockController.ino",
     "port": "/dev/ttyACM0"
 }

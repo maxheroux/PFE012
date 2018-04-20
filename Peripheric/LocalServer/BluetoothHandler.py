@@ -142,7 +142,7 @@ class ConnectionManager(threading.Thread):
             self.writer.set_connection_valid(False)
             while not self.is_connected():
                 self.connect()
-                time.sleep(0.5)
+                time.sleep(1)
             self.reader.set_serial(self.ser)
             self.writer.set_serial(self.ser)
             self.reader.set_connection_valid(True)

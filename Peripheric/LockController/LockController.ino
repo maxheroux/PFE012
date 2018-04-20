@@ -7,11 +7,16 @@
 #define RSTPIN 9
 #define SSPIN 10
 #define PIEZOPIN 3
+
+#define REDLED 4
+#define GREENLED 2
+
 MFRC522 rfid(SSPIN, RSTPIN);
 
 SoftwareSerial EEBlue(5, 6);
 String tagInProcess = "";
 bool isProcessingTag = false;
+bool isLocked = true;
 
 const long thresholdDelay = 5000;
 unsigned long previousMillis = 0;
@@ -21,6 +26,9 @@ void setup()
 
   Serial.begin(9600);
   EEBlue.begin(9600);
+
+  pinMode(REDLED, OUTPUT);
+  pinMode(GREENLED, OUTPUT);
 
   SPI.begin();
   rfid.PCD_Init();
@@ -54,13 +62,13 @@ void loop()
       noTone(PIEZOPIN);
     }
   }
-  else
-  {
 
+  if (isProcessingTag)
+  {
     unsigned long currentMillis = millis();
     if (currentMillis - previousMillis >= thresholdDelay)
     {
-      
+
       isProcessingTag = false;
       tagInProcess = "";
       tone(PIEZOPIN, 494);
@@ -75,13 +83,30 @@ void loop()
       Serial.println("Access Denied");
       return;
     }
+  }
 
-    //Read to get response from bluetooth, flash a yellow light, if response, red if refused, green if approved
-    if (EEBlue.available())
+  if (EEBlue.available())
+  {
+    StaticJsonBuffer<512> jsonBuffer;
+    JsonObject &receivedJson = jsonBuffer.parse(EEBlue);
+
+    String messageType = receivedJson["messageType"];
+    if (messageType == "update")
     {
-      StaticJsonBuffer<512> jsonBuffer;
-      JsonObject &receivedJson = jsonBuffer.parse(EEBlue);
-      receivedJson.prettyPrintTo(Serial);
+      isLocked = (bool)receivedJson["updateValue"];
+      digitalWrite(REDLED, isLocked);
+      digitalWrite(GREENLED, !isLocked);
+    }
+    else if (messageType == "read")
+    {
+      JsonObject &root = jsonBuffer.createObject();
+      root["isLocked"] = isLocked;
+      root.printTo(EEBlue);
+      EEBlue.println();
+    }
+    else if (messageType == "tagResponse")
+    {
+
       String validatedTag = receivedJson["tagRead"];
 
       if (validatedTag == tagInProcess)
@@ -95,6 +120,10 @@ void loop()
           delay(200);
           noTone(PIEZOPIN);
           Serial.println("Access Accepted");
+
+          isLocked = !isLocked;
+          digitalWrite(REDLED, isLocked);
+          digitalWrite(GREENLED, !isLocked);
         }
         else
         {
@@ -110,11 +139,11 @@ void loop()
         tagInProcess = "";
       }
     }
-    else
-    {
-      Serial.println("Waiting approval");
-    }
-    delay(500);
+  }
+  else if (isProcessingTag)
+  {
+    Serial.println("Waiting approval");
+    delay(100);
   }
 }
 

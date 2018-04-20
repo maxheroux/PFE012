@@ -9,7 +9,7 @@ class RfidTag_DAO:
 
     def add_tag(self, tagId):
         cursor = self.conn.cursor()
-        cursor.execute("""INSERT INTO rfidTag(tagId) VALUES(?)""", tagId)
+        cursor.execute("""INSERT INTO rfidTag(tagId) VALUES(?)""", (tagId,))
         self.conn.commit()
 
     def get_tags(self):
@@ -25,4 +25,4 @@ class RfidTag_DAO:
 
     def delete_tag(self, tag_id):
         cursor = self.conn.cursor()
-        cursor.execute("""DELETE FROM rfidTag WHERE tagId=?""", tag_id)
+        cursor.execute("""DELETE FROM rfidTag WHERE tagId=?""", (tag_id,))
