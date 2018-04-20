@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
 import application.model.User;
 import application.model.messages.RFIDAddRequest;
