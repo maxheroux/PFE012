@@ -1,0 +1,6 @@
+#!/bin/sh
+
+rfcommChannel=$1
+bluetoothId=$2
+
+sudo rfcomm bind $1 $2
