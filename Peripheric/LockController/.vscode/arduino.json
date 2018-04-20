@@ -1,0 +1,5 @@
+{
+    "board": "arduino:avr:uno",
+    "sketch": "LockController.ino",
+    "port": "/dev/ttyACM0"
+}

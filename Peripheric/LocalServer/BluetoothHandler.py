@@ -1,15 +1,11 @@
-from _curses import baudrate
 
 import serial
 import threading
 import time
-import json
 from Queue import Queue
 from Queue import Empty as Empty_queue
-from perpetualTimer import PerpetualTimer
 
-
-class BluetoothHandler:
+class BluetoothHandler(object):
 
 
     def __init__(self, device_id, port):
@@ -34,7 +30,7 @@ class BluetoothHandler:
 class Reader(threading.Thread):
 
     def __init__(self, ser, message_queue, exception_queue):
-        threading.Thread.__init__(self)
+        super(Reader, self).__init__()
         self.ser = ser
         self.message_queue = message_queue
         self.exception_queue = exception_queue
@@ -50,10 +46,8 @@ class Reader(threading.Thread):
             if self.is_connection_valid:
                 try:
                     self.semaphore.acquire()
-                    bytesInBuffer = self.ser.inWaiting()
-                    if bytesInBuffer > 0:
-                        readValue = self.ser.read_until()
-                        self.message_queue.put(readValue)
+                    if self.ser.inWaiting() > 0:
+                        self.message_queue.put(self.ser.read_until())
                     self.semaphore.release()
                 except IOError as ex:
                     self.exception_queue.put(ex)
@@ -77,7 +71,7 @@ class Reader(threading.Thread):
 class Writer(threading.Thread):
 
     def __init__(self, ser, message_queue, exception_queue):
-        threading.Thread.__init__(self)
+        super(Writer, self).__init__()
         self.ser = ser
         self.message_queue = message_queue
         self.exception_queue = exception_queue
@@ -91,8 +85,7 @@ class Writer(threading.Thread):
             if self.is_connection_valid:
                 try:
                     self.semaphore.acquire()
-                    message = self.message_queue.get(timeout=1)
-                    self.ser.writelines(message)
+                    self.ser.writelines(self.message_queue.get(timeout=1))
                     self.semaphore.release()
                 except Empty_queue:
                     self.semaphore.release()
@@ -119,12 +112,13 @@ class Writer(threading.Thread):
 class ConnectionManager(threading.Thread):
 
     def __init__(self, port, writer_queue, reader_queue):
-        threading.Thread.__init__(self)
+        super(ConnectionManager, self).__init__()
         self.port = port
         self.exception_queue = Queue()
         self.connect()
         self.writer = Writer(self.ser, writer_queue, self.exception_queue)
         self.reader = Reader(self.ser, reader_queue, self.exception_queue)
+        self.ser = serial.Serial(self.port, timeout=1, write_timeout=2)
         self.setDaemon(True)
 
     def run(self):
@@ -142,7 +136,7 @@ class ConnectionManager(threading.Thread):
             self.writer.set_connection_valid(False)
             while not self.is_connected():
                 self.connect()
-                time.sleep(0.5)
+                time.sleep(1)
             self.reader.set_serial(self.ser)
             self.writer.set_serial(self.ser)
             self.reader.set_connection_valid(True)
