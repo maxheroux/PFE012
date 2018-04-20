@@ -18,8 +18,10 @@ String tagInProcess = "";
 bool isProcessingTag = false;
 bool isLocked = true;
 
-const long thresholdDelay = 5000;
+const long thresholdDelay = 8000;
 unsigned long previousMillis = 0;
+
+bool isInitialized = false;
 
 void setup()
 {
@@ -33,10 +35,26 @@ void setup()
   SPI.begin();
   rfid.PCD_Init();
   rfid.PCD_DumpVersionToSerial();
+
+  StaticJsonBuffer<512> jsonBuffer;
+  JsonObject &root = jsonBuffer.createObject();
+  root["initialization_request"] = "setup";
+  root.printTo(EEBlue);
+  EEBlue.println();
 }
 
 void loop()
 {
+
+	if (millis() % 5000 == 0 && !isInitialized)
+	{
+
+		StaticJsonBuffer<512> jsonBuffer;
+		JsonObject &root = jsonBuffer.createObject();
+		root["initialization_request"] = "setup";
+		root.printTo(EEBlue);
+		EEBlue.println();
+	}
 
   String tagId = getid();
 
@@ -96,8 +114,9 @@ void loop()
       isLocked = (bool)receivedJson["updateValue"];
       digitalWrite(REDLED, isLocked);
       digitalWrite(GREENLED, !isLocked);
+      isInitialized = true;
     }
-    else if (messageType == "read")
+    else if (isInitialized && messageType == "read")
     {
       JsonObject &root = jsonBuffer.createObject();
       root["isLocked"] = isLocked;

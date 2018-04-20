@@ -47,7 +47,7 @@ class TemperatureHandler:
         message = self.bluetooth_handler.read()
         if message != None:
             message = json.loads(message)
-            #TODO: Refactor the way it evaluates the message type
+
             if "RequestedTemperature" in message:
                 self.requested_temperature = message['RequestedTemperature']
                 self.last_temperature = message['CurrentTemperature']
@@ -56,5 +56,9 @@ class TemperatureHandler:
                 data = json.dumps(
                     {"type": message["alertType"], "domicileId": self.domicile_id, "token": self.domicile_token })
                 requests.post(self.post_url + "/alert/add", data=data, headers={'content-type':'text/plain'})
+            elif "initialization_request" in message:
+                self.bluetooth_handler.send(json.dumps(
+                    {"messageType": "update", "updateType": "RequestedTemperature",
+                     "updateValue": self.requested_temperature}))
 
 

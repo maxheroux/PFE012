@@ -51,4 +51,6 @@ class LockHandler:
                     self.send_response(tagId, accepted)
                 elif "isLocked" in message:
                     self.locked = message["isLocked"]
-
+                elif "initialization_request" in message:
+                    self.bluetooth_handler.send(json.dumps(
+                        {"messageType": "update", "updateType": "lock", "updateValue": self.locked}))
