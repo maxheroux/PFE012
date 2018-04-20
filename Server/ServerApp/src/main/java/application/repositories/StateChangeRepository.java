@@ -11,5 +11,5 @@ import application.model.messages.StateChange;
 
 @Transactional
 public interface StateChangeRepository extends BaseMessageRepository<StateChange> {
-
+	List<StateChange> findByPeripheralId(int peripheralId);
 }

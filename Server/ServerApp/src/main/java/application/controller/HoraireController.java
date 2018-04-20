@@ -32,13 +32,11 @@ public class HoraireController extends JsonController {
 	private static final String HORAIRE_CHANGE = "/horaire/change";
 	private static final String HORAIRE_REQUEST = "/horaire/request";
 	private static final String HORAIRE_AUTOMATIC = "/horaire/automatic";
-	
+
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
 	private PeripheralRepository peripheralRepository;
-	
-	
 
 	@RequestMapping(value = HORAIRE_REQUEST, method = RequestMethod.POST, consumes = "text/plain")
 	public String horaireRequest(@RequestBody String payload) {
@@ -56,11 +54,11 @@ public class HoraireController extends JsonController {
 
 			for (Peripheral peripheral : peripherals) {
 				for (ScheduleDetail detail : peripheral.getSchedules()) {
-					schedules.add(new Schedule(peripheral.getId(), detail.getHourOfDay(), detail.getDayOfWeek(), detail.getState().getStateValues()));
+					schedules.add(new Schedule(peripheral.getId(), detail.getHourOfDay(), detail.getDayOfWeek(),
+							detail.getState().getStateValues()));
 				}
 			}
-			
-			
+
 			return gson.toJson(schedules);
 		} else {
 			return getBadAuthJsonString();
@@ -99,7 +97,7 @@ public class HoraireController extends JsonController {
 			return getBadAuthJsonString();
 		}
 	}
-	
+
 	@RequestMapping(value = HORAIRE_AUTOMATIC, method = RequestMethod.POST, consumes = "text/plain")
 	public String horaireAutomatic(@RequestBody String payload) {
 		Gson gson = new Gson();
@@ -112,22 +110,20 @@ public class HoraireController extends JsonController {
 
 		if (Authenticate(token, user)) {
 			TemperatureAutomaticScheduler scheduler = new TemperatureAutomaticScheduler();
-			
+
 			List<Schedule> schedules = new ArrayList<>();
 			List<Peripheral> peripherals = Lists.newArrayList(peripheralRepository.findAll(request.getPeripheralIds()));
-			
+
 			List<Integer> ids = peripherals.stream().map(Peripheral::getId).collect(Collectors.toList());
 
-			
-			scheduler.getAutomaticHoraire(ids);
-
 			for (Peripheral peripheral : peripherals) {
-				for (ScheduleDetail detail : peripheral.getSchedules()) {
-					schedules.add(new Schedule(peripheral.getId(), detail.getHourOfDay(), detail.getDayOfWeek(), detail.getState().getStateValues()));
+				List<ScheduleDetail> details = scheduler.getAutomaticHoraire(peripheral.getId());
+				for (ScheduleDetail detail : details) {
+					schedules.add(new Schedule(peripheral.getId(), detail.getHourOfDay(), detail.getDayOfWeek(),
+							detail.getState().getStateValues()));
 				}
 			}
-			
-			
+
 			return gson.toJson(schedules);
 		} else {
 			return getBadAuthJsonString();
