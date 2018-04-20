@@ -44,8 +44,10 @@ public class RFIDController extends JsonController {
 			user.setRfids(rfids);
 			
 			userRepository.save(user);
-			
-			return "ok";
+			JsonObject object = new JsonObject();
+			object.addProperty("Success", "true");
+
+			return object.toString();
 		}
 		else {
 			return getBadAuthJsonString();
