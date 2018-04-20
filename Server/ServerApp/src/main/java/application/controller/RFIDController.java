@@ -34,6 +34,9 @@ public class RFIDController extends JsonController {
 		String token = request.getToken();
 
 		User user = userRepository.findByUsername(username);
+		
+		PostPayload(payload, user, RFIDTAG_ADD);
+		
 		List<String> rfids = user.getRfids();
 		
 		if (AuthenticationFunctions.isTokenValid(user, token)) {
