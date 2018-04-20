@@ -12,7 +12,7 @@ class LightHandler:
     def __init__(self, device_id, port):
         self.device_id = device_id
         self.port = port
-        self.periodic_poll_delay = 10
+        self.periodic_poll_delay = 2
         self.color = {"r": 0, "g":0, "b":0}
         self.brightness = 0
         self.bluetooth_handler = BluetoothHandler(device_id, port)
@@ -24,15 +24,13 @@ class LightHandler:
     def get_data(self):
         return json.dumps({"deviceId": self.device_id,"color": {"r":self.color["r"],"g":self.color["g"],"b":self.color["b"]}, "brightness": self.brightness})
 
-    # state_value format: {"color":{"r":0, "g":0, "b":0}, "brightness":0.5}
+
     def change_state(self, state_value):
         hexColor = state_value["color"]
         self.color["r"] = int(hexColor[0:2],16)
         self.color["g"] = int(hexColor[2:4],16)
         self.color["b"] = int(hexColor[4:6],16)
-        print(self.color)
-        # self.brightness = state_value["brightness"]
-        self.brightness = 0.5
+        self.brightness = state_value["brightness"]
         message = json.dumps(
             {"messageType":"update","red": self.color["r"], "green": self.color["g"], "blue": self.color["b"], "brightness":self.brightness})
         self.bluetooth_handler.send(message)

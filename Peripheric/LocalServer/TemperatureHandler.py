@@ -26,10 +26,10 @@ class TemperatureHandler:
 
 
     def get_data(self):
+
         return json.dumps({"deviceId": self.device_id, "currentTemperature": self.last_temperature,
                            "requestedTemperature": self.requested_temperature, "currentHumidity": self.last_humidity})
 
-    # TODO: put a comment with state_value format (what it is)
     def change_state(self, state_value):
         if "RequestedTemperature" in state_value:
             self.requested_temperature = state_value["RequestedTemperature"]
@@ -53,11 +53,8 @@ class TemperatureHandler:
                 self.last_temperature = message['CurrentTemperature']
                 self.last_humidity = message['Humidity']
             elif "alertType" in message:
-                print(message)
                 data = json.dumps(
                     {"type": message["alertType"], "domicileId": self.domicile_id, "token": self.domicile_token })
-                print(self.post_url + "/alert/add")
-                print(data)
                 requests.post(self.post_url + "/alert/add", data=data, headers={'content-type':'text/plain'})
 
 

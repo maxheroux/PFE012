@@ -45,16 +45,16 @@ void loop()
             blueValue = receivedJson["blue"];
             brightness = receivedJson["brightness"];
 
-            setColor(redValue, greenValue, blueValue, brightness);
+            setColor((int)redValue*brightness, (int)greenValue*brightness, (int)blueValue*brightness);
         }
         else if (messageType == "read")
         {
 
             JsonObject &root = jsonBuffer.createObject();
-            root["red"] = redValue
-            root["green"] = greenValue
-            root["blue"] = blueValue
-            root["brightness"] = brightness
+            root["red"] = redValue;
+            root["green"] = greenValue;
+            root["blue"] = blueValue;
+            root["brightness"] = brightness;
 		
 			root.printTo(EEBlue);
 			EEBlue.println();
@@ -64,7 +64,7 @@ void loop()
 
 void setColor(int red, int green, int blue)
 {
-    analogWrite(redPin, redValue);
-    analogWrite(greenPin, greenValue);
-    analogWrite(bluePin, blueValue);
+    analogWrite(redPin, red);
+    analogWrite(greenPin, green);
+    analogWrite(bluePin, blue);
 }
