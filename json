@@ -1,3 +1,14 @@
+// /horaire/automatic *Only returns a generated schedule, doesnt actully* send it to the py*
+{
+	"peripheralIds": [
+		1,
+		2
+	],
+	"username": "Sim",
+	"token": "2f58261f-a0f2-403f-9d7a-ccf202a962a7"
+}
+
+
 // /horaire/change
 {
 	"username": "Sim",

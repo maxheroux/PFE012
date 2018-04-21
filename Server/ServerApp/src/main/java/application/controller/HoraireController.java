@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +19,6 @@ import application.model.User;
 import application.model.messages.HoraireChange;
 import application.model.messages.HoraireRequest;
 import application.model.messages.Schedule;
-import application.model.messages.StateChange;
 import application.model.peripherals.Peripheral;
 import application.model.peripherals.ScheduleDetail;
 import application.model.peripherals.State;
@@ -127,8 +125,6 @@ public class HoraireController extends JsonController {
 
 			List<Schedule> schedules = new ArrayList<>();
 			List<Peripheral> peripherals = Lists.newArrayList(peripheralRepository.findAll(request.getPeripheralIds()));
-
-			List<Integer> ids = peripherals.stream().map(Peripheral::getId).collect(Collectors.toList());
 
 			for (Peripheral peripheral : peripherals) {
 				List<ScheduleDetail> details = scheduler.getAutomaticHoraire(peripheral.getId());
