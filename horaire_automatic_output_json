@@ -1,0 +1,1850 @@
+[
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 0,
+		"dayOfWeek": 0,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "18"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 1,
+		"dayOfWeek": 0,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 2,
+		"dayOfWeek": 0,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "15"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 3,
+		"dayOfWeek": 0,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "15"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 4,
+		"dayOfWeek": 0,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "16"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 5,
+		"dayOfWeek": 0,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "16"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 6,
+		"dayOfWeek": 0,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 7,
+		"dayOfWeek": 1,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "20"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 8,
+		"dayOfWeek": 1,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 9,
+		"dayOfWeek": 1,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "18"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 10,
+		"dayOfWeek": 1,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 11,
+		"dayOfWeek": 1,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "21"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 12,
+		"dayOfWeek": 1,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 13,
+		"dayOfWeek": 1,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "21"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 14,
+		"dayOfWeek": 2,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "21"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 15,
+		"dayOfWeek": 2,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "19"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 16,
+		"dayOfWeek": 2,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "19"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 17,
+		"dayOfWeek": 2,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "22"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 18,
+		"dayOfWeek": 2,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "16"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 19,
+		"dayOfWeek": 2,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 20,
+		"dayOfWeek": 2,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "16"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 21,
+		"dayOfWeek": 3,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "19"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 22,
+		"dayOfWeek": 3,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "19"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 23,
+		"dayOfWeek": 3,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 0,
+		"dayOfWeek": 3,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "20"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 1,
+		"dayOfWeek": 3,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "15"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 2,
+		"dayOfWeek": 3,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "23"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 3,
+		"dayOfWeek": 3,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "19"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 4,
+		"dayOfWeek": 4,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "22"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 5,
+		"dayOfWeek": 4,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "20"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 6,
+		"dayOfWeek": 4,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "19"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 7,
+		"dayOfWeek": 4,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "20"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 8,
+		"dayOfWeek": 4,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "21"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 9,
+		"dayOfWeek": 4,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "19"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 10,
+		"dayOfWeek": 4,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "22"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 11,
+		"dayOfWeek": 5,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "19"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 12,
+		"dayOfWeek": 5,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "20"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 13,
+		"dayOfWeek": 5,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "18"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 14,
+		"dayOfWeek": 5,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "16"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 15,
+		"dayOfWeek": 5,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "21"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 16,
+		"dayOfWeek": 5,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "18"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 17,
+		"dayOfWeek": 5,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "18"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 18,
+		"dayOfWeek": 6,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "19"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 19,
+		"dayOfWeek": 6,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "18"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 20,
+		"dayOfWeek": 6,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "18"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 21,
+		"dayOfWeek": 6,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "21"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 22,
+		"dayOfWeek": 6,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "16"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 23,
+		"dayOfWeek": 6,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "18"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 0,
+		"dayOfWeek": 6,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "20"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 1,
+		"dayOfWeek": 7,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "20"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 2,
+		"dayOfWeek": 7,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "21"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 3,
+		"dayOfWeek": 7,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "21"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 4,
+		"dayOfWeek": 7,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "20"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 5,
+		"dayOfWeek": 7,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "20"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 6,
+		"dayOfWeek": 7,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "20"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 7,
+		"dayOfWeek": 7,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "21"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 8,
+		"dayOfWeek": 8,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "22"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 9,
+		"dayOfWeek": 8,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 10,
+		"dayOfWeek": 8,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "19"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 11,
+		"dayOfWeek": 8,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "19"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 12,
+		"dayOfWeek": 8,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "22"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 13,
+		"dayOfWeek": 8,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "19"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 14,
+		"dayOfWeek": 8,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "19"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 15,
+		"dayOfWeek": 9,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 16,
+		"dayOfWeek": 9,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "22"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 17,
+		"dayOfWeek": 9,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "22"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 18,
+		"dayOfWeek": 9,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "18"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 19,
+		"dayOfWeek": 9,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 20,
+		"dayOfWeek": 9,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 21,
+		"dayOfWeek": 9,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "16"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 22,
+		"dayOfWeek": 10,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "21"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 23,
+		"dayOfWeek": 10,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "18"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 0,
+		"dayOfWeek": 10,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "16"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 1,
+		"dayOfWeek": 10,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "18"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 2,
+		"dayOfWeek": 10,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "18"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 3,
+		"dayOfWeek": 10,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "21"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 4,
+		"dayOfWeek": 10,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "16"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 5,
+		"dayOfWeek": 11,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "18"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 6,
+		"dayOfWeek": 11,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "21"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 7,
+		"dayOfWeek": 11,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "20"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 8,
+		"dayOfWeek": 11,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "20"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 9,
+		"dayOfWeek": 11,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "20"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 10,
+		"dayOfWeek": 11,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "20"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 11,
+		"dayOfWeek": 11,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "20"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 12,
+		"dayOfWeek": 12,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "20"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 13,
+		"dayOfWeek": 12,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "19"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 14,
+		"dayOfWeek": 12,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "19"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 15,
+		"dayOfWeek": 12,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "19"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 16,
+		"dayOfWeek": 12,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "18"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 17,
+		"dayOfWeek": 12,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "18"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 18,
+		"dayOfWeek": 12,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "19"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 19,
+		"dayOfWeek": 13,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "18"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 20,
+		"dayOfWeek": 13,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 21,
+		"dayOfWeek": 13,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 22,
+		"dayOfWeek": 13,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 23,
+		"dayOfWeek": 13,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 0,
+		"dayOfWeek": 13,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "22"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 1,
+		"dayOfWeek": 13,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "19"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 2,
+		"dayOfWeek": 14,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "19"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 3,
+		"dayOfWeek": 14,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "19"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 4,
+		"dayOfWeek": 14,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 5,
+		"dayOfWeek": 14,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "19"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 6,
+		"dayOfWeek": 14,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "21"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 7,
+		"dayOfWeek": 14,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "19"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 8,
+		"dayOfWeek": 14,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "19"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 9,
+		"dayOfWeek": 15,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 10,
+		"dayOfWeek": 15,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 11,
+		"dayOfWeek": 15,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 12,
+		"dayOfWeek": 15,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 13,
+		"dayOfWeek": 15,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 14,
+		"dayOfWeek": 15,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 15,
+		"dayOfWeek": 15,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 16,
+		"dayOfWeek": 16,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 17,
+		"dayOfWeek": 16,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 18,
+		"dayOfWeek": 16,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 19,
+		"dayOfWeek": 16,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 20,
+		"dayOfWeek": 16,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 21,
+		"dayOfWeek": 16,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 22,
+		"dayOfWeek": 16,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 23,
+		"dayOfWeek": 17,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 0,
+		"dayOfWeek": 17,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "18"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 1,
+		"dayOfWeek": 17,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "18"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 2,
+		"dayOfWeek": 17,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "18"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 3,
+		"dayOfWeek": 17,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "18"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 4,
+		"dayOfWeek": 17,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "18"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 5,
+		"dayOfWeek": 17,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "18"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 6,
+		"dayOfWeek": 18,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "18"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 7,
+		"dayOfWeek": 18,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 8,
+		"dayOfWeek": 18,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 9,
+		"dayOfWeek": 18,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 10,
+		"dayOfWeek": 18,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 11,
+		"dayOfWeek": 18,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 12,
+		"dayOfWeek": 18,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 13,
+		"dayOfWeek": 19,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 14,
+		"dayOfWeek": 19,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 15,
+		"dayOfWeek": 19,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 16,
+		"dayOfWeek": 19,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 17,
+		"dayOfWeek": 19,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 18,
+		"dayOfWeek": 19,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 19,
+		"dayOfWeek": 19,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 20,
+		"dayOfWeek": 20,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 21,
+		"dayOfWeek": 20,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 22,
+		"dayOfWeek": 20,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 23,
+		"dayOfWeek": 20,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 0,
+		"dayOfWeek": 20,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 1,
+		"dayOfWeek": 20,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 2,
+		"dayOfWeek": 20,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 3,
+		"dayOfWeek": 21,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 4,
+		"dayOfWeek": 21,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 5,
+		"dayOfWeek": 21,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 6,
+		"dayOfWeek": 21,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 7,
+		"dayOfWeek": 21,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 8,
+		"dayOfWeek": 21,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 9,
+		"dayOfWeek": 21,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 10,
+		"dayOfWeek": 22,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 11,
+		"dayOfWeek": 22,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 12,
+		"dayOfWeek": 22,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 13,
+		"dayOfWeek": 22,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 14,
+		"dayOfWeek": 22,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 15,
+		"dayOfWeek": 22,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 16,
+		"dayOfWeek": 22,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 17,
+		"dayOfWeek": 23,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 18,
+		"dayOfWeek": 23,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 19,
+		"dayOfWeek": 23,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 20,
+		"dayOfWeek": 23,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 21,
+		"dayOfWeek": 23,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 22,
+		"dayOfWeek": 23,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	},
+	{
+		"idPeripheral": 1,
+		"hourOfDay": 23,
+		"dayOfWeek": 23,
+		"value": {
+			"currentTemperature": "0",
+			"currentHumidity": "0",
+			"brigthness": "0",
+			"desiredTemperature": "17"
+		}
+	}
+]

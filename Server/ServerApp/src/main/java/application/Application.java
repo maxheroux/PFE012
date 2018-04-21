@@ -22,8 +22,8 @@ import application.model.peripherals.Light;
 import application.model.peripherals.Peripheral;
 import application.model.peripherals.Thermostat;
 import application.repositories.DomicileRepository;
-import application.repositories.MessageRepository;
 import application.repositories.PeripheralRepository;
+import application.repositories.StateChangeRepository;
 import application.repositories.UserRepository;
 import application.utilities.HashingFunctions;
 
@@ -37,7 +37,7 @@ public class Application {
 	@Autowired
 	private PeripheralRepository peripheralRepository;
 	@Autowired
-	private MessageRepository messageRepository;
+	private StateChangeRepository stateChangeRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -79,12 +79,12 @@ public class Application {
 						int temp = temperatureGenerator(hour);
 						// current_tempature,desired_temperature\
 						String value = String.valueOf(temp);
-						data.put("desired_temperature", value);
+						data.put("desiredTemperature", value);
 						LocalDateTime dateTime = LocalDateTime.of(2018, month + 1, day, hour, 0);
 						// dateTime.withYear(2018).withMonth(month).withDayOfMonth(day).withHour(hour);
 						StateChange stateChange = new StateChange(peripheralId, username, data, token);
 						stateChange.setDateTime(dateTime);
-						messageRepository.save(stateChange);
+						stateChangeRepository.save(stateChange);
 					}
 
 				}
@@ -99,7 +99,7 @@ public class Application {
 		return () -> {
 			try {
 
-				boolean generateData = true;
+				boolean generateData = false;
 				if (generateData == true) {
 					List<String> rfids = new ArrayList<String>();
 					for (int i = 0; i < 10; i++) {

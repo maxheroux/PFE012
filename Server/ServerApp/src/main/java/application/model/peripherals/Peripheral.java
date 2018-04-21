@@ -98,5 +98,8 @@ public class Peripheral {
 		schedules.remove(scheduleToRemove);
 		schedules.add(schedule);
 	}
-
+	
+	public void clearSchedules() {
+		this.schedules.clear();
+	}
 }

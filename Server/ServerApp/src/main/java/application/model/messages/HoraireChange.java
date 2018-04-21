@@ -10,7 +10,7 @@ public class HoraireChange extends Message {
 	@Expose
 	private String username;
 
-	public HoraireChange() {
+	public HoraireChange() { 
 		super();
 		// TODO Auto-generated constructor stub
 	}
