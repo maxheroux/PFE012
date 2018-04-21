@@ -7,6 +7,7 @@ export const peripheralType = {
   light: 'Light',
   lock: 'Lock',
   RFIDReader: 'RFIDReader',
+  RFIDTag: 'RFIDTag',
   motionDetector: 'MotionDetector',
   CODetector: 'CODetector',
 }
@@ -22,12 +23,26 @@ const LightMapFn = (item, rawData) => {
   item.brightness = rawData.brightness;
 }
 
+const LockMapFn = (item, rawData) => {
+  item.isLocked = rawData.isLocked;
+}
+
+const SensorMapFn = (item, rawData) => {
+  item.type = rawData.type;
+}
+
 const getMapFn = (type) => {
   switch (type) {
     case peripheralType.thermostat:
       return ThermoMapFn;
     case peripheralType.light:
       return LightMapFn;
+    case peripheralType.lock:
+      return LockMapFn;
+    case peripheralType.RFIDReader:
+    case peripheralType.motionDetector:
+    case peripheralType.CODetector:
+      return SensorMapFn;
   }
 }
 
@@ -52,7 +67,16 @@ export class PeripheralLogicHelper {
     const request = AjaxUtils.createPostRequest('peripheral/list', this.connectionInfo);
     return AjaxUtils.performRequest(request, async (data) => {
       //extract wanted peripherals from the list
-      const filteredPeripherrals = filter(data, (item) => item.type == this.type);
+      let filteredPeripherrals = [];
+      if (this.type == 'Sensors') {
+        filteredPeripherrals = filter(data, (item) =>
+          item.type == peripheralType.RFIDReader ||
+          item.type == peripheralType.motionDetector ||
+          item.type == peripheralType.CODetector
+        );
+      } else {
+        filteredPeripherrals = filter(data, (item) => item.type == this.type);
+      }
       let items = map(filteredPeripherrals, (item) => ({
         id: item.id,
         name: item.name
@@ -66,7 +90,7 @@ export class PeripheralLogicHelper {
         if (itemIds.length > 0) {
           const id = itemIds[0];
           const remainingIds = itemIds.slice(1);
-          return fetchPeripheralById(id)
+          return this.fetchPeripheralById(id)
             .then((data) => {
               //update the item list with the latest peripheral info
               const correspondingItem = find(items, item => item.id == id);
@@ -88,7 +112,7 @@ export class PeripheralLogicHelper {
   }
 
   fetchPeripheralById(id) {
-    const request = AjaxUtils.createPostRequest('/state/request', {
+    const request = AjaxUtils.createPostRequest('state/request', {
       ...this.connectionInfo,
       peripheralId: id,
     });
@@ -124,12 +148,12 @@ export class PeripheralLogicHelper {
         });
   }
 
-  createPeripheral(name, bluetoothId) {
+  createPeripheral(name, bluetoothId, overrideType) {
     const request = AjaxUtils.createPostRequest('peripheral/add', {
       ...this.connectionInfo,
       name,
       bluetoothId,
-      type: this.type
+      type: overrideType || this.type
     });
     return AjaxUtils.performRequest(request, (data) => {
       return data;

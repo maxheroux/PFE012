@@ -6,7 +6,9 @@ import * as NavigationActions from '../Navigation/actions';
 type Props = {
   goBack: () => void,
   goBackRoute: string,
-  title: string
+  title: string,
+  rightBtnText: ?string,
+  rightBtnFn: ?() => void,
 };
 
 type State = {
@@ -27,7 +29,9 @@ export default class Header extends React.Component<Props, State> {
   render() {
     const childProps = {
       goBack: this.props.goBackRoute && this.props.goBack,
-      title: this.props.title
+      title: this.props.title,
+      rightBtnText: this.props.rightBtnText,
+      rightBtnFn: this.props.rightBtnFn,
     }
     return (
       <HeaderComponent {...childProps} />

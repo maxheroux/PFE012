@@ -59,6 +59,7 @@ export default class PeripheralReducerHelper {
         return {
           ...state,
           create: {
+            ...state.create,
             isFetching: true,
             error: undefined,
           }
@@ -67,6 +68,7 @@ export default class PeripheralReducerHelper {
         return {
           ...state,
           create: {
+            ...state.create,
             isFetching: false,
             error: undefined,
           }
@@ -75,6 +77,7 @@ export default class PeripheralReducerHelper {
         return {
           ...state,
           create: {
+            ...state.create,
             isFetching: false,
             error: action.error,
           }
@@ -84,6 +87,7 @@ export default class PeripheralReducerHelper {
         return {
           ...state,
           modify: {
+            ...state.modify,
             isFetching: true,
             error: undefined,
           }
@@ -92,6 +96,7 @@ export default class PeripheralReducerHelper {
         return {
           ...state,
           modify: {
+            ...state.modify,
             isFetching: false,
             error: undefined,
           }
@@ -100,6 +105,7 @@ export default class PeripheralReducerHelper {
         return {
           ...state,
           modify: {
+            ...state.modify,
             isFetching: false,
             error: action.error,
           }

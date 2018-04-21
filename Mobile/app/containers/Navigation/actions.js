@@ -34,6 +34,9 @@ export const goToModifyLock = (itemIdList) => NavigationActions.navigate({
       itemIdList
     }
 })
+export const goToCreateOtherPeripheral = NavigationActions.navigate({
+    routeName: 'CreateOtherPeripheral'
+})
 export const goToRoute = (routeName) => NavigationActions.navigate({
     routeName: routeName
 })

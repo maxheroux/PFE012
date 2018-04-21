@@ -1,6 +1,7 @@
 export const requestLightsList = 'REQUEST_LIGHTS_LIST';
 export const receiveLightsList = 'RECEIVE_LIGHTS_LIST';
 export const errorLightsList = 'ERROR_LIGHTS_LIST';
+export const startLightsListFetchInterval = 'START_LIGHTS_LIST_FETCH_INTERVAL';
 export const requestCreateLight = 'REQUEST_CREATE_LIGHT';
 export const successfulCreateLight = 'RECEIVE_CREATE_LIGHT';
 export const errorCreateLight = 'ERROR_CREATE_LIGHT';

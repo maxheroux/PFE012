@@ -7,6 +7,7 @@ import * as ConnectionActions from '../Connection/actions';
 import HomeComponent from '../../components/Home';
 import * as NavigationActions from '../Navigation/actions';
 import { StorageUtils } from '../../../utils';
+import Alerts from '../Alerts/List';
 
 const mapStateToProps = (state, ownProps) => ({
   username: state.connection.username,
@@ -28,6 +29,7 @@ export default class Home extends React.Component {
       <Container>
         <Header title="Accueil" />
         <ScrollView>
+          <Alerts />
           <HomeComponent {...this.props}/>
         </ScrollView>
       </Container>

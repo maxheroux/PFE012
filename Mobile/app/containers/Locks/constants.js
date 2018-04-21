@@ -1,0 +1,10 @@
+export const requestLocksList = 'REQUEST_LOCKS_LIST';
+export const receiveLocksList = 'RECEIVE_LOCKS_LIST';
+export const errorLocksList = 'ERROR_LOCKS_LIST';
+export const startLocksListFetchInterval = 'START_LOCKS_LIST_FETCH_INTERVAL';
+export const requestCreateLock = 'REQUEST_CREATE_LOCK';
+export const successfulCreateLock = 'RECEIVE_CREATE_LOCK';
+export const errorCreateLock = 'ERROR_CREATE_LOCK';
+export const requestModifyLock = 'REQUEST_MODIFY_LOCK';
+export const successfulModifyLock = 'RECEIVE_MODIFY_LOCK';
+export const errorModifyLock = 'ERROR_MODIFY_LOCK';

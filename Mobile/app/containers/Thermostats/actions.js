@@ -35,10 +35,10 @@ export const errorCreateThermostat = (error) => ({
   error
 });
 
-export const requestModifyThermostat = (ids, targetTemp) => ({
+export const requestModifyThermostat = (ids, modeIndex) => ({
   type: Constants.requestModifyThermostat,
   ids,
-  targetTemp,
+  modeIndex,
 });
 
 export const successfulModifyThermostat = () => ({
@@ -47,5 +47,30 @@ export const successfulModifyThermostat = () => ({
 
 export const errorModifyThermostat = (error) => ({
   type: Constants.errorModifyThermostat,
+  error
+});
+
+export const updateTargetTemperature = (newTargetTemperature) => ({
+  type: Constants.updateTargetTemperature,
+  newTargetTemperature
+});
+
+export const updateSchedule = (newSchedules) => ({
+  type: Constants.updateSchedule,
+  newSchedules
+});
+
+export const requestSchedules = (ids) => ({
+  type: Constants.requestSchedules,
+  ids
+});
+
+export const receiveSchedules = (schedules) => ({
+  type: Constants.receiveSchedules,
+  schedules
+});
+
+export const errorSchedules = (error) => ({
+  type: Constants.errorSchedules,
   error
 });

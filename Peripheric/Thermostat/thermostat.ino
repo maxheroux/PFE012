@@ -5,7 +5,6 @@
 #include <HeaterController.h>
 #include <GasSensorController.h>
 
-
 #define DHTPIN 2 // Pin which is connected to the DHT sensor.
 #define MIN_TEMPERATURE 10
 #define MAX_TEMPERATURE 30
@@ -19,6 +18,7 @@
 #define HEATER_PID_KI 5
 #define HEATER_PID_KD 1
 //TODO: Use constants to define message type to expect
+bool isInitialized = false;
 
 TemperatureController temperatureController(DHTPIN, DHTTYPE, MIN_TEMPERATURE, MAX_TEMPERATURE);
 HeaterController heaterController(HEATERPIN, HEATER_PID_KP, HEATER_PID_KI, HEATER_PID_KD);
@@ -32,10 +32,26 @@ void setup()
 	heaterController.setCurrentTemperature(currentTemperature);
 	heaterController.setRequestedTemperature(MIN_TEMPERATURE);
 	EEBlue.begin(9600);
+
+	StaticJsonBuffer<512> jsonBuffer;
+	JsonObject &root = jsonBuffer.createObject();
+	root["initialization_request"] = "setup";
+	root.printTo(EEBlue);
+	EEBlue.println();
 }
 
 void loop()
 {
+
+	if (millis() % 5000 == 0 && !isInitialized)
+	{
+
+		StaticJsonBuffer<512> jsonBuffer;
+		JsonObject &root = jsonBuffer.createObject();
+		root["initialization_request"] = "setup";
+		root.printTo(EEBlue);
+		EEBlue.println();
+	}
 
 	if (EEBlue.available())
 	{
@@ -45,7 +61,6 @@ void loop()
 
 		if (messageType == "update")
 		{
-
 			JsonObject &root = jsonBuffer.createObject();
 			String updateType = receivedJson["updateType"];
 			int updateValue = receivedJson["updateValue"];
@@ -56,16 +71,14 @@ void loop()
 
 				temperatureController.setRequestedTemperature(updateValue);
 				heaterController.setRequestedTemperature(updateValue);
-			}
-			else if (updateType == "ScreenBrightness")
-			{
+				isInitialized = true;
 			}
 
 			root["state"] = "OK";
 			root.printTo(EEBlue);
 			EEBlue.println();
 		}
-		else if (messageType == "read")
+		else if (isInitialized && messageType == "read")
 		{
 			JsonObject &root = jsonBuffer.createObject();
 
@@ -87,11 +100,11 @@ void loop()
 
 	if (millis() % 2000 == 0 && gasSensorController.isThresholdExceeded())
 	{
-			StaticJsonBuffer<512> jsonBuffer;
-			JsonObject &root = jsonBuffer.createObject();
-			root["messageType"] = "alert";
-			root["alertType"] = "gas";
-			root.printTo(EEBlue);
-			EEBlue.println();
+		StaticJsonBuffer<512> jsonBuffer;
+		JsonObject &root = jsonBuffer.createObject();
+		root["messageType"] = "alert";
+		root["alertType"] = "gas";
+		root.printTo(EEBlue);
+		EEBlue.println();
 	}
 }

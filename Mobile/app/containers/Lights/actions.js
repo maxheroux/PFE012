@@ -14,6 +14,11 @@ export const errorLightsList = (error) => ({
   error
 });
 
+export const startLightsListFetchInterval = (interval) => ({
+  type: Constants.startLightsListFetchInterval,
+  interval
+});
+
 export const requestCreateLight = (name, bluetoothAddress) => ({
   type: Constants.requestCreateLight,
   name,

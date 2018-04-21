@@ -30,6 +30,7 @@ public class StateController extends JsonController {
 	@Autowired
 	private UserRepository userRepository;
 
+
 	@PersistenceContext
 	private EntityManager entityManager;
 
@@ -44,7 +45,7 @@ public class StateController extends JsonController {
 		User user = userRepository.findByUsername(username);
 	
 		if (Authenticate(token, user)) {
-			String response = PostPayload(payload, token, user, STATE_REQUEST);
+			String response = PostPayload(payload, user, STATE_REQUEST);
 			stateRequestRepository.save(request);
 			return response;
 		}else {
@@ -63,9 +64,8 @@ public class StateController extends JsonController {
 		User user = userRepository.findByUsername(username);
 
 		if (Authenticate(token, user)) {
-			String response = PostPayload(payload, token, user, STATE_CHANGE);
+			String response = PostPayload(payload, user, STATE_CHANGE);
 			request = stateChangeRepository.save(request);
-			request.getValues();
 			return response;
 		}else {
 			return getBadAuthJsonString();

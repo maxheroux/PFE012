@@ -7,6 +7,7 @@ type Props = {
   children: any,
   isInSelectionMode: boolean,
   isSelected: boolean,
+  isEditable: boolean,
   goToDetails: () => void,
   toggleSelected: () => void
 };
@@ -42,10 +43,12 @@ export default class PeripheralListItem extends Component<Props, State> {
       isInSelectionMode,
       isSelected,
       goToDetails,
-      toggleSelected
+      toggleSelected,
+      isEditable
     } = this.props;
 
     let left = null;
+    let onPress = goToDetails;
     let right = (
       <Right>
         <Ionicons name="ios-arrow-forward" size={25} color="#b5b5b5"/>
@@ -62,10 +65,15 @@ export default class PeripheralListItem extends Component<Props, State> {
         </Button>
       );
       right = null;
+      onPress = toggleSelected;
+    }
+    if (!isEditable) {
+      onPress = null;
+      right = null;
     }
 
     return (
-      <ListItem onPress={isInSelectionMode ? toggleSelected : goToDetails}>
+      <ListItem onPress={onPress}>
         <Body style={style.body}>
           {left}
           {children}

@@ -16,6 +16,7 @@ int greenValue = 0;
 int blueValue = 0;
 float brightness = 0;
 
+bool isInitialized = false;
 
 void setup()
 {
@@ -23,18 +24,32 @@ void setup()
     pinMode(greenPin, OUTPUT);
     pinMode(bluePin, OUTPUT);
 
-    Serial.begin(9600);
     EEBlue.begin(9600);
+
+    StaticJsonBuffer<512> jsonBuffer;
+	JsonObject &root = jsonBuffer.createObject();
+	root["initialization_request"] = "setup";
+	root.printTo(EEBlue);
+	EEBlue.println();
 }
 
 void loop()
 {
 
+	if (millis() % 5000 == 0 && !isInitialized)
+	{
+
+		StaticJsonBuffer<512> jsonBuffer;
+		JsonObject &root = jsonBuffer.createObject();
+		root["initialization_request"] = "setup";
+		root.printTo(EEBlue);
+		EEBlue.println();
+	}
+
     if (EEBlue.available())
     {
         StaticJsonBuffer<512> jsonBuffer;
         JsonObject &receivedJson = jsonBuffer.parse(EEBlue);
-        receivedJson.prettyPrintTo(Serial);
         
         String messageType = receivedJson["messageType"];
 
@@ -44,17 +59,17 @@ void loop()
             greenValue = receivedJson["green"];
             blueValue = receivedJson["blue"];
             brightness = receivedJson["brightness"];
-
-            setColor(redValue, greenValue, blueValue, brightness);
+            isInitialized = true;
+            setColor((int)redValue*brightness, (int)greenValue*brightness, (int)blueValue*brightness);
         }
-        else if (messageType == "read")
+        else if (isInitialized && messageType == "read")
         {
 
             JsonObject &root = jsonBuffer.createObject();
-            root["red"] = redValue
-            root["green"] = greenValue
-            root["blue"] = blueValue
-            root["brightness"] = brightness
+            root["red"] = redValue;
+            root["green"] = greenValue;
+            root["blue"] = blueValue;
+            root["brightness"] = brightness;
 		
 			root.printTo(EEBlue);
 			EEBlue.println();
@@ -64,7 +79,7 @@ void loop()
 
 void setColor(int red, int green, int blue)
 {
-    analogWrite(redPin, redValue);
-    analogWrite(greenPin, greenValue);
-    analogWrite(bluePin, blueValue);
+    analogWrite(redPin, red);
+    analogWrite(greenPin, green);
+    analogWrite(bluePin, blue);
 }

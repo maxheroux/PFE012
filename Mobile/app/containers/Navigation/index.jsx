@@ -11,6 +11,9 @@ import CreateThermostat from '../Thermostats/Create';
 import ModifyThermostat from '../Thermostats/Modify';
 import CreateLight from '../Lights/Create';
 import ModifyLight from '../Lights/Modify';
+import CreateLock from '../Locks/Create';
+import ModifyLock from '../Locks/Modify';
+import CreateOtherPeripheral from '../OtherPeripherals/Create';
 
 export const AppNavigator = StackNavigator(
   {
@@ -37,7 +40,8 @@ export const AppNavigator = StackNavigator(
     ModifyThermostat: {
       screen: ModifyThermostat,
       navigationOptions: {
-        header: (<Header title="Modifier thermo." goBackRoute="Main" />)
+        header: null,
+        headerLeft: null
       }
     },
     CreateLight: {
@@ -51,7 +55,25 @@ export const AppNavigator = StackNavigator(
       navigationOptions: {
         header: (<Header title="Modifier lumière" goBackRoute="Main" />)
       }
-    }
+    },
+    CreateLock: {
+      screen: CreateLock,
+      navigationOptions: {
+        header: (<Header title="Créer serrure" goBackRoute="Main" />)
+      }
+    },
+    ModifyLock: {
+      screen: ModifyLock,
+      navigationOptions: {
+        header: (<Header title="Modifier serrure" goBackRoute="Main" />)
+      }
+    },
+    CreateOtherPeripheral: {
+      screen: CreateOtherPeripheral,
+      navigationOptions: {
+        header: (<Header title="Créer périphérique" goBackRoute="Main" />)
+      }
+    },
   },
   {
     navigationOptions: {

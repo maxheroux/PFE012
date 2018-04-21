@@ -1,8 +1,10 @@
 package application.controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import application.model.peripherals.Peripheral;
 import application.model.peripherals.ScheduleDetail;
 import application.model.peripherals.State;
 import application.repositories.PeripheralRepository;
+import application.repositories.StateChangeRepository;
 import application.repositories.UserRepository;
 import application.utilities.TemperatureAutomaticScheduler;
 
@@ -37,6 +40,8 @@ public class HoraireController extends JsonController {
 	private UserRepository userRepository;
 	@Autowired
 	private PeripheralRepository peripheralRepository;
+	@Autowired
+	private StateChangeRepository stateChangeRepository;
 
 	@RequestMapping(value = HORAIRE_REQUEST, method = RequestMethod.POST, consumes = "text/plain")
 	public String horaireRequest(@RequestBody String payload) {
@@ -76,6 +81,15 @@ public class HoraireController extends JsonController {
 		User user = userRepository.findByUsername(username);
 
 		if (Authenticate(token, user)) {
+			Set<Peripheral> peripherals = new  HashSet<>() ;
+			for (Schedule schedule : request.getScheduleList()) {
+				peripherals.add(peripheralRepository.findOne(schedule.getIdPeripheriral()));
+			}
+			for (Peripheral peripheral : peripherals) {
+				peripheral.clearSchedules();
+				peripheralRepository.save(peripheral);
+			}
+			
 			for (Schedule schedule : request.getScheduleList()) {
 				Peripheral peripheral = peripheralRepository.findOne(schedule.getIdPeripheriral());
 				ScheduleDetail detail = new ScheduleDetail(schedule.getHourOfDay(), schedule.getDayOfWeek());
@@ -91,7 +105,7 @@ public class HoraireController extends JsonController {
 				peripheralRepository.save(peripheral);
 			}
 
-			String response = PostPayload(payload, token, user, HORAIRE_CHANGE);
+			String response = PostPayload(payload, user, HORAIRE_CHANGE);
 			return response;
 		} else {
 			return getBadAuthJsonString();
@@ -109,7 +123,7 @@ public class HoraireController extends JsonController {
 		User user = userRepository.findByUsername(username);
 
 		if (Authenticate(token, user)) {
-			TemperatureAutomaticScheduler scheduler = new TemperatureAutomaticScheduler();
+			TemperatureAutomaticScheduler scheduler = new TemperatureAutomaticScheduler(stateChangeRepository);
 
 			List<Schedule> schedules = new ArrayList<>();
 			List<Peripheral> peripherals = Lists.newArrayList(peripheralRepository.findAll(request.getPeripheralIds()));
