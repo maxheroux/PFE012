@@ -27,7 +27,7 @@ public abstract class JsonController {
 		
 		Domicile dom = domicileRepository.findByUserId(user.getId());
 		
-		final String uri = HTTP + dom.getPublicIp() + ":" + dom.getPort() + mappingValue;
+		final String uri = HTTP + dom.getPublicIp() + mappingValue;
 
 		RestTemplate restTemplate = new RestTemplate();
 		String receivedObject = "Could not post to "+uri;
