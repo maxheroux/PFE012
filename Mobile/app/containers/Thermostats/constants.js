@@ -13,3 +13,4 @@ export const updateSchedule = 'UPDATE_SCHEDULE_THERMOSTAT';
 export const requestSchedules = 'REQUEST_SCHEDULES_TTHERMOSTATS';
 export const receiveSchedules = 'RECEIVE_SCHEDULES_TTHERMOSTATS';
 export const errorSchedules = 'ERROR_SCHEDULES_THERMOSTATS';
+export const generateSchedule = 'GENERATE_SCHEDULES_THERMOSTATS';

@@ -6,21 +6,6 @@ import { AjaxUtils } from '../../../utils';
 import { PeripheralLogicHelper, peripheralType } from '../../helpers/Peripheral/logic';
 import { map } from 'lodash';
 
-// TODO: remove after testing
-const placeholderLights = [];
-for(let i = 0; i < 5; i++){
-  placeholderLights.push({
-    id: i,
-    name: `Lumière #${i}`,
-    color: tinycolor({
-      r: 123 + (Math.random() * 123),
-      g: 123 + (Math.random() * 123),
-      b: 123 + (Math.random() * 123)
-    }).saturate(50).toHex(),
-    brightness: 0.4 + (i / 10),
-  });
-}
-
 export const requestLightsList = createLogic({
   type: Constants.requestLightsList,
   latest: true,
@@ -33,25 +18,20 @@ export const requestLightsList = createLogic({
     );
     logicHelper.fetchPeripherals()
       .then((items) => {
-        if (items.length > 0) {
-          const formattedList = map(items, i => {
-            const color = tinycolor(i.color).toHex();
-            return {
-              id: i.id,
-              name: i.name,
-              color: color,
-              brightness: i.brightness,
-            };
-          });
-          dispatch(Actions.receiveLightsList(formattedList));
-        } else {
-          // TODO: remove after testing
-          dispatch(Actions.receiveLightsList(placeholderLights));
-        }
+        const formattedList = map(items, i => {
+          const color = tinycolor(i.color).toHex();
+          return {
+            id: i.id,
+            name: i.name,
+            color: color,
+            brightness: i.brightness,
+          };
+        });
+        dispatch(Actions.receiveLightsList(formattedList));
       })
       .catch((error) => {
-        dispatch(Actions.receiveLightsList(placeholderLights))
-      })// TODO: remove after testing
+
+      })
       .then(() => done());
   }
 });
@@ -109,7 +89,7 @@ export const startLightsListFetchInterval = createLogic({
     if (!interval) {
       interval = setInterval(() => {
         dispatch(Actions.requestLightsList());
-      }, 5000);
+      }, 2000);
     }
     next({
       ...action,

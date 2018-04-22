@@ -33,15 +33,10 @@ export const requestAlertsList = createLogic({
         isRead: false,
       }));
 
-      if (items.length > 0) {
-        dispatch(Actions.receiveAlertsList(items));
-      } else {
-        // TODO: remove after testing
-        dispatch(Actions.receiveAlertsList(placeholderAlerts));
-      }
+      dispatch(Actions.receiveAlertsList(items));
     })
     .catch(error => {
-      dispatch(Actions.receiveAlertsList(placeholderAlerts))
+
     })
     .then(() => done());
   }
@@ -55,7 +50,7 @@ export const startAlertsListFetchInterval = createLogic({
     if (!interval) {
       interval = setInterval(() => {
         dispatch(Actions.requestAlertsList());
-      }, 5000);
+      }, 2000);
     }
     next({
       ...action,

@@ -74,3 +74,8 @@ export const errorSchedules = (error) => ({
   type: Constants.errorSchedules,
   error
 });
+
+export const generateSchedule = (ids) => ({
+  type: Constants.generateSchedule,
+  ids
+});

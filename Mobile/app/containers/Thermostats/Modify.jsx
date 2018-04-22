@@ -8,6 +8,7 @@ type Props = {
   saveChanges: () => void,
   updateTargetTemperature: () => void,
   updateSchedule: () => void,
+  generateSchedule: () => void,
   error: string,
   isFetching: boolean,
 };
@@ -33,6 +34,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchSchedules: (ids) => {
     dispatch(Actions.requestSchedules(ids));
   },
+  generateSchedule: (ids) => {
+    dispatch(Actions.generateSchedule(ids));
+  }
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -50,7 +54,8 @@ export default class ModifyThermostat extends React.Component<Props, State> {
       thermostatList,
       updateTargetTemperature,
       updateSchedule,
-      modificationStatus
+      modificationStatus,
+      generateSchedule
      } = this.props;
     const { params } = this.props.navigation.state;
     const selectedIds = params ? params.itemIdList : [];
@@ -60,6 +65,7 @@ export default class ModifyThermostat extends React.Component<Props, State> {
       updateTargetTemperature,
       updateSchedule,
       modificationStatus,
+      onGenerateSchedule: () => generateSchedule(selectedIds),
       nameList: map(selectedItems, i => i.name),
       currentTemperature: Math.round(meanBy(selectedItems, i => i.currentTemp) * 10) / 10,
       targetTemperature: modificationStatus.newTargetTemperature || `${Math.round(meanBy(selectedItems, i => i.targetTemp))}`,

@@ -20,7 +20,8 @@ export type Props = {
   schedules: Array<ListItem>,
   error: string,
   isFetching: boolean,
-  updateSchedule: (newSchedule: Array<ListItem>) => void
+  updateSchedule: (newSchedule: Array<ListItem>) => void,
+  onGenerateSchedule: () => void,
 };
 
 type State = {
@@ -100,6 +101,7 @@ export default class Scheduler extends React.Component<Props, State> {
       schedules,
       error,
       isFetching,
+      onGenerateSchedule,
     } = this.props;
 
     if (isModifyingDailySchedule && !isFetching) {
@@ -122,7 +124,8 @@ export default class Scheduler extends React.Component<Props, State> {
     const scheduleProps = {
       listItems: schedules,
       onItemSelection: index => this.modifyDailySchedule(index),
-      onNewSchedule: selectedDays => this.addNewSchedule(selectedDays)
+      onNewSchedule: selectedDays => this.addNewSchedule(selectedDays),
+      onGenerateSchedule
     }
     return (
       <ScheduleList {...scheduleProps}/>

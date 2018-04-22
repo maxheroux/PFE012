@@ -14,6 +14,7 @@ type Props = {
   saveChanges: (modeIndex) => void,
   updateTargetTemperature: () => void,
   updateSchedule: (newSchedule) => void,
+  onGenerateSchedule: () => void,
   nameList: Array<string>,
   currentTemperature: string,
   targetTemperature: string,
@@ -77,7 +78,8 @@ export default class Details extends React.Component<Props, State> {
       currentTemperature,
       targetTemperature,
       currentHumidity,
-      modificationStatus
+      modificationStatus,
+      onGenerateSchedule
     } = this.props;
     const { selectedViewIndex } = this.state;
 
@@ -89,15 +91,9 @@ export default class Details extends React.Component<Props, State> {
           error: modificationStatus.error || modificationStatus.schedules.error,
           isFetching: modificationStatus.isFetching || modificationStatus.schedules.isFetching,
           updateSchedule,
+          onGenerateSchedule,
         };
         content = <ScheduleList {...scheduleProps}/>;
-        break;
-      case 2:
-        content = (
-          <Text style={{margin: 15}}>
-            Le mode automatique gère automatiquement les températures des thermostats sélectionnés.
-          </Text>
-        );
         break;
       case 0:
       default:
@@ -131,7 +127,7 @@ export default class Details extends React.Component<Props, State> {
           <Text style={style.modeText}>Mode de contrôle </Text>
           <View style={style.segmentContainer}>
             <SegmentedControlTab
-              values={['Manuel', 'Programmé', 'Automatique']}
+              values={['Manuel', 'Programmé']}
               selectedIndex={selectedViewIndex}
               onTabPress={(index) => this.setState({selectedViewIndex: index})}
               />

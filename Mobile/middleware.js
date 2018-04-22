@@ -26,6 +26,7 @@ export const logicMiddleware = createLogicMiddleware([
   thermostatLogic.requestModifyThermostat,
   thermostatLogic.startThermostatsListFetchInterval,
   thermostatLogic.requestSchedules,
+  thermostatLogic.generateSchedule,
   lightLogic.requestLightsList,
   lightLogic.requestCreateLight,
   lightLogic.requestModifyLight,

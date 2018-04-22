@@ -10,7 +10,8 @@ import type { ListItem } from '../../containers/Scheduler/Scheduler';
 type Props = {
   listItems: Array<ListItem>,
   onItemSelection: (index: number) => void,
-  onNewSchedule: () => void
+  onNewSchedule: () => void,
+  onGenerateSchedule: () => void
 };
 
 type State = {
@@ -37,7 +38,7 @@ export default class ScheduleList extends React.Component<Props, State> {
 
   render() {
     const { isDaySelectorOpen } = this.state;
-    const { onItemSelection, onNewSchedule, listItems } = this.props;
+    const { onItemSelection, onNewSchedule, onGenerateSchedule, listItems } = this.props;
 
     const headerProps = {
       title: 'Programmation',
@@ -77,6 +78,12 @@ export default class ScheduleList extends React.Component<Props, State> {
           <Button block
             onPress={() => this.setState({ isDaySelectorOpen: true })}>
             <Text>Nouvel horaire</Text>
+          </Button>
+        </View>
+        <View style={style.button}>
+          <Button block success
+            onPress={onGenerateSchedule}>
+            <Text>Générer un horaire automatique</Text>
           </Button>
         </View>
         <DaySelector {...daySelectorProps} />

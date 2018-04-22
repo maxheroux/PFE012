@@ -4,16 +4,6 @@ import * as Actions from './actions';
 import { AjaxUtils } from '../../../utils';
 import { PeripheralLogicHelper, peripheralType } from '../../helpers/Peripheral/logic';
 
-// TODO: remove after testing
-const placeholderLocks = [];
-for(let i = 0; i < 5; i++){
-  placeholderLocks.push({
-    id: i,
-    name: `Serrure #${i}`,
-    isLocked: i % 2 == 0,
-  });
-}
-
 export const requestLocksList = createLogic({
   type: Constants.requestLocksList,
   latest: true,
@@ -26,14 +16,9 @@ export const requestLocksList = createLogic({
     );
     logicHelper.fetchPeripherals()
       .then((items) => {
-        if (items.length > 0) {
-          dispatch(Actions.receiveLocksList(items));
-        } else {
-          // TODO: remove after testing
-          dispatch(Actions.receiveLocksList(placeholderLocks));
-        }
+        dispatch(Actions.receiveLocksList(items));
       })
-      .catch(() => dispatch(Actions.receiveLocksList(placeholderLocks)))// TODO: remove after testing
+      .catch(() => {})
       .then(() => done());
   }
 });
@@ -91,7 +76,7 @@ export const startLocksListFetchInterval = createLogic({
     if (!interval) {
       interval = setInterval(() => {
         dispatch(Actions.requestLocksList());
-      }, 5000);
+      }, 2000);
     }
     next({
       ...action,

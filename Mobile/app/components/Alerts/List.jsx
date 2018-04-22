@@ -1,10 +1,11 @@
 // @flow
 import React, { Component } from 'react';
-import { View, Text, List, Button } from 'native-base';
+import { View, Text, List, Button, Spinner } from 'native-base';
 
 type Props = {
   children: any,
   markAlertsAsRead: () => void,
+  isFetching: boolean,
 };
 
 type State = {
@@ -21,6 +22,8 @@ const style = {
     flex: 2,
   },
   noAlertText: {
+    marginTop: 40,
+    marginBottom: 10,
     textAlign: 'center',
   },
   titleContainer: {
@@ -40,28 +43,40 @@ export default class AlertList extends Component<Props, State> {
   render() {
     const {
       children,
-      markAlertsAsRead
+      markAlertsAsRead,
+      isFetching
     } = this.props;
 
     let content = undefined;
+    let rightBtn = undefined;
     let containerStyle = style.container;
-    if (children && children.length > 0) {
+    if (isFetching) {
+      content = <Spinner color='#777' key="alertFetchSpinner"/>
+    } else if (children && children.length > 0) {
       content = (
         <List>
           {children}
         </List>
-      )
+      );
+      rightBtn = (
+        <View style={style.button}>
+          <Button block transparent onPress={markAlertsAsRead}>
+            <Text style={style.buttonText}>Marquer comme lues</Text>
+          </Button>
+        </View>
+      );
     } else {
       content = (
         <Text style={style.noAlertText}>
           Vous n'avez reçu aucune alerte.
         </Text>
-      )
+      );
       containerStyle = {
         ...containerStyle,
         borderBottomColor: 'gray',
         borderBottomWidth: 0.5,
-      }
+      };
+
     }
 
     return (
@@ -70,11 +85,7 @@ export default class AlertList extends Component<Props, State> {
           <Text style={style.title}>
             Alertes récentes
           </Text>
-          <View style={style.button}>
-            <Button block transparent onPress={markAlertsAsRead}>
-              <Text style={style.buttonText}>Marquer comme lues</Text>
-            </Button>
-          </View>
+          {rightBtn}
         </View>
         {content}
       </View>

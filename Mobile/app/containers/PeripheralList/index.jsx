@@ -39,6 +39,15 @@ type Props = {
 type State = {
 };
 
+const style = {
+  noPeripheralText: {
+    marginTop: 40,
+    marginRight: 10,
+    marginLeft: 10,
+    textAlign: 'center',
+  },
+}
+
 const mapStateToProps = (state, ownProps) => ({
   items: get(find(state.peripheralList.lists, {'listId': ownProps.listId}), 'items', []),
   isInSelectionMode: get(find(state.peripheralList.lists, {'listId': ownProps.listId}), 'isInSelectionMode', false)
@@ -119,7 +128,9 @@ export default class PeripheralList extends React.Component<Props, State> {
       if (listItems.length > 0) {
         content = listItems
       } else {
-        content = <Text>Vous n'avez aucun périphérique appartenant à cette catégorie.</Text>;
+        content = (<Text style={style.noPeripheralText}>
+          Vous n'avez aucun périphérique appartenant à cette catégorie.
+        </Text>);
       }
     } else {
       content = <Spinner color='#777' />;
