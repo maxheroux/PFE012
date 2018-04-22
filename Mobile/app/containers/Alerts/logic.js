@@ -4,20 +4,8 @@ import * as Actions from './actions';
 import { AjaxUtils } from '../../../utils';
 import { map, filter, isEmpty } from 'lodash';
 
-// TODO: remove after testing
-const placeholderAlerts = [];
-for(let i = 0; i < 5; i++){
-  placeholderAlerts.push({
-    id: i,
-    date: `12/12/2012`,
-    message: `Message d'alerte #${i}`,
-    isRead: false,
-  });
-}
-
 export const requestAlertsList = createLogic({
   type: Constants.requestAlertsList,
-  latest: true,
   process({ getState, action }, dispatch, done) {
     const connectionInfo = {
       username: getState().connection.username,
@@ -36,7 +24,7 @@ export const requestAlertsList = createLogic({
       dispatch(Actions.receiveAlertsList(items));
     })
     .catch(error => {
-
+      dispatch(Actions.errorAlertsList(error));
     })
     .then(() => done());
   }

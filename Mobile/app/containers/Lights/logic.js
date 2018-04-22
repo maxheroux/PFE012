@@ -8,7 +8,6 @@ import { map } from 'lodash';
 
 export const requestLightsList = createLogic({
   type: Constants.requestLightsList,
-  latest: true,
   process({ getState, action }, dispatch, done) {
     const logicHelper = new PeripheralLogicHelper(
       peripheralType.light,

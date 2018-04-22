@@ -8,7 +8,6 @@ import * as NavigationActions from '../Navigation/actions';
 
 export const requestThermostatsList = createLogic({
   type: Constants.requestThermostatsList,
-  latest: true,
   process({ getState, action }, dispatch, done) {
     const logicHelper = new PeripheralLogicHelper(
       peripheralType.thermostat,

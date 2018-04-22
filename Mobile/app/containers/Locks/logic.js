@@ -6,7 +6,6 @@ import { PeripheralLogicHelper, peripheralType } from '../../helpers/Peripheral/
 
 export const requestLocksList = createLogic({
   type: Constants.requestLocksList,
-  latest: true,
   process({ getState, action }, dispatch, done) {
     const logicHelper = new PeripheralLogicHelper(
       peripheralType.lock,

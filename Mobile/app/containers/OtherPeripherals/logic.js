@@ -6,7 +6,6 @@ import { PeripheralLogicHelper, peripheralType } from '../../helpers/Peripheral/
 
 export const requestOtherPeripheralsList = createLogic({
   type: Constants.requestOtherPeripheralsList,
-  latest: true,
   process({ getState, action }, dispatch, done) {
     //TODO: find type
     const logicHelper = new PeripheralLogicHelper(
