@@ -10,6 +10,7 @@ from utilities.bashProcessHandler import PeripheralCreationProcess
 from dataAccess.peripheral import Peripheral_DAO
 from dataAccess.domicile import DomicileConfigurationDAO
 from dataAccess.rfidTag import RfidTag_DAO
+from ScheduleHandler import ScheduleHandler
 import json
 
 import logging
@@ -23,6 +24,7 @@ SERVER_ADDRESS = "http://vps170412.vps.ovh.ca:8080"
 app = Flask(__name__)
 
 deviceMap = {}
+# scheduleHandler = ScheduleHandler(deviceMap, None)
 
 
 @app.route('/state/request', methods=['POST'])
@@ -32,6 +34,7 @@ def stateRequest():
     if deviceId not in deviceMap:
         return json.dumps({"error": "Device Id {} Not found".format(deviceId)})
     deviceHandler = deviceMap.get(deviceId)
+    print(deviceHandler.get_data())
     return deviceHandler.get_data()
 
 
@@ -59,7 +62,11 @@ def add_rfid_tag():
     RfidTag_DAO().add_tag(data["tagId"])
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
-
+@app.route('/horaire/change', methods=['POST'])
+def scheduleChange():
+    schedule = json.loads(request.get_data())
+    # scheduleHandler.update_schedule(schedule)
+    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 @app.route('/peripheral/add', methods=['POST'])
 def addPeripheral():
@@ -88,6 +95,9 @@ def addPeripheral():
                     elif peripheral.type.lower() == "light":
                         light_handler = LightHandler(peripheral.id, new_rfcomm)
                         deviceMap[peripheral.id] = light_handler
+
+        # scheduleHandler.update_devices(deviceMap)
+
     except Exception as e:
         print(e)
         return "Bad JSON format"
@@ -108,9 +118,11 @@ def initialize_peripherals():
             light_handler = LightHandler(peripheral.id, peripheral.rfcomm_device)
             deviceMap[peripheral.id] = light_handler
 
+    # scheduleHandler.update_devices(deviceMap)
+
 
 PeripheralCreationProcess.bind_peripherals()
 initialize_peripherals()
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', threaded=True)
+    app.run(host='0.0.0.0')
