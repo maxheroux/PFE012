@@ -24,7 +24,7 @@ SERVER_ADDRESS = "http://vps170412.vps.ovh.ca:8080"
 app = Flask(__name__)
 
 deviceMap = {}
-# scheduleHandler = ScheduleHandler(deviceMap, None)
+scheduleHandler = ScheduleHandler(deviceMap, None)
 
 
 @app.route('/state/request', methods=['POST'])
@@ -65,7 +65,7 @@ def add_rfid_tag():
 @app.route('/horaire/change', methods=['POST'])
 def scheduleChange():
     schedule = json.loads(request.get_data())
-    # scheduleHandler.update_schedule(schedule)
+    scheduleHandler.update_schedule(schedule)
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 @app.route('/peripheral/add', methods=['POST'])
@@ -96,7 +96,7 @@ def addPeripheral():
                         light_handler = LightHandler(peripheral.id, new_rfcomm)
                         deviceMap[peripheral.id] = light_handler
 
-        # scheduleHandler.update_devices(deviceMap)
+        scheduleHandler.update_devices(deviceMap)
 
     except Exception as e:
         print(e)
@@ -118,7 +118,7 @@ def initialize_peripherals():
             light_handler = LightHandler(peripheral.id, peripheral.rfcomm_device)
             deviceMap[peripheral.id] = light_handler
 
-    # scheduleHandler.update_devices(deviceMap)
+    scheduleHandler.update_devices(deviceMap)
 
 
 PeripheralCreationProcess.bind_peripherals()
