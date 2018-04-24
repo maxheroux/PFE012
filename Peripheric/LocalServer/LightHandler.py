@@ -13,7 +13,7 @@ class LightHandler:
     def __init__(self, device_id, port):
         self.device_id = device_id
         self.port = port
-        self.periodic_poll_delay = 10
+        self.periodic_poll_delay = 2
         self.color = {"r": 0, "g": 0, "b": 0}
         self.brightness = 0
         self.bluetooth_handler = BluetoothHandler(device_id, port)

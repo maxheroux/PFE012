@@ -31,6 +31,11 @@ class TemperatureHandler:
                            "requestedTemperature": self.requested_temperature, "currentHumidity": self.last_humidity})
 
     def change_state(self, state_value):
+
+        #state from schedule have desiredTemperature instead of RequestedTemperature
+        # if "desiredTemperature" in state_value:
+        #     state_value["RequestedTemperature"] = state_value["desiredTemperature"]
+
         if "RequestedTemperature" in state_value:
             self.requested_temperature = state_value["RequestedTemperature"]
             self.bluetooth_handler.send(json.dumps(
@@ -47,6 +52,7 @@ class TemperatureHandler:
         message = self.bluetooth_handler.read()
         if message != None:
             message = json.loads(message)
+
 
             if "RequestedTemperature" in message:
                 self.requested_temperature = message['RequestedTemperature']
